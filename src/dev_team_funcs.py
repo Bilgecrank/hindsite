@@ -2,18 +2,19 @@
 A test file to work with developer set ups
 """
 
-"""
-Dakota's function
-"""
 def dakota_func(message: str):
+    """
+    Dakota's function
+    """
     print(message)
 
 
-"""
-Vincent's function
-"""
-def vincent_func(message: str):
+def vincent_func(message: str): 
+    """
+    Vincent's function
+    """
     print(message)
+
 
 if __name__ == '__main__':
     dakota_func("I'm Dakota and I approve this message.")
