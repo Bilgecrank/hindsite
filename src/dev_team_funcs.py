@@ -1,5 +1,17 @@
+"""
+A test file to work with developer set ups
+"""
+
+"""
+Dakota's function
+"""
 def dakota_func(message: str):
     print(message)
+
+
+"""
+Vincent's function
+"""
 def vincent_func(message: str):
     print(message)
 
