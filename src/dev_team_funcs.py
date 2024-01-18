@@ -9,7 +9,7 @@ def dakota_func(message: str):
     print(message)
 
 
-def vincent_func(message: str): 
+def vincent_func(message: str):
     """
     Vincent's function
     """
