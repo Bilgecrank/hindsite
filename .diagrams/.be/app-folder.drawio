@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-02-05T19:11:19.532Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="ZKLR6FL2E_bRb4v6xH1h" version="23.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-05T19:16:39.563Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="tKELk0-Sqexm424lT2WT" version="23.1.1" type="github">
   <diagram name="Page-1" id="b5b7bab2-c9e2-2cf4-8b2a-24fd1a2a6d21">
-    <mxGraphModel dx="3442" dy="1087" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="4269" dy="1087" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -152,11 +152,32 @@
         <mxCell id="ce-oD1tsiVBPls7cVyCi-5" value="pass" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ce-oD1tsiVBPls7cVyCi-1">
           <mxGeometry y="26" width="220" height="23.5" as="geometry" />
         </mxCell>
-        <mxCell id="ce-oD1tsiVBPls7cVyCi-9" value="@login_manager.user_loader&lt;br&gt;def user_loader(username): &lt;br&gt;return UserSession" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-9" value="@login_manager.user_loader&lt;br&gt;def user_loader(email: str): &lt;br&gt;return UserSession" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
           <mxGeometry x="-2450" y="1000.5" width="253.5" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="ce-oD1tsiVBPls7cVyCi-10" value="@login_manager.request_loader&lt;br&gt;def request_loader(request): &lt;br&gt;return UserSession" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-10" value="@login_manager.request_loader&lt;br&gt;def request_loader(request: dict): &lt;br&gt;return UserSession" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
           <mxGeometry x="-2450" y="1060.5" width="253.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-11" value="" style="html=1;strokeColor=none;resizeWidth=1;resizeHeight=1;fillColor=none;part=1;connectable=0;allowArrows=0;deletable=0;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-2535" y="1180" width="279.99999999999994" height="227.069943289225" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-16" value="Imports: flask, flask_sqlalchemy, sqlalchemy" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2057" y="729.75" width="253.5" height="24.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-21" value="Tables: All" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2057" y="764.5" width="253.5" height="24.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-22" value="def is_user(email: str);&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2057" y="801" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-23" value="def pass_valid(pass: str):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2057" y="851" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-24" value="def update_pass(pass: str);&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2057" y="901" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-25" value="def update_pass(pass: str);&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2057" y="950.5" width="253.5" height="39.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
