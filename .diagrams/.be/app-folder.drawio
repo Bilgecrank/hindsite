@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-02-05T21:05:33.500Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="e5wLGGrQ9vmYLbP764Ah" version="23.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-05T21:07:19.506Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="CWjDzfwZ99S5yZ2n61-F" version="23.1.1" type="github">
   <diagram name="Page-1" id="b5b7bab2-c9e2-2cf4-8b2a-24fd1a2a6d21">
     <mxGraphModel dx="4100" dy="895" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
@@ -146,8 +146,8 @@
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-13" value="def set_owner(user_id: int, group_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
           <mxGeometry x="-1620" y="685" width="253.5" height="39.5" as="geometry" />
         </mxCell>
-        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-19" value="def add_board(name: int, group: int):&lt;br&gt;return list: dict" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1620" y="840" width="253.5" height="39.5" as="geometry" />
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-19" value="def add_board(name: int, group: int, board_details:dict):&lt;br&gt;return list: dict" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="830" width="253.5" height="49.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-20" value="def add_reaction(reaction: dict, card: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
           <mxGeometry x="-1620" y="990.25" width="253.5" height="39.5" as="geometry" />
