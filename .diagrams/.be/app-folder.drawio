@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-02-05T20:47:31.131Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="nhFbm9DSXZa0vBXw_utA" version="23.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-05T20:54:47.041Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="YH-mMcbfdLC1Uh0Jf_6H" version="23.1.1" type="github">
   <diagram name="Page-1" id="b5b7bab2-c9e2-2cf4-8b2a-24fd1a2a6d21">
-    <mxGraphModel dx="5220" dy="909" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="4100" dy="895" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -105,8 +105,8 @@
         <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-37" value="def validate_secret(secret : str)&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
           <mxGeometry x="-2450" y="900" width="243.5" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-47" value="Imports: flask_login, bcrypt, re" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-2450" y="740" width="253.5" height="24.5" as="geometry" />
+        <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-47" value="Imports: flask_login, bcrypt, re, sql_query, sql_update" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-2450" y="730" width="253.5" height="34.5" as="geometry" />
         </mxCell>
         <mxCell id="ce-oD1tsiVBPls7cVyCi-1" value="UserSession(flask_login.UserMixin)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-2450.002857142857" y="940.5" width="220" height="49.5" as="geometry">
@@ -161,11 +161,23 @@
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-25" value="def update_timer(hours: int, minutes: int, seconds:int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
           <mxGeometry x="-1931.75" y="1061" width="253.5" height="49.5" as="geometry" />
         </mxCell>
-        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-39" value="Imports:&amp;nbsp;flask" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-2070" y="90" width="253.5" height="30" as="geometry" />
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-39" value="Imports:&amp;nbsp;flask, authenticate,&lt;br&gt;sql_query, sql_update" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2466.75" y="50" width="166.75" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-40" value="def is_user(email: str);&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-2070" y="130" width="230" height="39.5" as="geometry" />
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-40" value="@app.route(&#39;/&#39;)&lt;br&gt;flask_login.login_required&lt;br&gt;def home();&lt;br&gt;return render_template()" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2466.75" y="90" width="166.75" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-41" value="@app.route(&#39;/retrospective&#39;)&lt;br&gt;flask_login.login_required&lt;br&gt;def retrospective();&lt;br&gt;return render_template()" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2466.75" y="160" width="166.75" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-42" value="@app.route(&#39;/history&#39;)&lt;br&gt;flask_login.login_required&lt;br&gt;def history();&lt;br&gt;return render_template()" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2466.75" y="230" width="166.75" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-43" value="@app.route(&#39;/history&#39;)&lt;br&gt;flask_login.login_required&lt;br&gt;def history();&lt;br&gt;return render_template()" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2466.75" y="300" width="166.75" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-44" value="@app.route(&#39;/settings&#39;)&lt;br&gt;flask_login.login_required&lt;br&gt;def settings();&lt;br&gt;return render_template()" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2466.75" y="370" width="166.75" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
