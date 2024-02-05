@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2024-02-05T20:54:47.041Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="YH-mMcbfdLC1Uh0Jf_6H" version="23.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-05T21:05:33.500Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="e5wLGGrQ9vmYLbP764Ah" version="23.1.1" type="github">
   <diagram name="Page-1" id="b5b7bab2-c9e2-2cf4-8b2a-24fd1a2a6d21">
     <mxGraphModel dx="4100" dy="895" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-36" value="sql_update.py" style="shape=folder;fontStyle=1;tabWidth=110;tabHeight=30;tabPosition=left;html=1;boundedLbl=1;labelInHeader=1;container=1;collapsible=0;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="-1940" y="509.37" width="270" height="610.63" as="geometry" />
+          <mxGeometry x="-1930" y="439.87" width="270" height="610.63" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-37" value="" style="html=1;strokeColor=none;resizeWidth=1;resizeHeight=1;fillColor=none;part=1;connectable=0;allowArrows=0;deletable=0;whiteSpace=wrap;" vertex="1" parent="Ghdv_1RhHWvs7Wrgkg28-36">
           <mxGeometry width="269.99999999999994" height="330.13266540642724" relative="1" as="geometry">
@@ -126,40 +126,40 @@
           <mxGeometry x="-2535" y="1180" width="279.99999999999994" height="227.069943289225" as="geometry" />
         </mxCell>
         <mxCell id="ce-oD1tsiVBPls7cVyCi-24" value="def update_pass(pass: str);&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-1931.75" y="662.75" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-1620" y="499.25" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-4" value="def update_card(card: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="962.25" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-1620" y="1040.5" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-7" value="def update_reaction(reaction: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="1011.75" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-1620" y="1090" width="253.5" height="39.5" as="geometry" />
         </mxCell>
-        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-9" value="def add_field(name: str, board: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="811.75" width="253.5" height="39.5" as="geometry" />
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-9" value="def add_field(name: str, board_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="890" width="253.5" height="39.5" as="geometry" />
         </mxCell>
-        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-11" value="def add_group(name: str):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="712.25" width="253.5" height="39.5" as="geometry" />
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-11" value="def add_group(name: str):&lt;br&gt;return group_id: int" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="639.25" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-12" value="def add_card(card_details: dict, field: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="860.75" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-1620" y="939" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-13" value="def set_owner(user_id: int, group_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="620.5" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-1620" y="685" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-19" value="def add_board(name: int, group: int):&lt;br&gt;return list: dict" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="761.75" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-1620" y="840" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-20" value="def add_reaction(reaction: dict, card: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="912" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-1620" y="990.25" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-22" value="Imports: flask, flask_sqlalchemy, sqlalchemy" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="550.25" width="253.5" height="24.5" as="geometry" />
+          <mxGeometry x="-1620" y="429" width="253.5" height="24.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-23" value="Tables: All" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="585" width="253.5" height="24.5" as="geometry" />
+          <mxGeometry x="-1620" y="463.75" width="253.5" height="24.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-25" value="def update_timer(hours: int, minutes: int, seconds:int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
-          <mxGeometry x="-1931.75" y="1061" width="253.5" height="49.5" as="geometry" />
+          <mxGeometry x="-1620" y="1140" width="253.5" height="49.5" as="geometry" />
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-39" value="Imports:&amp;nbsp;flask, authenticate,&lt;br&gt;sql_query, sql_update" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
           <mxGeometry x="-2466.75" y="50" width="166.75" height="30" as="geometry" />
@@ -178,6 +178,27 @@
         </mxCell>
         <mxCell id="Ghdv_1RhHWvs7Wrgkg28-44" value="@app.route(&#39;/settings&#39;)&lt;br&gt;flask_login.login_required&lt;br&gt;def settings();&lt;br&gt;return render_template()" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
           <mxGeometry x="-2466.75" y="370" width="166.75" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-46" value="def add_user_to_group(user_id, group_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="730" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-47" value="def remove_user_from_group(user_id, group_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="780" width="253.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-48" value="def add_user(user_info: dict):&lt;br&gt;return user_id: int" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="593.5" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-49" value="def update_user(user_info: dict):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="550" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-50" value="def archive_board(board_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="1200" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-51" value="def archive_field(field_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="1250" width="253.5" height="39.5" as="geometry" />
+        </mxCell>
+        <mxCell id="Ghdv_1RhHWvs7Wrgkg28-52" value="def archive_card(card_id: int):&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-1620" y="1299" width="253.5" height="39.5" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
