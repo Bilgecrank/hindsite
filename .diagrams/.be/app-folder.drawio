@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2024-02-05T19:07:09.617Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="H8aIM77Fvfnmh94HapKN" version="23.1.1" type="github">
+<mxfile host="app.diagrams.net" modified="2024-02-05T19:11:19.532Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="ZKLR6FL2E_bRb4v6xH1h" version="23.1.1" type="github">
   <diagram name="Page-1" id="b5b7bab2-c9e2-2cf4-8b2a-24fd1a2a6d21">
-    <mxGraphModel dx="3987" dy="373" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+    <mxGraphModel dx="3442" dy="1087" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -11,10 +11,10 @@
           <mxGeometry x="-2460" y="20" width="130" height="20" as="geometry" />
         </mxCell>
         <mxCell id="oABOveACmjRv8DOEJNGW-3" value="authenticate.py" style="shape=folder;fontStyle=1;tabWidth=110;tabHeight=30;tabPosition=left;html=1;boundedLbl=1;labelInHeader=1;container=1;collapsible=0;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="-2920" y="664.5" width="366.5" height="334.5" as="geometry" />
+          <mxGeometry x="-2460" y="700" width="280" height="420" as="geometry" />
         </mxCell>
         <mxCell id="oABOveACmjRv8DOEJNGW-4" value="" style="html=1;strokeColor=none;resizeWidth=1;resizeHeight=1;fillColor=none;part=1;connectable=0;allowArrows=0;deletable=0;whiteSpace=wrap;" parent="oABOveACmjRv8DOEJNGW-3" vertex="1">
-          <mxGeometry width="366.49999999999994" height="180.84499054820418" relative="1" as="geometry">
+          <mxGeometry width="279.99999999999994" height="227.069943289225" relative="1" as="geometry">
             <mxPoint y="30" as="offset" />
           </mxGeometry>
         </mxCell>
@@ -130,30 +130,33 @@
           <mxGeometry x="20" y="60" width="253.5" height="30" as="geometry" />
         </mxCell>
         <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-32" value="def login_user(username: str, password: str): &lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-2440" y="700" width="253.5" height="39.5" as="geometry" />
+          <mxGeometry x="-2450" y="770" width="253.5" height="39.5" as="geometry" />
         </mxCell>
         <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-33" value="def register_user(form: list): &lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-2440" y="750" width="243.5" height="30" as="geometry" />
+          <mxGeometry x="-2450" y="820" width="243.5" height="30" as="geometry" />
         </mxCell>
         <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-35" value="def change_secret(form : list)&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-2440" y="790.5" width="243.5" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-36" value="Tables: User, Password" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-2440" y="670" width="253.5" height="24.5" as="geometry" />
+          <mxGeometry x="-2450" y="860.5" width="243.5" height="30" as="geometry" />
         </mxCell>
         <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-37" value="def validate_secret(secret : str)&lt;br&gt;return bool" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-2440" y="830" width="243.5" height="30" as="geometry" />
+          <mxGeometry x="-2450" y="900" width="243.5" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-47" value="Imports: bcrypt, re" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
-          <mxGeometry x="-2440" y="640" width="253.5" height="24.5" as="geometry" />
+        <mxCell id="5I_VJ2KQ3NgT_Eq5ZEYx-47" value="Imports: flask_login, bcrypt, re" style="html=1;whiteSpace=wrap;align=left;" parent="1" vertex="1">
+          <mxGeometry x="-2450" y="740" width="253.5" height="24.5" as="geometry" />
         </mxCell>
-        <mxCell id="ce-oD1tsiVBPls7cVyCi-1" value="UserSession" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-2157.852857142857" y="640" width="165.71428571428572" height="49.5" as="geometry">
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-1" value="UserSession(flask_login.UserMixin)" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="-2450.002857142857" y="940.5" width="220" height="49.5" as="geometry">
             <mxRectangle x="30" y="66.67058823529412" width="70" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ce-oD1tsiVBPls7cVyCi-5" value="pass" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="ce-oD1tsiVBPls7cVyCi-1">
-          <mxGeometry y="26" width="165.71428571428572" height="23.500000000000004" as="geometry" />
+          <mxGeometry y="26" width="220" height="23.5" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-9" value="@login_manager.user_loader&lt;br&gt;def user_loader(username): &lt;br&gt;return UserSession" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2450" y="1000.5" width="253.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ce-oD1tsiVBPls7cVyCi-10" value="@login_manager.request_loader&lt;br&gt;def request_loader(request): &lt;br&gt;return UserSession" style="html=1;whiteSpace=wrap;align=left;" vertex="1" parent="1">
+          <mxGeometry x="-2450" y="1060.5" width="253.5" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
