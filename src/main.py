@@ -3,6 +3,7 @@ Template route testing for development
 '''
 import os
 
+from flask_bootstrap import Bootstrap5
 from flask import Flask, render_template
 
 # Needed to redirect default paths to maintain the proposed folder structure
@@ -10,6 +11,7 @@ from flask import Flask, render_template
 template_dir = os.path.abspath('app/templates')
 static_dir = os.path.abspath('app/static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+bootstrap = Bootstrap5(app)
 
 @app.route('/')
 def index():
