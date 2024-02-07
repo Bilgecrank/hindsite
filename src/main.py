@@ -32,7 +32,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
 
 db = SQLAlchemy(app)
-class Users(db.Model):
+class Users(db.Model): #pylint: disable=too-few-public-methods
     '''
         Sets up the database model
     '''
