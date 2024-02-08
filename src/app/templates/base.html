@@ -10,7 +10,7 @@
   <body>
     <div class="row-g-0">
       <div class="column g-0 col">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="justify-content-start container-fluid px-3 py-3">
             <button class="navbar-toggler d-lg-none"
               type="button"
@@ -23,15 +23,17 @@
             </button>
             <a href="{{ url_for('index') }}" class="navbar-brand mx-3">
               <span class="fw-bold primary">
-                hindsITe<br>Retrospective
+                <div class="text-center">hindsITe<br>Retrospective</div>
               </span>
             </a>
-            <img
-              class="img-fluid" 
-              src="{{ url_for('static', filename='img/hindsite.png') }}"
-              height="50"
-              width="50">
-            </img>
+            <a href="{{ url_for('index') }}" class="navbar-brand m-0 p-0">
+              <img
+                class="img-fluid"
+                src="{{ url_for('static', filename='img/hindsite.png') }}"
+                height="65"
+                width="65">
+              </img>
+            </a>
           </div>
         </nav>
             </div>
@@ -40,7 +42,7 @@
       <div class="column g-0 col-sm-2 col-12">
         <div
           id="top-nav"
-          class="offcanvas-lg offcanvas-start bg-secondary text-light"
+          class="offcanvas-lg offcanvas-start bg-dark text-light"
           tabindex="-1">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title fw-bold">Navigation</h5>
@@ -70,14 +72,13 @@
           </div>
         </div>
       </div>
-    </div>
       <main class="column g-0 col-sm-10 col-12">
-        <h1>{{ title }}</h1>
+        <h1 class="m-3">{{ title }}</h1>
         <div>
           {% block content %}
           {% endblock %}
         </div>
-      </div>
+    </div>
     {{ bootstrap.load_js() }}
   </body>
 </html>
