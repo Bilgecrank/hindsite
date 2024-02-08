@@ -18,7 +18,7 @@ def index():
     '''
         Loads index.html, sets the title
     '''
-    title = 'Index'
+    title = 'Home'
     return render_template('index.html', title=title)
 
 @app.route('/retrospective')
