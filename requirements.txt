@@ -4,3 +4,4 @@ gunicorn
 pymysql
 cryptography
 python-dotenv
+bootstrap-flask
