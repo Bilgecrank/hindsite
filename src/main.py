@@ -1,11 +1,15 @@
 """
 Test
 """
+import datetime
 import os
 
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from typing_extensions import Annotated
+from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass, mapped_column, Mapped
 from dotenv import load_dotenv
+
 
 # Included to load .env environment variables for local dev
 load_dotenv()
@@ -31,18 +35,18 @@ app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
 
-db = SQLAlchemy(app)
+
+class Base(DeclarativeBase, MappedAsDataclass):
+    """
+    The base model for the classes to be declared.
+    """
+    pass
 
 
-class Users(db.Model):
-    """
-    Sets up the database model
-    """
-    __tablename__ = 'users'
-    id = db.Column('user_id', db.Integer, primary_key = True)
-    name = db.Column(db.String(100))
-    def __init__(self, name):
-        self.name = name
+intpk = Annotated[int, mapped_column(primary_key=True,
+                                     autoincrement=True)]
+db = SQLAlchemy(app, model_class=Base)
+from src.tables import User
 
 
 @app.route('/')
@@ -51,14 +55,22 @@ def index():
     Loads index.html, sets the title and users
     """
     title = 'Deployment Test'
-    return render_template('index.html', title=title, users=Users.query.all())
+    return render_template('index.html', title=title, users=User.query.all())
 
 
 with app.app_context():
     db.drop_all()
     db.create_all()
-    ollanius = Users('Ollanius Pius')
-    fabius = Users('Fabius Bile')
+    ollanius = User(first_name='Ollanius',
+                    last_name='Pius',
+                    display_name='EmperorsGoodBoi',
+                    email='astramiliwhat@imperium.net',
+                    last_login=datetime.datetime.now())
+    fabius = User(first_name='Fabius',
+                  last_name='Bile',
+                  display_name='FabulousB',
+                  email='fabulousbile@chaos.org',
+                  last_login=datetime.datetime.now())
     db.session.add(ollanius)
     db.session.add(fabius)
     db.session.commit()
