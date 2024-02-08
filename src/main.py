@@ -11,6 +11,7 @@ from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass, mapped_column, Ma
 from dotenv import load_dotenv
 
 
+
 # Included to load .env environment variables for local dev
 load_dotenv()
 
@@ -46,8 +47,8 @@ class Base(DeclarativeBase, MappedAsDataclass):
 intpk = Annotated[int, mapped_column(primary_key=True,
                                      autoincrement=True)]
 db = SQLAlchemy(app, model_class=Base)
-from src.tables import User
 
+from src.tables import User
 
 @app.route('/')
 def index():
