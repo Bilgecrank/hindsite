@@ -6,7 +6,7 @@ import datetime
 from typing import Optional
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-
+from app.db_setup import db, intpk
 
 
 class User(db.Model):
@@ -32,5 +32,5 @@ class User(db.Model):
     last_login: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), default=datetime.datetime.now())
     verified: Mapped[bool] = mapped_column(default=False)
-    password = relationship("Password", back_populates='password')
+    password = relationship("Password", back_populates='user')
 
