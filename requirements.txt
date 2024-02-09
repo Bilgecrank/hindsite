@@ -6,3 +6,5 @@ cryptography
 python-dotenv
 SQLAlchemy
 bootstrap-flask
+typing_extensions
+bcrypt
