@@ -26,7 +26,7 @@ database_uri = ("mysql+pymysql://"
 
 # Needed to redirect default paths to maintain the proposed folder structure
 # since Flask looks for static and templates in the root folder of the hindsite
-template_dir = os.path.abspath('templates')
+template_dir = os.path.abspath('db_test_templates')
 static_dir = os.path.abspath('static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
