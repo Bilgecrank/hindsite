@@ -4,11 +4,12 @@ Activation point for the application.
 import datetime
 import os
 
+from flask_bootstrap import Bootstrap5
 from flask import render_template
 from hindsite.db_setup import db, app
 from hindsite.tables import User, Password
 
-
+bootstrap = Bootstrap5(app)
 @app.route('/')
 def index():
     """
