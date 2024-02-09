@@ -6,7 +6,7 @@ import os
 
 from flask import render_template
 from app.db_setup import db, app
-from tables import User
+from tables import User, Password, Group
 
 
 @app.route('/')
@@ -26,12 +26,17 @@ with app.app_context():
                     display_name='EmperorsGoodBoi',
                     email='astramiliwhat@imperium.net',
                     last_login=datetime.datetime.now())
+    ollanius_pass = Password(user_id=ollanius,
+                             password='buh')
+    ollanius.password = [ollanius_pass]
+    db.session.add(ollanius)
     fabius = User(first_name='Fabius',
                   last_name='Bile',
                   display_name='FabulousB',
                   email='fabulousbile@chaos.org',
                   last_login=datetime.datetime.now())
-    db.session.add(ollanius)
+    fabius.password = [Password(user_id=fabius,
+                           password='Fabulous')]
     db.session.add(fabius)
     db.session.commit()
 

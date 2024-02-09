@@ -6,7 +6,7 @@ import datetime
 from typing import Optional
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.db_setup import db, intpk
+from app.db_setup import db, intpk, user_membership
 
 
 class User(db.Model):
@@ -21,6 +21,7 @@ class User(db.Model):
         email: **str** User's email address, used for login verification.
         last_login: **datetime** Datetime of the User's last login into the system.
         verified: **bool** Whether or not the user's email address has been verified.
+        password: **Password** Reference to password table entry.
     """
     __tablename__ = 'user'
 
@@ -33,4 +34,4 @@ class User(db.Model):
         DateTime(timezone=True), default=datetime.datetime.now())
     verified: Mapped[bool] = mapped_column(default=False)
     password = relationship("Password", back_populates='user')
-
+    groups = relationship('Group', secondary=user_membership, back_populates='users')

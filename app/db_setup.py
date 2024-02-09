@@ -1,6 +1,10 @@
-import os
+"""
+Back-end variables to set up database interactions.
+"""
 
+import os
 from flask import Flask
+from sqlalchemy import Table, Column, ForeignKey
 from flask_sqlalchemy import SQLAlchemy
 from typing_extensions import Annotated
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass, mapped_column
@@ -36,6 +40,15 @@ class Base(DeclarativeBase, MappedAsDataclass):
     The base model for the classes to be declared.
     """
     pass
+
+
+# Defines association table for the User/Group relationship
+user_membership = Table(
+    'user_membership',
+    Base.metadata,
+    Column('user_id', ForeignKey('user.id'), primary_key=True),
+    Column('group_id', ForeignKey('group.id'), primary_key=True)
+)
 
 
 intpk = Annotated[int, mapped_column(primary_key=True,

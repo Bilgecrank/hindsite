@@ -5,7 +5,7 @@
     <ul>
             {% for user in users %}
                 <li> {{user.id}}, {{ user.first_name }}, {{ user.last_name }}, {{ user.display_name }}, {{user.email}},
-                {{user.last_login}} </li>
+                {{user.last_login}}, {{user.password}} </li>
             {% endfor %}
     </ul>
 

@@ -5,18 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257b68f9-7575-40dc-9d1c-f6cbe7a3603c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/hindsite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hindsite.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/static/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/static/htmx.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/htmx.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/password.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/password.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/user.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tables/usermember.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/usermember.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/db_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/db_setup.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables/password.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/password.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tables/usermember.py" beforeDir="false" afterPath="$PROJECT_DIR$/tables/user_membership.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,16 +147,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/main.py</url>
-          <line>47</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
