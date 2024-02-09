@@ -5,8 +5,8 @@ import datetime
 import os
 
 from flask import render_template
-from app.db_setup import db, app
-from tables import User, Password, Group
+from hindsite.db_setup import db, app
+from hindsite.tables import User, Password
 
 
 @app.route('/')

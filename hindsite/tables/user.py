@@ -6,7 +6,7 @@ import datetime
 from typing import Optional
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.db_setup import db, intpk, user_membership
+from hindsite.db_setup import db, intpk, user_membership
 
 
 class User(db.Model):

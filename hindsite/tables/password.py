@@ -5,7 +5,7 @@ import datetime
 
 from sqlalchemy import DateTime, ForeignKey, String, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.db_setup import db, intpk
+from hindsite.db_setup import db, intpk
 
 
 class Password(db.Model):

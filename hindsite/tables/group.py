@@ -3,7 +3,7 @@ Class definition for the group table
 """
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.db_setup import db, intpk, user_membership
+from hindsite.db_setup import db, intpk, user_membership
 
 
 class Group(db.Model):

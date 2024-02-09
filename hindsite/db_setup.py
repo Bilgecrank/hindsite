@@ -15,8 +15,8 @@ load_dotenv()
 
 # Location agnostic URI that loads either the .env file, or if
 # it's not included loads the variables set by the OS. In the
-# case of Railway.app, the variables set by the database and
-# linked to the app.
+# case of Railway.hindsite, the variables set by the database and
+# linked to the hindsite.
 database_uri = ("mysql+pymysql://"
                 + os.environ['MYSQLUSER'] + ":"
                 + os.environ['MYSQL_ROOT_PASSWORD'] + "@"
@@ -25,9 +25,9 @@ database_uri = ("mysql+pymysql://"
                 + os.environ['MYSQL_DATABASE'])
 
 # Needed to redirect default paths to maintain the proposed folder structure
-# since Flask looks for static and templates in the root folder of the app
-template_dir = os.path.abspath('app/templates')
-static_dir = os.path.abspath('app/static')
+# since Flask looks for static and templates in the root folder of the hindsite
+template_dir = os.path.abspath('templates')
+static_dir = os.path.abspath('static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 # Sets the database URI to match whatever environment it's in
