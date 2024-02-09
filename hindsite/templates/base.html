@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ title }}</title>
+    {{ bootstrap.load_css() }}
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles/style.css')}}">
+    <script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
+  </head>
+  <body>
+    <div class="row-g-0">
+      <div class="column g-0 col">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark"
+              id="redTheme">
+          <div class="justify-content-start container-fluid px-3 py-3">
+            <button class="navbar-toggler d-lg-none"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#top-nav"
+              aria-expanded="false"
+              aria-label="Toggle Navigation">
+              <span class="navbar-toggler-icon">
+              </span>
+            </button>
+            <a href="{{ url_for('index') }}" class="navbar-brand mx-3">
+              <span class="fw-bold primary">
+                <div class="text-center">hindsITe<br>Retrospective</div>
+              </span>
+            </a>
+            <a href="{{ url_for('index') }}" class="navbar-brand m-0 p-0">
+              <img
+                class="img-fluid"
+                src="{{ url_for('static', filename='img/hindsite.png') }}"
+                height="65"
+                width="65">
+              </img>
+            </a>
+          </div>
+        </nav>
+            </div>
+      </div>
+    <div class="row g-0">
+      <div class="column g-0 col-sm-2 col-12">
+        <div
+          id="top-nav"
+          class="offcanvas-lg offcanvas-start bg-dark text-light"
+          tabindex="-1">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold">Navigation</h5>
+            <button
+              class="btn-close btn-close-white"
+              type="button" data-bs-target="#top-nav"
+              data-bs-dismiss="offcanvas" aria-label="close"></button>
+          </div>
+          <div class="offcanvas-body vh-100 vw-10">
+            <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 mx-3">
+              <li class="nav-items">
+                <a href="{{ url_for('index')}}" class="btn btn-outline-light w-100 mx-1 my-1">HOME</a>
+              </li>
+              <li class="nav-items">
+                <a href="{{ url_for('retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1">Retrospective</a>
+              </li>
+              <li class="nav-items">
+                <a href="{{ url_for('history')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
+              </li>
+              <li class="nav-items">
+                <a href="{{ url_for('group')}}" class="btn btn-outline-light w-100 mx-1 my-1">Group</a>
+              </li>
+              <li class="nav-items">
+                <a href="{{ url_for('settings')}}" class="btn btn-outline-light w-100 mx-1 my-1">Settings</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <main class="column g-0 col-sm-10 col-12">
+        <h1 class="m-3">{{ title }}</h1>
+        <div>
+          {% block content %}
+          {% endblock %}
+        </div>
+    </div>
+    {{ bootstrap.load_js() }}
+  </body>
+</html>
