@@ -8,7 +8,7 @@ import hindsite.sql_query as query
 import hindsite.sql_update as update
 
 
-class RegisterError(Exception):
+class RegistrationError(Exception):
     """
     Definition for errors raised by the register_user function
     """
@@ -29,13 +29,13 @@ def register_user(email: str, password: str):
     :param password:
     :return: **str** Returns a string indicating an error, or None if there is no error.
 
-    :raises RegisterError: Raises this in case of an already extant account or if the password is
+    :raises RegistrationError: Raises this in case of an already extant account or if the password is
      not a valid secret.
     """
     if query.is_user(email):
-        raise RegisterError('ERROR: An account already exists with this email.')
+        raise RegistrationError('ERROR: An account already exists with this email.')
     if not valid_secret(password):
-        raise RegisterError(
+        raise RegistrationError(
             'Passwords must at least 12 characters long, include 1 uppercase letter, 1 lowercase '
             'letter, 1 number, and 1 special character (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~).')
     hashword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())

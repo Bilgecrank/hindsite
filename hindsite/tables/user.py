@@ -26,8 +26,8 @@ class User(db.Model):  # pylint: disable=too-few-public-methods
     __tablename__ = 'user'
 
     id: Mapped[intpk] = mapped_column(init=False)
-    first_name: Mapped[Optional[str]] = mapped_column(String(50))
-    last_name: Mapped[Optional[str]] = mapped_column(String(50))
+    first_name: Mapped[Optional[str]] = mapped_column(String(50), init=False)
+    last_name: Mapped[Optional[str]] = mapped_column(String(50), init=False)
     display_name: Mapped[Optional[str]] = mapped_column(String(50))
     email: Mapped[str] = mapped_column(String(50), unique=True)
     last_login: Mapped[datetime.datetime] = mapped_column(

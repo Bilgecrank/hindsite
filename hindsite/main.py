@@ -25,16 +25,14 @@ def index():
                            result=[query.get_user('astramiliwhat@imperium.net'),
                                    query.is_user('astramiliwhat@imperium.net'),
                                    query.get_hashword(query.get_user('astramiliwhat@imperium.net').id),
-                                   auth.login('astramiliwhat@imperium.net', 'b_uh')])
+                                   auth.login('astramiliwhat@imperium.net', 'Buh12_buh12_buh12')])
 
 
 with app.app_context():
     db.drop_all()
     db.create_all()
-
-    fabius = User(first_name='Fabius',
-                  last_name='Bile',
-                  display_name='FabulousB',
+    auth.register_user('astramiliwhat@imperium.net', 'Buh12_buh12_buh12')
+    fabius = User(display_name='FabulousB',
                   email='fabulousbile@chaos.org')
     fabius.password = [Password(user_id=fabius,
                            password='Fabulous')]
