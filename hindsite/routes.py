@@ -13,8 +13,10 @@ template_dir = os.path.abspath('templates')
 static_dir = os.path.abspath('static')
 routes = Blueprint('routes',__name__, template_folder=template_dir, static_folder=static_dir)
 
-# Allows us to redirect and display a flash message if login isn't available
 def login_required(f):
+    """
+        Allows us to redirect and display a flash message if login isn't available
+    """
     @wraps(f)
     def wrap(*args, **kwargs):
         if 'logged_in' in session:

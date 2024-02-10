@@ -4,12 +4,9 @@ Activation point for the application.
 
 import os
 
-import flask_login
 from flask_bootstrap import Bootstrap5
-from flask import render_template
 from hindsite.db_setup import db, app
 from hindsite.tables import User, Password
-import hindsite.sql_query as query
 import hindsite.authenticate as auth
 
 
