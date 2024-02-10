@@ -1,5 +1,6 @@
 Flask
 Flask_SQLAlchemy
+flask-login
 gunicorn
 pymysql
 cryptography

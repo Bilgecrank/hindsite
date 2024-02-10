@@ -7,8 +7,10 @@
     <list default="true" id="257b68f9-7575-40dc-9d1c-f6cbe7a3603c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hindsite/authenticate.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/authenticate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/db_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/db_setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hindsite/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/tables/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/sql_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/sql_query.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,7 +152,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hindsite/main.py</url>
-          <line>31</line>
+          <line>37</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -1,10 +1,10 @@
 """
 Activation point for the application.
 """
-import datetime
+
 import os
 
-import bcrypt
+import flask_login
 from flask_bootstrap import Bootstrap5
 from flask import render_template
 from hindsite.db_setup import db, app
@@ -12,7 +12,10 @@ from hindsite.tables import User, Password
 import hindsite.sql_query as query
 import hindsite.authenticate as auth
 
+
 bootstrap = Bootstrap5(app)
+
+
 @app.route('/')
 def index():
     """
@@ -24,8 +27,11 @@ def index():
                            users=User.query.all(),
                            result=[query.get_user('astramiliwhat@imperium.net'),
                                    query.is_user('astramiliwhat@imperium.net'),
-                                   query.get_hashword(query.get_user('astramiliwhat@imperium.net').id),
-                                   auth.login('astramiliwhat@imperium.net', 'Buh12_buh12_buh12')])
+                                   query.get_hashword(query.get_user(
+                                       'astramiliwhat@imperium.net').id),
+                                   auth.login('astramiliwhat@imperium.net',
+                                              'Buh12_buh12_buh12'),
+                                   flask_login.login_fresh()])
 
 
 with app.app_context():
