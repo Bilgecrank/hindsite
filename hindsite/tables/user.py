@@ -9,7 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from hindsite.db_setup import db, intpk, user_membership
 
 
-class User(db.Model):
+class User(db.Model):  # pylint: disable=too-few-public-methods
     """
     Defines the core user model to include basic user information.
 

@@ -8,6 +8,7 @@ from flask_bootstrap import Bootstrap5
 from flask import render_template
 from hindsite.db_setup import db, app
 from hindsite.tables import User, Password
+import hindsite.sql_query as query
 
 bootstrap = Bootstrap5(app)
 @app.route('/')
@@ -15,8 +16,14 @@ def index():
     """
     Loads index.html, sets the title and users
     """
-    title = 'Deployment Test'
-    return render_template('index.html', title=title, users=User.query.all())
+    title = 'Back-End Deployment Test'
+    return render_template('index.html',
+                           title=title,
+                           users=User.query.all(),
+                           result=[query.get_user('astramiliwhat@imperium.net'),
+                                   query.is_user('astramiliwhat@imperium.net'),
+                                   query.pass_valid(query.get_user('astramiliwhat@imperium.net').id,
+                                                    'buh')])
 
 
 with app.app_context():

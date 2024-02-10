@@ -6,7 +6,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from hindsite.db_setup import db, intpk, user_membership
 
 
-class Group(db.Model):
+class Group(db.Model):  # pylint: disable=too-few-public-methods
     """
     Defines a group identifier and attaches a name to that group
 

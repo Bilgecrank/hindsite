@@ -7,7 +7,7 @@ from flask import Flask
 from sqlalchemy import Table, Column, ForeignKey
 from flask_sqlalchemy import SQLAlchemy
 from typing_extensions import Annotated
-from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass, mapped_column
+import sqlalchemy.orm
 from dotenv import load_dotenv
 
 # Included to load .env environment variables for local dev
@@ -35,11 +35,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
 
 
-class Base(DeclarativeBase, MappedAsDataclass):
+class Base(sqlalchemy.orm.DeclarativeBase, sqlalchemy.orm.MappedAsDataclass):  # pylint: disable=too-few-public-methods
     """
     The base model for the classes to be declared.
     """
-    pass
 
 
 # Defines association table for the User/Group relationship
@@ -50,7 +49,7 @@ user_membership = Table(
     Column('group_id', ForeignKey('group.id'), primary_key=True)
 )
 
-
-intpk = Annotated[int, mapped_column(primary_key=True,
-                                     autoincrement=True)]
+# pylint: disable=invalid-name
+intpk = Annotated[int, sqlalchemy.orm.mapped_column(primary_key=True,
+                                                    autoincrement=True)]
 db = SQLAlchemy(app, model_class=Base)
