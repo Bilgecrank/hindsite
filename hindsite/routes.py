@@ -85,4 +85,4 @@ def sign_up():
     return render_template('sign-up.html', title=title)
 
 if __name__ == '__main__':
-    routes.run(debug=True, port=os.getenv("PORT", default="80"))
+    routes.run(debug=False, port=os.getenv("PORT", default="80"))
