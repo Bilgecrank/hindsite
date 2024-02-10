@@ -4,9 +4,7 @@ Template route testing for development
 from functools import wraps
 import os
 from dotenv import load_dotenv
-
-from flask_bootstrap import Bootstrap5
-from flask import Blueprint, Flask, flash, redirect, render_template, session, url_for
+from flask import Blueprint, flash, redirect, render_template, session, url_for
 
 load_dotenv()
 # Needed to redirect default paths to maintain the proposed folder structure
@@ -19,11 +17,10 @@ routes = Blueprint('routes',__name__, template_folder=template_dir, static_folde
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
-            if 'logged_in' in session:
-                return f(*args, **kwargs)
-            else:
-                flash("you need to login first")
-                return redirect(url_for('routes.sign_in'))
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        flash("you need to login first")
+        return redirect(url_for('routes.sign_in'))
     return wrap
 
 @routes.route('/')
