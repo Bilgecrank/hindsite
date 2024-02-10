@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257b68f9-7575-40dc-9d1c-f6cbe7a3603c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/hindsite/sql_query.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/hindsite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hindsite.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/db_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/db_setup.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/db_test_templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/db_test_templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/authenticate.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/authenticate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hindsite/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/tables/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/tables/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/group.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/tables/password.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/password.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/tables/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/sql_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/sql_query.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,9 +47,9 @@
     "Python.main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/home/bilge/development/hindsite",
+    "last_opened_file_path": "/mnt/gondolink/Dakota/Documents/College/SDEV 300/Week 8",
     "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable"
+    "settings.editor.selected.configurable": "preferences.sourceCode.Python"
   }
 }]]></component>
   <component name="PyConsoleOptionsProvider">

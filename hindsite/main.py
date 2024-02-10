@@ -4,11 +4,13 @@ Activation point for the application.
 import datetime
 import os
 
+import bcrypt
 from flask_bootstrap import Bootstrap5
 from flask import render_template
 from hindsite.db_setup import db, app
 from hindsite.tables import User, Password
 import hindsite.sql_query as query
+import hindsite.authenticate as auth
 
 bootstrap = Bootstrap5(app)
 @app.route('/')
@@ -22,8 +24,8 @@ def index():
                            users=User.query.all(),
                            result=[query.get_user('astramiliwhat@imperium.net'),
                                    query.is_user('astramiliwhat@imperium.net'),
-                                   query.pass_valid(query.get_user('astramiliwhat@imperium.net').id,
-                                                    'buh')])
+                                   query.get_hashword(query.get_user('astramiliwhat@imperium.net').id),
+                                   auth.login('astramiliwhat@imperium.net', 'b_uh')])
 
 
 with app.app_context():
@@ -35,7 +37,7 @@ with app.app_context():
                     email='astramiliwhat@imperium.net',
                     last_login=datetime.datetime.now())
     ollanius_pass = Password(user_id=ollanius,
-                             password='buh')
+                             password=bcrypt.hashpw('buh'.encode('utf-8'), bcrypt.gensalt()))
     ollanius.password = [ollanius_pass]
     db.session.add(ollanius)
     fabius = User(first_name='Fabius',

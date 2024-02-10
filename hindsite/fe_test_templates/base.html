@@ -81,7 +81,20 @@
           {% block content %}
           {% endblock %}
         </div>
-    </div>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="alert alert-danger">
+              <ul>
+                {% for message in messages %}
+                  <li>
+                      {{ message }}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+        {% endwith %}
+      </main>
     {{ bootstrap.load_js() }}
   </body>
 </html>
