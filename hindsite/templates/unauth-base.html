@@ -12,10 +12,9 @@
   <body>
     <div class="row-g-0">
       <div class="column g-0 col">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark"
-              id="redTheme">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
           <div class="justify-content-start container-fluid px-3 py-3">
-            <button class="navbar-toggler d-lg-none"
+            <button class="navbar-toggler d-lg-none rotation"
               type="button"
               data-bs-toggle="offcanvas"
               data-bs-target="#top-nav"
@@ -24,12 +23,12 @@
               <span class="navbar-toggler-icon">
               </span>
             </button>
-            <a href="{{ url_for('index') }}" class="navbar-brand mx-3">
+            <a href="{{ url_for('routes.index') }}" class="navbar-brand mx-3">
               <span class="fw-bold primary">
                 <div class="text-center">hindsITe<br>Retrospective</div>
               </span>
             </a>
-            <a href="{{ url_for('index') }}" class="navbar-brand m-0 p-0">
+            <a href="{{ url_for('routes.index') }}" class="navbar-brand m-0 p-0">
               <img
                 class="img-fluid"
                 src="{{ url_for('static', filename='img/hindsite.png') }}"
@@ -42,7 +41,7 @@
             </div>
       </div>
     <div class="row g-0">
-      <div class="column g-0 col-sm-2 col-12">
+      <div class="column g-0 col-sm-0 col-md-2">
         <div
           id="top-nav"
           class="offcanvas-lg offcanvas-start bg-dark text-light"
@@ -57,31 +56,35 @@
           <div class="offcanvas-body vh-100 vw-10">
             <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 mx-3">
               <li class="nav-items">
-                <a href="{{ url_for('index')}}" class="btn btn-outline-light w-100 mx-1 my-1">HOME</a>
+                <a href="{{ url_for('routes.sign_in')}}" class="btn btn-outline-light w-100 mx-1 my-1">Sign in</a>
               </li>
               <li class="nav-items">
-                <a href="{{ url_for('retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1">Retrospective</a>
-              </li>
-              <li class="nav-items">
-                <a href="{{ url_for('history')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
-              </li>
-              <li class="nav-items">
-                <a href="{{ url_for('group')}}" class="btn btn-outline-light w-100 mx-1 my-1">Group</a>
-              </li>
-              <li class="nav-items">
-                <a href="{{ url_for('settings')}}" class="btn btn-outline-light w-100 mx-1 my-1">Settings</a>
+                <a href="{{ url_for('routes.sign_up')}}" class="btn btn-outline-light w-100 mx-1 my-1">Sign up</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <main class="column g-0 col-sm-10 col-12">
+      <main class="column g-0 col-sm-12 col-md-10">
         <h1 class="m-3">{{ title }}</h1>
         <div>
           {% block content %}
           {% endblock %}
         </div>
-    </div>
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="alert alert-danger">
+                <ul>
+                  {% for message in messages %}
+                    <li>
+                        {{ message }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          {% endwith %}
+      </main>
     {{ bootstrap.load_js() }}
   </body>
 </html>

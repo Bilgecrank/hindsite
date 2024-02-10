@@ -11,6 +11,7 @@ from flask_sqlalchemy import SQLAlchemy
 from typing_extensions import Annotated
 import sqlalchemy.orm
 from dotenv import load_dotenv
+from hindsite.routes import routes
 
 # Included to load .env environment variables for local dev
 load_dotenv()
@@ -31,6 +32,7 @@ database_uri = ("mysql+pymysql://"
 template_dir = os.path.abspath('db_test_templates')
 static_dir = os.path.abspath('static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+app.register_blueprint(routes)
 
 # Sets the database URI to match whatever environment it's in
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']  # Session secret key
