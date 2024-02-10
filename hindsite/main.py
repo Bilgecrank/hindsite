@@ -16,22 +16,22 @@ import hindsite.authenticate as auth
 bootstrap = Bootstrap5(app)
 
 
-@app.route('/')
-def index():
-    """
-    Loads index.html, sets the title and users
-    """
-    title = 'Back-End Deployment Test'
-    return render_template('index.html',
-                           title=title,
-                           users=User.query.all(),
-                           result=[query.get_user('astramiliwhat@imperium.net'),
-                                   query.is_user('astramiliwhat@imperium.net'),
-                                   query.get_hashword(query.get_user(
-                                       'astramiliwhat@imperium.net').id),
-                                   auth.login('astramiliwhat@imperium.net',
-                                              'Buh12_buh12_buh12'),
-                                   flask_login.login_fresh()])
+# @app.route('/')
+# def index():
+#     """
+#     Loads index.html, sets the title and users
+#     """
+#     title = 'Back-End Deployment Test'
+#     return render_template('index.html',
+#                            title=title,
+#                            users=User.query.all(),
+#                            result=[query.get_user('astramiliwhat@imperium.net'),
+#                                    query.is_user('astramiliwhat@imperium.net'),
+#                                    query.get_hashword(query.get_user(
+#                                        'astramiliwhat@imperium.net').id),
+#                                    auth.login('astramiliwhat@imperium.net',
+#                                               'Buh12_buh12_buh12'),
+#                                    flask_login.login_fresh()])
 
 
 with app.app_context():
