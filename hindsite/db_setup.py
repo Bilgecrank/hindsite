@@ -9,9 +9,9 @@ from flask import Flask
 from sqlalchemy import Table, Column, ForeignKey
 from flask_sqlalchemy import SQLAlchemy
 from typing_extensions import Annotated
-from hindsite.routes import routes
 import sqlalchemy.orm
 from dotenv import load_dotenv
+from hindsite.routes import routes
 
 # Included to load .env environment variables for local dev
 load_dotenv()
