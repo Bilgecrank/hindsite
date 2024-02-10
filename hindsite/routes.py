@@ -1,19 +1,35 @@
 """
 Template route testing for development
 """
+from functools import wraps
 import os
+from dotenv import load_dotenv
 
 from flask_bootstrap import Bootstrap5
-from flask import Flask, render_template
+from flask import Flask, flash, redirect, render_template, session, url_for
 
+load_dotenv()
 # Needed to redirect default paths to maintain the proposed folder structure
 # since Flask looks for static and templates in the root folder of the app
 template_dir = os.path.abspath('fe_test_templates')
 static_dir = os.path.abspath('static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
+app.secret_key = os.environ["SECRET_KEY"]
 bootstrap = Bootstrap5(app)
 
+# Allows us to redirect and display a flash message if login isn't available
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+            if 'logged_in' in session:
+                return f(*args, **kwargs)
+            else:
+                flash("you need to login first")
+                return redirect(url_for('sign_in'))
+    return wrap
+
 @app.route('/')
+@login_required
 def index():
     """
         Loads index.html, sets the title
@@ -22,6 +38,7 @@ def index():
     return render_template('index.html', title=title)
 
 @app.route('/retrospective')
+@login_required
 def retrospective():
     """
         Loads retrospective.html, sets the title
@@ -30,6 +47,7 @@ def retrospective():
     return render_template('retrospective.html', title=title)
 
 @app.route('/history')
+@login_required
 def history():
     """
         Loads history.html, sets the title
@@ -38,6 +56,7 @@ def history():
     return render_template('history.html', title=title)
 
 @app.route('/group')
+@login_required
 def group():
     """
         Loads group.html, sets the title
@@ -46,6 +65,7 @@ def group():
     return render_template('group.html', title=title)
 
 @app.route('/settings')
+@login_required
 def settings():
     """
         Loads settings.html, sets the title

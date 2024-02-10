@@ -8,3 +8,4 @@ SQLAlchemy
 bootstrap-flask
 typing_extensions
 bcrypt
+Flask_Login
