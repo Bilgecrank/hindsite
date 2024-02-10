@@ -6,6 +6,12 @@ from hindsite.db_setup import db
 from hindsite.tables import User, Password
 
 
+class QueryError(Exception):
+    """
+    Defines an issue that arises with a query.
+    """
+
+
 def get_user(email: str):
     """
     Gets a single user record.
@@ -31,16 +37,17 @@ def is_user(email: str):
     return get_user(email) is not None
 
 
-def pass_valid(user_id: int, provided_hash: str):
+def get_hashword(user_id: int):
     """
     Compares the password in the database to see if the supplied hash matches the stored hash.
 
     :param user_id: The user id of the record to be searched.
-    :param provided_hash: The hash provided by the requester.
-    :returns: **Bool** Whether the hash matches the hash stored in the database.
+    :returns: **PyBytes** Returns an encoding password to be matched.
+
+    :raises QueryError: Raises when a password record is not found for a user.
     """
     stmt = select(Password).filter_by(user_id=user_id).order_by(Password.password)
-    stored_hash = db.session.execute(stmt).first()
-    if stored_hash is not None:
-        return provided_hash == stored_hash[0].password
-    return False
+    password_record = db.session.execute(stmt).first()
+    if password_record is None:
+        raise QueryError('A password was not found!')
+    return password_record[0].password.encode('utf-8')

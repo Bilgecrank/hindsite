@@ -3,6 +3,8 @@ Back-end variables to set up database interactions.
 """
 
 import os
+
+import flask_login
 from flask import Flask
 from sqlalchemy import Table, Column, ForeignKey
 from flask_sqlalchemy import SQLAlchemy
@@ -31,8 +33,11 @@ static_dir = os.path.abspath('static')
 app = Flask(__name__, template_folder=template_dir, static_folder=static_dir)
 
 # Sets the database URI to match whatever environment it's in
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']  # Session secret key
 app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
 app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
+login_manager = flask_login.LoginManager()
+login_manager.init_app(app)
 
 
 class Base(sqlalchemy.orm.DeclarativeBase, sqlalchemy.orm.MappedAsDataclass):  # pylint: disable=too-few-public-methods
