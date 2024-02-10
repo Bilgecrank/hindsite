@@ -5,6 +5,7 @@ import re  # For serverside validation of secrets.
 
 import bcrypt
 import hindsite.sql_query as query
+import hindsite.sql_update as update
 
 
 class RegisterError(Exception):
@@ -38,7 +39,7 @@ def register_user(email: str, password: str):
             'Passwords must at least 12 characters long, include 1 uppercase letter, 1 lowercase '
             'letter, 1 number, and 1 special character (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~).')
     hashword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    # update.add_user(email, hashword)
+    update.add_user({'display_name': '', 'email': email, 'password': hashword})
     return True
 
 

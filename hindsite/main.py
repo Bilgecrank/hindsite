@@ -31,20 +31,11 @@ def index():
 with app.app_context():
     db.drop_all()
     db.create_all()
-    ollanius = User(first_name='Ollanius',
-                    last_name='Pius',
-                    display_name='EmperorsGoodBoi',
-                    email='astramiliwhat@imperium.net',
-                    last_login=datetime.datetime.now())
-    ollanius_pass = Password(user_id=ollanius,
-                             password=bcrypt.hashpw('buh'.encode('utf-8'), bcrypt.gensalt()))
-    ollanius.password = [ollanius_pass]
-    db.session.add(ollanius)
+
     fabius = User(first_name='Fabius',
                   last_name='Bile',
                   display_name='FabulousB',
-                  email='fabulousbile@chaos.org',
-                  last_login=datetime.datetime.now())
+                  email='fabulousbile@chaos.org')
     fabius.password = [Password(user_id=fabius,
                            password='Fabulous')]
     db.session.add(fabius)
