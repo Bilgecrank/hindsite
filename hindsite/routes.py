@@ -14,7 +14,6 @@ load_dotenv()
 template_dir = os.path.abspath('templates')
 static_dir = os.path.abspath('static')
 routes = Blueprint('routes',__name__, template_folder=template_dir, static_folder=static_dir)
-routes.secret_key = os.environ["SECRET_KEY"]
 
 # Allows us to redirect and display a flash message if login isn't available
 def login_required(f):
