@@ -1,0 +1,176 @@
+<mxfile host="app.diagrams.net" modified="2024-02-11T19:44:39.195Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" etag="7a0mQWhDj3in-_LRdX_3" version="23.1.1" type="github">
+  <diagram name="Page-1" id="804swjDIFLC3ij7y9A-g">
+    <mxGraphModel dx="1765" dy="821" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-13" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-1" target="Dt7J_ap_PFdbIPsA8fPm-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="145" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-28" value="db" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-13">
+          <mxGeometry x="0.1091" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-14" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-1" target="Dt7J_ap_PFdbIPsA8fPm-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="100" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-29" value="db" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-14">
+          <mxGeometry x="0.1912" y="12" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-15" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-1" target="Dt7J_ap_PFdbIPsA8fPm-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="10" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-30" value="app" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-15">
+          <mxGeometry x="0.0669" y="20" relative="1" as="geometry">
+            <mxPoint y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-16" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-1" target="Dt7J_ap_PFdbIPsA8fPm-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="180" y="230" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-27" value="db" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-16">
+          <mxGeometry x="0.1486" y="4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-17" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-1" target="Dt7J_ap_PFdbIPsA8fPm-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="220" y="190" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-26" value="db" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-17">
+          <mxGeometry x="0.1075" y="8" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-18" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-1" target="Dt7J_ap_PFdbIPsA8fPm-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="120" y="130" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="60" y="150" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-25" value="app" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-18">
+          <mxGeometry x="0.0217" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-1" value="db_setup.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="70" y="50" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-2" value="routes.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="-20" y="490" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-3" value="main.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="-70" y="160" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-19" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-4" target="Dt7J_ap_PFdbIPsA8fPm-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="270" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-31" value="Table Models" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-19">
+          <mxGeometry x="-0.0373" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-20" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-4" target="Dt7J_ap_PFdbIPsA8fPm-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="440" y="380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-33" value="Table Models" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-20">
+          <mxGeometry x="-0.3984" y="-27" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-4" value="/tables" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="300" y="110" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-22" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-5" target="Dt7J_ap_PFdbIPsA8fPm-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="270" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-35" value="import" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-22">
+          <mxGeometry x="-0.2089" y="-6" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-23" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;exitX=1;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-5" target="Dt7J_ap_PFdbIPsA8fPm-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="490" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-34" value="import" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-23">
+          <mxGeometry x="-0.2227" y="-23" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-5" value="sql_query.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="200" y="270" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-21" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-6" target="Dt7J_ap_PFdbIPsA8fPm-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-37" value="import" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-21">
+          <mxGeometry x="-0.5001" y="-5" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-6" value="sql_update.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="130" y="360" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-24" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;" edge="1" parent="1" source="Dt7J_ap_PFdbIPsA8fPm-8" target="Dt7J_ap_PFdbIPsA8fPm-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="530" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-36" value="import" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=16;" vertex="1" connectable="0" parent="Dt7J_ap_PFdbIPsA8fPm-24">
+          <mxGeometry x="0.3032" y="-12" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dt7J_ap_PFdbIPsA8fPm-8" value="authenticate.py" style="rounded=0;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="60" y="425" width="130" height="40" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
