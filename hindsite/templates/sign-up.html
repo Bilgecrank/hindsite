@@ -1,9 +1,45 @@
 {% extends 'unauth-base.html' %}
 
-    {% block content %}
+{% block content %}
 
-    <ul>
-        
-    </ul>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <form action="/sign-up" method="post" class="needs-validation my-5" novalidate>
+        <div class="mb-3">
+          <label for="email" class="form-label">Enter Email</label>
+          <input type="email" class="form-control" id="email" name="email" required>
+          <div class="invalid-feedback">
+            Please provide a valid email.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="confirmEmail" class="form-label">Reenter Email</label>
+          <input type="email" class="form-control" id="confirmEmail" name="confirmEmail" required>
+          <div class="invalid-feedback">
+            Please confirm your email address.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Enter Password</label>
+          <input type="password" class="form-control" id="password" name="password" required>
+          <div class="invalid-feedback">
+            Please provide a password.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="confirmPassword" class="form-label">Reenter Password</label>
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+          <div class="invalid-feedback">
+            Please confirm your password.
+          </div>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-    {% endblock %}
+{% endblock %}

@@ -70,7 +70,7 @@ def settings():
     title = 'Settings'
     return render_template('settings.html', title=title)
 
-@routes.route('/sign-in')
+@routes.route('/sign-in', methods = ['POST', 'GET'])
 def sign_in():
     """
         Loads sign-in.html, sets the title
@@ -78,7 +78,7 @@ def sign_in():
     title = 'Sign In'
     return render_template('sign-in.html', title=title)
 
-@routes.route('/sign-up')
+@routes.route('/sign-up', methods = ['POST', 'GET'])
 def sign_up():
     """
         Loads sign-up.html, sets the title
