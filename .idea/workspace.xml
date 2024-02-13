@@ -5,12 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257b68f9-7575-40dc-9d1c-f6cbe7a3603c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hindsite/authenticate.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/authenticate.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hindsite/db_setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/db_setup.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hindsite/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/routes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hindsite/sql_query.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/sql_query.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/sql_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/sql_update.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/tables/group.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/group.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/tables/password.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/password.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/tables/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hindsite/templates/sign-in.html" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/templates/sign-in.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,17 +50,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.dev-team-funcs.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "/mnt/gondolink/Dakota/Documents/College/SDEV 300/Week 8",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.dev-team-funcs.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/mnt/gondolink/Dakota/Documents/College/SDEV 300/Week 8&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="hindsite" is-module-sdk="true">
@@ -152,8 +161,28 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/hindsite/main.py</url>
-          <line>37</line>
+          <line>11</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hindsite/routes.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hindsite/authenticate.py</url>
+          <line>4</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hindsite/main.py</url>
+          <line>4</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hindsite/tables/user.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

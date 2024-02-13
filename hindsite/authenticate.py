@@ -7,13 +7,11 @@ import re  # For serverside validation of secrets.
 import bcrypt
 import flask_login
 
-from hindsite.db_setup import app
+from hindsite.extensions import login_manager
 import hindsite.sql_query as query
 import hindsite.sql_update as update
 
-
-login_manager = flask_login.LoginManager()
-login_manager.init_app(app)
+login_manager.login_view = 'routes.sign_in'
 
 
 class UserSession(flask_login.UserMixin):
@@ -29,11 +27,21 @@ class RegistrationError(Exception):
     Definition for errors raised by the register_user function
     """
 
+    message = None
+
+    def __init__(self, message):
+        self.message = message
+
 
 class LoginError(Exception):
     """
     Definition for errors raised by the login function
     """
+
+    message = None
+
+    def __init__(self, message):
+        self.message = message
 
 
 @login_manager.user_loader

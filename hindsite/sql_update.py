@@ -2,7 +2,7 @@
 This  module defines all logic essential to updating and creating information in the database.
 """
 
-from hindsite.db_setup import db
+from hindsite.extensions import db
 from hindsite.tables import User, Password
 
 

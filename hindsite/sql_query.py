@@ -2,7 +2,7 @@
 Central module for querying into the database.
 """
 from sqlalchemy import select
-from hindsite.db_setup import db
+from hindsite.extensions import db
 from hindsite.tables import User, Password
 
 
