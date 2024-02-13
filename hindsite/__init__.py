@@ -24,5 +24,5 @@ login_manager.init_app(app)
 db.Model = Base
 db.init_app(app)
 
-from hindsite.routes import routes
+from hindsite.routes import routes #pylint disable=wrong-import-position
 app.register_blueprint(routes)
