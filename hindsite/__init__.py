@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from flask import Flask
 from hindsite.db_setup import Base
 from hindsite.extensions import db, login_manager
-from hindsite.routes import routes
 
 load_dotenv()
 database_uri = ("mysql+pymysql://"
@@ -24,4 +23,8 @@ app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
 login_manager.init_app(app)
 db.Model = Base
 db.init_app(app)
+
+from hindsite.routes import routes
 app.register_blueprint(routes)
+
+
