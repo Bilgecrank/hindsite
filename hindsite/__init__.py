@@ -23,6 +23,5 @@ app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
 login_manager.init_app(app)
 db.Model = Base
 db.init_app(app)
- # pylint disable=wrong-import-position
-from hindsite.routes import routes
+from hindsite.routes import routes  # pylint disable=wrong-import-position
 app.register_blueprint(routes)
