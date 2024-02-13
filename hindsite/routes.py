@@ -1,9 +1,8 @@
 """
 Template route testing for development
 """
-from functools import wraps
 import os
-from flask import Blueprint, flash, redirect, render_template, session, url_for, request
+from flask import Blueprint, flash, redirect, render_template, url_for, request
 from flask_login import login_required
 
 import hindsite.authenticate as auth
@@ -105,9 +104,8 @@ def sign_up():
         try:
             auth.register_user(request.form['email'],
                                request.form['password'])
-            return redirect(url_for('routes.sign-in'))
+            return redirect(url_for('routes.sign_in'))
         except auth.RegistrationError as e:
             error = e.message
     title = 'Sign up!'
     return render_template('sign-up.html', title=title, error=error)
-
