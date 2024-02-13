@@ -99,6 +99,9 @@ def sign_in():
 
 @routes.route('/sign-up', methods=['POST', 'GET'])
 def sign_up():
+    """
+        Allows user registration. 
+    """
     error = ''
     if request.method == 'POST':  # Triggers if a user hits submit on a registration form.
         try:
@@ -107,5 +110,6 @@ def sign_up():
             return redirect(url_for('routes.sign_in'))
         except auth.RegistrationError as e:
             error = e.message
+            flash(error)
     title = 'Sign up!'
     return render_template('sign-up.html', title=title, error=error)

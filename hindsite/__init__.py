@@ -26,5 +26,3 @@ db.init_app(app)
 
 from hindsite.routes import routes
 app.register_blueprint(routes)
-
-
