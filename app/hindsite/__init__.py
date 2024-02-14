@@ -3,17 +3,19 @@ Inits variables for the application
 """
 
 from flask import Flask
+from flask_bootstrap import Bootstrap5
 from hindsite.extensions import db, login_manager, Base
-from hindsite.config import Config
 
 
-def create_app(config_class=Config):
+def create_app():
     """
     Application factory to create app.
     """
 
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    app.config.from_object("config.Config")
+
+    bootstrap = Bootstrap5(app)
 
     login_manager.init_app(app)
     db.Model = Base
