@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+    <div class="card m-5">
+        <div class="card-body">
+            <h5 class="card-title">Hello Authenticated User</h5>
+            <p class="card-text">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Fuga reprehenderit molestiae, vel corporis tempore ipsa mollitia! 
+                Consectetur officiis magni ullam dolores corrupti porro eaque esse. 
+                Illum repudiandae quidem commodi accusamus!
+            </p>
+            <a href="{{ url_for('routes.index')}}" class="btn btn-primary">HOME</a>
+        </div>
+    </div>
+
+    {% endblock %}

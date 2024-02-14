@@ -1,0 +1,12 @@
+Flask
+Flask_SQLAlchemy
+flask-login
+gunicorn
+pymysql
+cryptography
+python-dotenv
+SQLAlchemy
+bootstrap-flask
+typing_extensions
+bcrypt
+Flask_Login
