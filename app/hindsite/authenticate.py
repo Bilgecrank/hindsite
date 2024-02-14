@@ -7,9 +7,9 @@ import re  # For serverside validation of secrets.
 import bcrypt
 import flask_login
 
-from hindsite.extensions import login_manager
-import hindsite.sql_query as query
-import hindsite.sql_update as update
+from app.hindsite.extensions import login_manager
+import app.hindsite.sql_query as query
+import app.hindsite.sql_update as update
 
 login_manager.login_view = 'routes.sign_in'
 

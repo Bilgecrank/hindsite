@@ -1,11 +1,17 @@
 """
-Back-end variables to set up database interactions.
+    Helper module for imports.
 """
-
+import flask_login
 from sqlalchemy import Table, Column, ForeignKey
 from typing_extensions import Annotated
 import sqlalchemy.orm
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
+from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap5
+
+bootstrap = Bootstrap5()
+db = SQLAlchemy()
+login_manager = flask_login.LoginManager()
 
 
 class Base(DeclarativeBase, MappedAsDataclass):  # pylint: disable=too-few-public-methods
@@ -25,3 +31,4 @@ user_membership = Table(
 # pylint: disable=invalid-name
 intpk = Annotated[int, sqlalchemy.orm.mapped_column(primary_key=True,
                                                     autoincrement=True)]
+# pylint: enable=invalid-name

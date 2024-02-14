@@ -2,8 +2,8 @@
 Central module for querying into the database.
 """
 from sqlalchemy import select
-from hindsite.extensions import db
-from hindsite.tables import User, Password
+from app.hindsite.extensions import db
+from app.hindsite.tables import User, Password
 
 
 class QueryError(Exception):
