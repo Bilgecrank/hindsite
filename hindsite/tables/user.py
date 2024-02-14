@@ -30,7 +30,7 @@ class User(db.Model):  # pylint: disable=too-few-public-methods
     last_name: Mapped[Optional[str]] = mapped_column(String(50), init=False)
     display_name: Mapped[Optional[str]] = mapped_column(String(50))
     email: Mapped[str] = mapped_column(String(50), unique=True)
-    last_login: Mapped[datetime.datetime] = mapped_column(
+    last_login = mapped_column(
         DateTime(timezone=True), default=datetime.datetime.now())
     verified: Mapped[bool] = mapped_column(default=False)
     password = relationship("Password", back_populates='user')

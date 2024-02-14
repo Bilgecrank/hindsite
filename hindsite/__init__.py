@@ -1,28 +1,19 @@
 """
 Inits variables for the application
 """
-import os
-from dotenv import load_dotenv
+
 from flask import Flask
 from hindsite.extensions import db, login_manager, Base
+from hindsite.config import Config
 
 
-def create_app():
+def create_app(config_class=Config):
     """
     Application factory to create app.
     """
-    load_dotenv()
-    database_uri = ("mysql+pymysql://"
-                    + os.environ['MYSQLUSER'] + ":"
-                    + os.environ['MYSQL_ROOT_PASSWORD'] + "@"
-                    + os.environ['MYSQLHOST'] + ":"
-                    + os.environ['MYSQLPORT'] + "/"
-                    + os.environ['MYSQL_DATABASE'])
 
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = os.environ['SECRET_KEY']  # Session secret key
-    app.config['SQLALCHEMY_DATABASE_URI'] = database_uri
-    app.config['SQLALCHEMY_TRACK_NOTIFICATIONS'] = False
+    app.config.from_object(config_class)
 
     login_manager.init_app(app)
     db.Model = Base
