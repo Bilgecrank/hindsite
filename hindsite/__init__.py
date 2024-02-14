@@ -4,10 +4,13 @@ Inits variables for the application
 import os
 from dotenv import load_dotenv
 from flask import Flask
-from hindsite.extensions import bootstrap, db, login_manager, Base
+from hindsite.extensions import db, login_manager, Base
 
 
 def create_app():
+    """
+    Application factory to create app.
+    """
     load_dotenv()
     database_uri = ("mysql+pymysql://"
                     + os.environ['MYSQLUSER'] + ":"
@@ -30,8 +33,8 @@ def create_app():
         db.drop_all()
         db.create_all()
 
-    # pylint: disable=wrong-import-position
+    # pylint: disable=wrong-import-position,import-outside-toplevel
     from hindsite.routes import routes
-    # pylint: enable=wrong-import-position
+    # pylint: enable=wrong-import-position,import-outside-toplevel
     app.register_blueprint(routes)
     return app
