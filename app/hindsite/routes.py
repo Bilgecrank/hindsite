@@ -5,7 +5,7 @@ import os
 from flask import Blueprint, flash, redirect, render_template, url_for, request
 from flask_login import login_required
 
-import hindsite.authenticate as auth
+import app.hindsite.authenticate as auth
 
 template_dir = os.path.abspath('templates')
 static_dir = os.path.abspath('static')

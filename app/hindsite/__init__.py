@@ -3,8 +3,9 @@ Inits variables for the application
 """
 
 from flask import Flask
-from flask_bootstrap import Bootstrap5
-from hindsite.extensions import db, login_manager, Base
+from app.hindsite.extensions import db, bootstrap, login_manager, Base
+
+
 
 
 def create_app():
@@ -14,11 +15,10 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object("config.Config")
-
-    bootstrap = Bootstrap5(app)
-
-    login_manager.init_app(app)
     db.Model = Base
+
+    bootstrap.init_app(app)
+    login_manager.init_app(app)
     db.init_app(app)
 
     # TEST OPTION: WIPE DATA FROM DB.
@@ -27,7 +27,7 @@ def create_app():
         db.create_all()
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
-    from hindsite.routes import routes
+    from app.hindsite.routes import routes
     # pylint: enable=wrong-import-position,import-outside-toplevel
     app.register_blueprint(routes)
     return app

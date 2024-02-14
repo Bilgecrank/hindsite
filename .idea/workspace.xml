@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="257b68f9-7575-40dc-9d1c-f6cbe7a3603c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/tables/password.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/password.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hindsite/tables/user.py" beforeDir="false" afterPath="$PROJECT_DIR$/hindsite/tables/user.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/extensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/extensions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/wsgi.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,29 +150,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hindsite/main.py</url>
-          <line>11</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hindsite/routes.py</url>
+          <url>file://$PROJECT_DIR$/app/hindsite/tables/board.py</url>
           <line>3</line>
-          <option name="timeStamp" value="3" />
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hindsite/authenticate.py</url>
-          <line>4</line>
-          <option name="timeStamp" value="4" />
+          <url>file://$PROJECT_DIR$/app/hindsite/tables/password.py</url>
+          <line>3</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hindsite/main.py</url>
-          <line>4</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/hindsite/tables/group.py</url>
-          <line>19</line>
-          <option name="timeStamp" value="8" />
+          <url>file://$PROJECT_DIR$/app/hindsite/tables/board.py</url>
+          <line>14</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

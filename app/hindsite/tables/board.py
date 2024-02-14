@@ -5,7 +5,7 @@ import datetime
 
 from sqlalchemy import ForeignKey, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from hindsite.extensions import db, intpk
+from app.hindsite.extensions import db, intpk
 
 
 class Board(db.Model):  # pylint: disable=too-few-public-methods

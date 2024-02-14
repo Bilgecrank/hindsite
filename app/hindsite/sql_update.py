@@ -2,8 +2,8 @@
 This  module defines all logic essential to updating and creating information in the database.
 """
 
-from hindsite.extensions import db
-from hindsite.tables import User, Password
+from app.hindsite.extensions import db
+from app.hindsite.tables import User, Password
 
 
 def add_user(user_info: dict):

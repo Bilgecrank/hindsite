@@ -4,6 +4,7 @@
 
 import os
 from dotenv import load_dotenv
+
 load_dotenv()
 database_uri = ("mysql+pymysql://"
                 + os.environ['MYSQLUSER'] + ":"
@@ -11,7 +12,9 @@ database_uri = ("mysql+pymysql://"
                 + os.environ['MYSQLHOST'] + ":"
                 + os.environ['MYSQLPORT'] + "/"
                 + os.environ['MYSQL_DATABASE'])
-class Config:
+
+
+class Config:  # pylint: disable=too-few-public-methods
     """
         Base configuration class. Contains default config settings
     """
