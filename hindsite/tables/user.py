@@ -6,8 +6,7 @@ import datetime
 from typing import Optional
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from hindsite.extensions import db
-from hindsite.db_setup import intpk, user_membership
+from hindsite.extensions import db, intpk, user_membership
 
 
 class User(db.Model):  # pylint: disable=too-few-public-methods
