@@ -27,7 +27,13 @@ def create_app():
         db.create_all()
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
-    from hindsite.routes import routes
+    from app.hindsite.auth.auth import auth
     # pylint: enable=wrong-import-position,import-outside-toplevel
-    app.register_blueprint(routes)
+    app.register_blueprint(auth)
+
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.core.core import core
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(core)
+
     return app
