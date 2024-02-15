@@ -5,11 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="257b68f9-7575-40dc-9d1c-f6cbe7a3603c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/hindsite/auth/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/hindsite/auth/auth.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/hindsite/core/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/hindsite/core/core.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/hindsite/group_page/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/hindsite/group_page/group_page.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/hindsite/group_page/templates/group.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/hindsite.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hindsite.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/hindsite/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/hindsite/extensions.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/extensions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/wsgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/wsgi.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/authenticate.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/auth/authenticate.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/db_test_templates/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/db_test_templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/routes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/group.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/history.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/core/templates/history.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/core/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/retrospective.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/core/templates/retrospective.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/settings.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/core/templates/settings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/sign-in.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/auth/templates/sign-in.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/sign-up.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/auth/templates/sign-up.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/hindsite/templates/unauth-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/hindsite/templates/unauth-base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,17 +58,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.dev-team-funcs.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/mnt/gondolink/Dakota/Documents/College/SDEV 300/Week 8&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.dev-team-funcs.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/mnt/gondolink/Dakota/Documents/College/SDEV 300/Week 8",
+    "run.code.analysis.last.selected.profile": "aDefault",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings module-name="hindsite" is-module-sdk="true">
@@ -78,7 +96,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="/usr/bin/python3.11" />
-      <option name="SDK_NAME" value="Python 3.11" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />

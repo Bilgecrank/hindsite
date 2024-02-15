@@ -11,7 +11,7 @@ from app.hindsite.extensions import login_manager
 import app.hindsite.sql_query as query
 import app.hindsite.sql_update as update
 
-login_manager.login_view = 'routes.sign_in'
+login_manager.login_view = 'auth.sign_in'
 
 
 class UserSession(flask_login.UserMixin):
