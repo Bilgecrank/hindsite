@@ -24,15 +24,15 @@
               <span class="navbar-toggler-icon">
               </span>
             </button>
-            <a href="{{ url_for('routes.index') }}" class="navbar-brand mx-3">
+            <a href="{{ url_for('core.index') }}" class="navbar-brand mx-3">
               <span class="fw-bold primary">
                 <div class="text-center">hindsITe<br>Retrospective</div>
               </span>
             </a>
-            <a href="{{ url_for('routes.index') }}" class="navbar-brand m-0 p-0">
+            <a href="{{ url_for('core.index') }}" class="navbar-brand m-0 p-0">
               <img
                 class="img-fluid"
-                src="{{ url_for('routes.static', filename='img/hindsite.png') }}"
+                src="{{ url_for('static', filename='img/hindsite.png') }}"
                 height="65"
                 width="65">
               </img>
@@ -57,26 +57,25 @@
           <div class="offcanvas-body vh-100 vw-10">
             <ul class="navbar-nav justify-content-start flex-grow-1 pe-3 mx-3">
               <li class="nav-items">
-                <a href="{{ url_for('routes.index')}}" class="btn btn-outline-light w-100 mx-1 my-1">HOME</a>
+                <a href="{{ url_for('core.index')}}" class="btn btn-outline-light w-100 mx-1 my-1">HOME</a>
               </li>
               <li class="nav-items">
-                <a href="{{ url_for('routes.retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1">Retrospective</a>
+                <a href="{{ url_for('core.retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1">Retrospective</a>
               </li>
               <li class="nav-items">
-                <a href="{{ url_for('routes.history')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
+                <a href="{{ url_for('core.history')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
               </li>
               <li class="nav-items">
-                <a href="{{ url_for('routes.group')}}" class="btn btn-outline-light w-100 mx-1 my-1">Group</a>
+                <a href="{{ url_for('group.group')}}" class="btn btn-outline-light w-100 mx-1 my-1">Group</a>
               </li>
               <li class="nav-items">
-                <a href="{{ url_for('routes.settings')}}" class="btn btn-outline-light w-100 mx-1 my-1">Settings</a>
+                <a href="{{ url_for('core.settings')}}" class="btn btn-outline-light w-100 mx-1 my-1">Settings</a>
               </li>
             </ul>
           </div>
         </div>
       </div>
       <main class="column g-0 col-sm-12 col-md-10">
-        <h1 class="m-3">{{ title }}</h1>
         <div>
           {% block content %}
           {% endblock %}

@@ -16,10 +16,12 @@ class Board(db.Model):  # pylint: disable=too-few-public-methods
 
     id: Mapped[intpk] = mapped_column(init=False)
     group_id: Mapped[int] = mapped_column(ForeignKey('group.id'))
-    archived: Mapped[bool] = mapped_column(default=False)
-    timer = mapped_column(DateTime(timezone=True))
 
-    start_time = mapped_column(DateTime(timezone=True),
-                               default=datetime.datetime.now())
-    end_time = mapped_column(DateTime(timezone=True))
+    timer: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
+
+    end_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
+    start_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True),
+                                                          default=datetime.datetime.now())
+    archived: Mapped[bool] = mapped_column(default=False)
     groups = relationship('Group', back_populates='boards')
+    fields = relationship('Field', back_populates='board')
