@@ -36,4 +36,9 @@ def create_app():
     # pylint: enable=wrong-import-position,import-outside-toplevel
     app.register_blueprint(core)
 
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.group_page.group_page import group_page
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(group_page)
+
     return app
