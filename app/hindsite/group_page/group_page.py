@@ -11,12 +11,11 @@ group_page = Blueprint('group',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
+selected = "Groups"
 @group_page.route('/group')
 @login_required
 def group():
     """
         Loads group.html, sets the title
     """
-    title = 'Group'
-    return render_template('group.html', title=title)
-
+    return render_template('group.html', selected=selected)

@@ -2,6 +2,19 @@
 
     {% block content %}
 
-    <h5 class="shadow-lg p-3 mb-5 bg-body rounded">{{ title }}</h5>
+    <div>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="groupDropDown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    {{ selected }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="groupDropDown">
+                    <li><a class="dropdown-item" href="#" >Add Group</a></li>
+                </ul>
+        </div>
+    </div>
 
     {% endblock %}

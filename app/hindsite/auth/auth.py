@@ -29,7 +29,7 @@ def sign_in():
     title = 'Sign In'
     if error is not None:
         flash(error)
-    return render_template('sign-in.html', title=title, error=error)
+    return render_template('sign-in.html', title=title)
 
 
 @auth.route('/sign-up', methods=['POST', 'GET'])
@@ -47,4 +47,4 @@ def sign_up():
             error = e.message
             flash(error)
     title = 'Sign up!'
-    return render_template('sign-up.html', title=title, error=error)
+    return render_template('sign-up.html', title=title)

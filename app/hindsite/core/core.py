@@ -43,16 +43,6 @@ def history():
     return render_template('history.html', title=title)
 
 
-@core.route('/group')
-@login_required
-def group():
-    """
-        Loads group.html, sets the title
-    """
-    title = 'Group'
-    return render_template('group.html', title=title)
-
-
 @core.route('/settings')
 @login_required
 def settings():
