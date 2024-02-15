@@ -2,13 +2,11 @@
 Defines the model for the Field Table
 """
 from sqlalchemy import ForeignKey, String
-
-from app.hindsite import db
-from app.hindsite.extensions import intpk
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from app.hindsite.extensions import db, intpk
 
 
-class Field(db.Model):
+class Field(db.Model):  # pylint: disable=too-few-public-methods
     """
     The field table is an archivable reference between boards and cards.
     """

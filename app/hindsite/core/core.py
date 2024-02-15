@@ -2,10 +2,8 @@
 Template route testing for development
 """
 import os
-from flask import Blueprint, flash, redirect, render_template, url_for, request
+from flask import Blueprint, render_template
 from flask_login import login_required
-
-import app.hindsite.auth.authenticate as auth
 
 static_dir = os.path.abspath('static')
 core = Blueprint('core',

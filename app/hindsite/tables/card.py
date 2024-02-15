@@ -1,16 +1,14 @@
 """
 Defines the model for the cards and their relationships to others tables in the database.
 """
+
 from typing import Optional
-
 from sqlalchemy import ForeignKey, String
-
-from app.hindsite import db
-from app.hindsite.extensions import intpk
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from app.hindsite.extensions import intpk, db
 
 
-class Card(db.Model):
+class Card(db.Model):  # pylint: disable=too-few-public-methods
     """
     The Card holds comments and reactions from other users in the application.
     """
