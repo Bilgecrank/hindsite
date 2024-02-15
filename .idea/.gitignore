@@ -1,0 +1,5 @@
+# Pycharm based ignores so that user specific things aren't lobbed  over between branches.
+
+workspace.xml
+usage.statistics.xml
+shelf/
