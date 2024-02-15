@@ -24,7 +24,7 @@ class Password(db.Model):  # pylint: disable=too-few-public-methods
     id: Mapped[intpk] = mapped_column(init=False)
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
     password: Mapped[str] = mapped_column(String(63))
-    last_updated = mapped_column(DateTime(timezone=True),
+    last_updated: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True),
                                  default=datetime.datetime.now(),
                                  server_default=text(
                                  'CURRENT_TIMESTAMP ON UPDATE '

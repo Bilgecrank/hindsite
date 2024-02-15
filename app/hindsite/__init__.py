@@ -6,8 +6,6 @@ from flask import Flask
 from app.hindsite.extensions import db, bootstrap, login_manager, Base
 
 
-
-
 def create_app():
     """
     Application factory to create app.
