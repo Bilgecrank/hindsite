@@ -1,3 +1,6 @@
+"""
+    Common model to be used in submodels.
+"""
 
 from sqlalchemy import select
 

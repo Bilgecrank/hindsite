@@ -3,7 +3,7 @@ Defines the model for the Field Table
 """
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.hindsite.extensions import db, intpk, user_membership
+from app.hindsite.extensions import db, intpk
 
 
 class Field(db.Model):  # pylint: disable=too-few-public-methods

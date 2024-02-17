@@ -29,14 +29,14 @@ def get_groups(email: str):
     groups = user.groups
     return groups
 
-def get_group(id: int):
+def get_group(group_id: int):
     """
     Gets a group record belonging to a user.
 
     :param id: **int** id to check against the database
     :returns: **group** or **None**
     """
-    stmt = select(Group).where(Group.id == id)
+    stmt = select(Group).where(Group.id == group_id)
     groups = db.session.execute(stmt).first()
     if groups is not None:
         return db.session.execute(stmt).first()[0]

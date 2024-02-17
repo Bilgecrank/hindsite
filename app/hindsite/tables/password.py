@@ -5,7 +5,7 @@ import datetime
 
 from sqlalchemy import DateTime, ForeignKey, String, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.hindsite.extensions import db, intpk, user_membership
+from app.hindsite.extensions import db, intpk
 
 
 class Password(db.Model):  # pylint: disable=too-few-public-methods

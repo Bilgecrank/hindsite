@@ -5,7 +5,7 @@ Defines the model for the cards and their relationships to others tables in the 
 from typing import Optional
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.hindsite.extensions import db, intpk, user_membership
+from app.hindsite.extensions import db, intpk
 
 
 class Card(db.Model):  # pylint: disable=too-few-public-methods
