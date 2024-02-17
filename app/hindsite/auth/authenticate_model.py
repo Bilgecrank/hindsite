@@ -10,6 +10,7 @@ from sqlalchemy import select
 
 from app.hindsite.extensions import login_manager, db
 from app.hindsite.tables import User, Password
+from app.hindsite.common_model import get_user
 
 login_manager.login_view = 'auth.sign_in'
 
@@ -143,21 +144,6 @@ def logout():
     Logs a user out of the system by clearing their cookie with flask_login.
     """
     flask_login.logout_user()
-
-
-def get_user(email: str):
-    """
-    Gets a single user record.
-
-    :param email: **str** Email to check against the database
-    :returns: **User** or **None**
-    """
-    stmt = select(User).filter_by(email=email)
-    user = db.session.execute(stmt).first()
-    if user is not None:
-        return db.session.execute(stmt).first()[0]
-    return None
-
 
 def is_user(email: str):
     """

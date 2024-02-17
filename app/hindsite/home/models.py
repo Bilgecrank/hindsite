@@ -5,7 +5,8 @@ session management.
 
 from sqlalchemy import select
 from app.hindsite.extensions import db
-from app.hindsite.tables import User, Group
+from app.hindsite.common_model import get_user
+from app.hindsite.tables import Group
 
 class GroupAddError(Exception):
     """
@@ -16,19 +17,6 @@ class GroupAddError(Exception):
 
     def __init__(self, message):
         self.message = message
-
-def get_user(email: str):
-    """
-    Gets a single user record.
-
-    :param email: **str** Email to check against the database
-    :returns: **User** or **None**
-    """
-    stmt = select(User).filter_by(email=email)
-    user = db.session.execute(stmt).first()
-    if user is not None:
-        return db.session.execute(stmt).first()[0]
-    return None
 
 def get_groups(email: str):
     """
