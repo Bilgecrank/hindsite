@@ -21,7 +21,7 @@ def create_app():
 
     # TEST OPTION: WIPE DATA FROM DB.
     with app.app_context():
-        db.drop_all()
+        #db.drop_all()
         db.create_all()
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
@@ -38,5 +38,10 @@ def create_app():
     from app.hindsite.home.home import home
     # pylint: enable=wrong-import-position,import-outside-toplevel
     app.register_blueprint(home)
+
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.group.group import group
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(group)
 
     return app
