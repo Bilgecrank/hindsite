@@ -1,3 +1,6 @@
+"""
+Sets up the blueprint for home
+"""
 from flask import Blueprint
 
 bp = Blueprint('home', __name__)

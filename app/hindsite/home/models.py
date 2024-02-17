@@ -2,8 +2,6 @@
 Defines logic flow for the authentication process, additionally manages flask-login
 session management.
 """
-#TODO: remove the check for multiple groups. Since group's are handled by ID and membership
-# is based on another table.
 
 from sqlalchemy import select
 from app.hindsite.extensions import db
@@ -20,10 +18,6 @@ class GroupAddError(Exception):
     def __init__(self, message):
         self.message = message
 
-def get_group_id(email:str):
-    cur_usr = query.get_user(email)
-    return cur_usr.id
-
 def get_user(email: str):
     """
     Gets a single user record.
@@ -37,19 +31,6 @@ def get_user(email: str):
         return db.session.execute(stmt).first()[0]
     return None
 
-def get_user(email: str):
-    """
-    Gets a single user record.
-
-    :param email: **str** Email to check against the database
-    :returns: **User** or **None**
-    """
-    stmt = select(User).filter_by(email=email)
-    user = db.session.execute(stmt).first()
-    if user is not None:
-        return db.session.execute(stmt).first()[0]
-    return None
-# TODO: all group functions need to change to id=integer not email. 
 def get_groups(email: str):
     """
     Gets all group records belonging to a user.
@@ -79,6 +60,7 @@ def is_group(id: int, group: str):
 
 def create_group(name: str, email: str):
     """
+    Creates the group and associates the group with the current user
     """
 
     user = get_user(email)

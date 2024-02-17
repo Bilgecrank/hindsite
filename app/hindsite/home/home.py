@@ -12,7 +12,6 @@ home = Blueprint('home',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
-selected = "Select Group"
 @home.route('/home', methods=['GET', 'POST'])
 @login_required
 def homepage():
@@ -34,7 +33,6 @@ def group_add():
             create_group(request.form['groupname'], current_user.id)
         except GroupAddError as e:
             error = e.message
-    title = 'Sign In'
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
@@ -42,5 +40,8 @@ def group_add():
 @home.route('/modal')
 @login_required
 def modal():
+    """
+        Route to retrieve the modal using HTMx
+    """
     groups = get_groups(current_user.id)
     return render_template('partials/modal.html', groups=groups)
