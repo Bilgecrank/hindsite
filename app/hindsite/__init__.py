@@ -35,8 +35,8 @@ def create_app():
     app.register_blueprint(core)
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
-    from app.hindsite.group_page.group_page import group_page
+    from app.hindsite.home.home import home
     # pylint: enable=wrong-import-position,import-outside-toplevel
-    app.register_blueprint(group_page)
+    app.register_blueprint(home)
 
     return app
