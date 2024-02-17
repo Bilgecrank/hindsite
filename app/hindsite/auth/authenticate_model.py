@@ -6,10 +6,10 @@ import re  # For serverside validation of secrets.
 
 import bcrypt
 import flask_login
+from sqlalchemy import select
 
-from app.hindsite.extensions import login_manager
-import app.hindsite.sql_query as query
-import app.hindsite.sql_update as update
+from app.hindsite.extensions import login_manager, db
+from app.hindsite.tables import User, Password
 
 login_manager.login_view = 'auth.sign_in'
 
@@ -44,6 +44,16 @@ class LoginError(Exception):
         self.message = message
 
 
+class QueryError(Exception):
+    """
+    Defines an issue that arises with a query.
+    """
+    message = None
+
+    def __init__(self, message):
+        self.message = message
+
+
 @login_manager.user_loader
 def user_loader(email: str):
     """
@@ -52,7 +62,7 @@ def user_loader(email: str):
     :param email: **str** Email user is logging in with.
     :return: **UserSession**
     """
-    if not query.is_user(email):
+    if not is_user(email):
         return None
     return UserSession(email)
 
@@ -66,7 +76,7 @@ def request_loader(request):
     :return: **UserSession**
     """
     email = request.form.get('email')
-    if not query.is_user(email):
+    if not is_user(email):
         return None
     return UserSession(email)
 
@@ -83,14 +93,20 @@ def register_user(email: str, password: str):
     :raises RegistrationError: Raises this in case of an already extant account or if the password
     is not a valid secret.
     """
-    if query.is_user(email):
+    if is_user(email):
         raise RegistrationError('ERROR: An account already exists with this email.')
     if not valid_secret(password):
         raise RegistrationError(
             'Passwords must at least 12 characters long, include 1 uppercase letter, 1 lowercase '
             'letter, 1 number, and 1 special character (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~).')
     hashword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-    update.add_user({'display_name': '', 'email': email, 'password': hashword})
+    new_user = User('',
+                    email=email)
+    new_user_pass = Password(user_id=new_user,
+                             password=hashword)
+    new_user.password = [new_user_pass]
+    db.session.add(new_user)
+    db.session.commit()
     return True
 
 
@@ -113,10 +129,58 @@ def login(email: str, password: str):
     :param password: **str** An unhashed password that should match the account its attached to.
     :return: **str** Returns a string indicating an error or **None** if login was successful.
     """
-    if not query.is_user(email):
+    if not is_user(email):
         raise LoginError('This email is not attached to an account.')
-    user_id = query.get_user(email).id
-    if bcrypt.checkpw(password.encode('utf-8'), query.get_hashword(user_id)):
+    user_id = get_user(email).id
+    if bcrypt.checkpw(password.encode('utf-8'), get_hashword(user_id)):
         flask_login.login_user(UserSession(email))
         return True
     return False
+
+
+def logout():
+    """
+    Logs a user out of the system by clearing their cookie with flask_login.
+    """
+    flask_login.logout_user()
+
+
+def get_user(email: str):
+    """
+    Gets a single user record.
+
+    :param email: **str** Email to check against the database
+    :returns: **User** or **None**
+    """
+    stmt = select(User).filter_by(email=email)
+    user = db.session.execute(stmt).first()
+    if user is not None:
+        return db.session.execute(stmt).first()[0]
+    return None
+
+
+def is_user(email: str):
+    """
+    Returns if the user is actually a user in the database by checking if their
+    email returns a result
+
+    :param email: **str** Email to check against the database.
+    :returns: **bool** Whether the user record is present in the database.
+    """
+    return get_user(email) is not None
+
+
+def get_hashword(user_id: int):
+    """
+    Compares the password in the database to see if the supplied hash matches the stored hash.
+
+    :param user_id: The user id of the record to be searched.
+    :returns: **PyBytes** Returns an encoding password to be matched.
+
+    :raises QueryError: Raises when a password record is not found for a user.
+    """
+    stmt = select(Password).filter_by(user_id=user_id).order_by(Password.password)
+    password_record = db.session.execute(stmt).first()
+    if password_record is None:
+        raise QueryError('A password was not found!')
+    return password_record[0].password.encode('utf-8')

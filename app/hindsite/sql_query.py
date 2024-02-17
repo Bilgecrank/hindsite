@@ -51,3 +51,4 @@ def get_hashword(user_id: int):
     if password_record is None:
         raise QueryError('A password was not found!')
     return password_record[0].password.encode('utf-8')
+

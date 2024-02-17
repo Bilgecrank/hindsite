@@ -15,7 +15,7 @@ class Board(db.Model):  # pylint: disable=too-few-public-methods
     __tablename__ = 'board'
 
     id: Mapped[intpk] = mapped_column(init=False)
-    group_id: Mapped[int] = mapped_column(ForeignKey('hs_group.id'))
+    group_id: Mapped[int] = mapped_column(ForeignKey('hindsite_group.id'))
 
     timer: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
 
