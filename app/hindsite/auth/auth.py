@@ -22,7 +22,7 @@ def sign_in():
         try:
             login(request.form['email'],
                   request.form['password'])
-            return redirect(url_for('core.index'))
+            return redirect(url_for('home.homepage'))
         except LoginError as e:
             error = e.message
     title = 'Sign In'
@@ -41,7 +41,7 @@ def sign_up():
         try:
             register_user(request.form['email'],
                                request.form['password'])
-            return redirect(url_for('auth.sign_in'))
+            return redirect(url_for('home.homepage'))
         except RegistrationError as e:
             error = e.message
             flash(error)

@@ -11,14 +11,14 @@ core = Blueprint('core',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
-@core.route('/')
+@core.route('/group')
 @login_required
-def index():
+def group():
     """
-        Loads index.html, sets the title
+        Loads group.html, sets the title
     """
-    title = 'Index'
-    return render_template('index.html', title=title)
+    title = 'Group'
+    return render_template('group.html', title=title)
 
 
 @core.route('/retrospective')

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+
+    <div class="container-fluid m-0" id="content">
+        <button class="btn btn-secondary container-fluid m-0 dropdown-toggle"
+                type="button"
+                id="groupDropDown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Select Group
+        </button>
+        <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-md" aria-labelledby="groupDropDown">
+            {% for item in groups %}
+                <li><a class="dropdown-item"
+                    href="#">
+                    {{ item.name }}
+                </a>
+                </li>
+            {% endfor %}
+            
+            <li><a class="dropdown-item"
+                    href="#"
+                    hx-get="/modal"
+                    hx-target="#modal"
+                    hx-trigger="click"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal">
+                    Add Group
+                </a>
+            </li>
+        </ul>
+        <div 
+            id="modal"
+            class="modal modal-blur fade"
+            style="display: none"
+            aria-hidden="false"
+            tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    {% endblock %}

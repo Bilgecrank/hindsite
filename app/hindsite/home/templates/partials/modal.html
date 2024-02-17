@@ -1,0 +1,36 @@
+<div id="content" class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Add Group</h5>
+        </div>
+        <div class="modal-body">
+            <form action="/add-group" method="post" class="needs-validation my-5" >
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <label for="groupname" class="form-label">Enter New Group Name</label>
+                        <input type="text" class="form-control" id="groupname" name="groupname" required>
+                        <div class="invalid-feedback">
+                            Please enter a group name
+                        </div>
+                    </div>
+                </div>
+                    <div class="row align-items-center justify-content-space-between">
+                        <div class="col-auto">
+                            <button
+                                type="submit"
+                                class="btn btn-dark mx-1"
+                                href="#"
+                                data-bs-dismiss="modal">
+                                    Add</a>
+                            <button
+                                type="button"
+                                class="btn btn-dark mx-1"
+                                href="#"
+                                data-bs-dismiss="modal">
+                                    Cancel</a>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>

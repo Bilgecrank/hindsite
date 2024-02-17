@@ -3,7 +3,7 @@ Class definition for the group table
 """
 from sqlalchemy import String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.hindsite.extensions import db, intpk, user_membership
+from app.hindsite.tables.base import db, intpk, user_membership
 
 
 class Group(db.Model):  # pylint: disable=too-few-public-methods
@@ -15,7 +15,7 @@ class Group(db.Model):  # pylint: disable=too-few-public-methods
         name: **str** Identifying name for the group.
 
     """
-    __tablename__ = 'group'
+    __tablename__ = 'hs_group'
 
     id: Mapped[intpk] = mapped_column(init=False)
     name: Mapped[str] = mapped_column(String(50))
