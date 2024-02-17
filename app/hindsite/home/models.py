@@ -55,14 +55,10 @@ def get_group(id: int):
         return db.session.execute(stmt).first()[0]
     return None
 
-def is_group(id: int, group: str):
-    return get_group(id, group) is not None
-
 def create_group(name: str, email: str):
     """
     Creates the group and associates the group with the current user
     """
-
     user = get_user(email)
     group = add_group(name)
     user.groups.append(group)
