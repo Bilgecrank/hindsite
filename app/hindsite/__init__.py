@@ -4,7 +4,7 @@ Inits variables for the application
 
 from flask import Flask
 from app.hindsite.extensions import bootstrap, login_manager
-from app.hindsite.tables.base import db
+from app.hindsite.extensions import db
 
 
 def create_app():

@@ -3,6 +3,11 @@
 """
 import flask_login
 from flask_bootstrap import Bootstrap5
+from sqlalchemy import Table, Column, ForeignKey
+from typing_extensions import Annotated
+import sqlalchemy.orm
+from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
+from flask_sqlalchemy import SQLAlchemy
 
 bootstrap = Bootstrap5()
 
