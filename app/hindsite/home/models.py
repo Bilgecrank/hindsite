@@ -4,7 +4,7 @@ session management.
 """
 
 from sqlalchemy import select
-from app.hindsite.extensions import db
+from app.hindsite.tables.base import db
 from app.hindsite.tables import User, Group
 import app.hindsite.sql_query as query
 

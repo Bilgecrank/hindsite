@@ -3,7 +3,8 @@ Inits variables for the application
 """
 
 from flask import Flask
-from app.hindsite.extensions import db, bootstrap, login_manager, Base
+from app.hindsite.extensions import bootstrap, login_manager
+from app.hindsite.tables.base import db
 
 
 def create_app():
@@ -13,7 +14,6 @@ def create_app():
 
     app = Flask(__name__)
     app.config.from_object("config.Config")
-    db.Model = Base
 
     bootstrap.init_app(app)
     login_manager.init_app(app)
