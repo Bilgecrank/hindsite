@@ -2,7 +2,7 @@
 
     {% block content %}
 
-    <div class="container-fluid m-0" id="content">
+    <div class="container-fluid m-0 dropdown-center" id="content">
         <button class="btn btn-secondary container-fluid m-0 dropdown-toggle"
                 type="button"
                 id="groupDropDown"
@@ -10,7 +10,7 @@
                 aria-expanded="false">
                 Select Group
         </button>
-        <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-md" aria-labelledby="groupDropDown">
+        <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-sm text-center" aria-labelledby="groupDropDown">
             {% for item in groups %}
                 <li><a class="dropdown-item"
                     href="#">
@@ -19,15 +19,23 @@
                 </li>
             {% endfor %}
             
-            <li><a class="dropdown-item"
-                    href="#"
-                    hx-get="/modal"
-                    hx-target="#modal"
-                    hx-trigger="click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal">
-                    Add Group
-                </a>
+            <li>
+                <span class="container-fluid d-flex align-items-center">
+                    <a class="dropdown-item"
+                        href="#"
+                        hx-get="/modal"
+                        hx-target="#modal"
+                        hx-trigger="click"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modal">
+                        <img
+                            class="img-fluid"
+                            height="50"
+                            width="50"
+                            src="{{ url_for('static', filename='img/plus.svg') }}">
+                        </img>
+                    </a>
+                </span>
             </li>
         </ul>
         <div 

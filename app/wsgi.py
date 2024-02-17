@@ -9,5 +9,5 @@ app = create_app()
 
 # TEST OPTION: WIPE DATA FROM DB.
 with app.app_context():
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
