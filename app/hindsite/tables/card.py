@@ -18,7 +18,7 @@ class Card(db.Model):  # pylint: disable=too-few-public-methods
     field_id: Mapped[int] = mapped_column(ForeignKey('field.id'))
     author_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
     owner_id: Mapped[Optional[int]] = mapped_column(ForeignKey('user.id'))
-    message_body: Mapped[str] = mapped_column(String(64000))
+    message_body: Mapped[str] = mapped_column(String(2000))
     card_status: Mapped[str] = mapped_column(String(50))
     archived: Mapped[bool] = mapped_column(default=False)
     field = relationship('Field', back_populates='cards')
