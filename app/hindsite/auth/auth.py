@@ -3,7 +3,8 @@ Template route testing for development
 """
 import os
 from flask import Blueprint, flash, redirect, render_template, url_for, request
-from app.hindsite.auth.authenticate_model import LoginError, login, register_user, RegistrationError
+from flask_login import login_required
+from app.hindsite.auth.authenticate_model import LoginError, login, register_user, logout, RegistrationError
 
 static_dir = os.path.abspath('static')
 auth = Blueprint('auth',
@@ -47,3 +48,12 @@ def sign_up():
             flash(error)
     title = 'Sign up!'
     return render_template('sign-up.html', title=title)
+
+@auth.route('/sign-out')
+@login_required
+def sign_out():
+    """
+        Allows the user to sign-out
+    """
+    logout()
+    return redirect(url_for('auth.sign_in'))
