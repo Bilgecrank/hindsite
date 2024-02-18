@@ -4,9 +4,9 @@ session management.
 """
 
 from sqlalchemy import select
-from app.hindsite.tables.base import db
-from app.hindsite.tables import User, Group
-import app.hindsite.sql_query as query
+from app.hindsite.extensions import db
+from app.hindsite.common_model import get_user
+from app.hindsite.tables import Group
 
 class GroupAddError(Exception):
     """
@@ -17,19 +17,6 @@ class GroupAddError(Exception):
 
     def __init__(self, message):
         self.message = message
-
-def get_user(email: str):
-    """
-    Gets a single user record.
-
-    :param email: **str** Email to check against the database
-    :returns: **User** or **None**
-    """
-    stmt = select(User).filter_by(email=email)
-    user = db.session.execute(stmt).first()
-    if user is not None:
-        return db.session.execute(stmt).first()[0]
-    return None
 
 def get_groups(email: str):
     """
@@ -42,14 +29,14 @@ def get_groups(email: str):
     groups = user.groups
     return groups
 
-def get_group(id: int):
+def get_group(group_id: int):
     """
     Gets a group record belonging to a user.
 
     :param id: **int** id to check against the database
     :returns: **group** or **None**
     """
-    stmt = select(Group).where(Group.id == id)
+    stmt = select(Group).where(Group.id == group_id)
     groups = db.session.execute(stmt).first()
     if groups is not None:
         return db.session.execute(stmt).first()[0]

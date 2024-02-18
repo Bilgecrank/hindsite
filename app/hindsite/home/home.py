@@ -12,6 +12,13 @@ home = Blueprint('home',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
+@home.route('/')
+def index():
+    """
+        Just redirects to home at the root of the page.
+    """
+    return redirect(url_for('home.homepage'))
+
 @home.route('/home', methods=['GET', 'POST'])
 @login_required
 def homepage():
