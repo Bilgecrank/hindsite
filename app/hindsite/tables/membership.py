@@ -17,7 +17,7 @@ class Membership(db.Model):  # pylint: disable=too-few-public-methods
                                          init=False)
     group_id: Mapped[int] = mapped_column(ForeignKey('hindsite_group.id'), primary_key=True,
                                           init=False)
-    user: Mapped['User'] = relationship(back_populates='groups', init=False)
-    group: Mapped['Group'] = relationship(back_populates='users', init=False)
+    user: Mapped['User'] = relationship(back_populates='groups')
+    group: Mapped['Group'] = relationship(back_populates='users')
     owner: Mapped[bool] = mapped_column(default=False)
     invitation_accepted: Mapped[bool] = mapped_column(default=False)

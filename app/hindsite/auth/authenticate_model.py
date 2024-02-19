@@ -89,7 +89,7 @@ def register_user(email: str, password: str):
 
     :param email:
     :param password:
-    :return: **str** Returns a string indicating an error, or None if there is no error.
+    :return: **User** Returns the user created in registration.
 
     :raises RegistrationError: Raises this in case of an already extant account or if the password
     is not a valid secret.
@@ -108,7 +108,7 @@ def register_user(email: str, password: str):
     new_user.password = [new_user_pass]
     db.session.add(new_user)
     db.session.commit()
-    return True
+    return new_user
 
 
 def valid_secret(secret: str):
