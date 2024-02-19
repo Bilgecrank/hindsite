@@ -9,9 +9,15 @@ import sqlalchemy.orm
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
 from flask_sqlalchemy import SQLAlchemy
 
+# BOOTSTRAP INSTANTIATION
+
 bootstrap = Bootstrap5()
 
+# FLASK_LOGIN LOGIN MANAGER INSTANTIATION.
+
 login_manager = flask_login.LoginManager()
+
+# SQLALCHEMY EXTENSION SET-UP.
 
 
 class Base(DeclarativeBase, MappedAsDataclass):  # pylint: disable=too-few-public-methods
