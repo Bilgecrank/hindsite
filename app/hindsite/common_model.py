@@ -7,6 +7,7 @@ from sqlalchemy import select
 from app.hindsite.extensions import db
 from app.hindsite.tables import User
 
+
 def get_user(email: str):
     """
     Gets a single user record.

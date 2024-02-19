@@ -3,7 +3,7 @@
 """
 import flask_login
 from flask_bootstrap import Bootstrap5
-from sqlalchemy import Table, Column, ForeignKey
+from sqlalchemy import Table, Column, ForeignKey, Boolean
 from typing_extensions import Annotated
 import sqlalchemy.orm
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
@@ -31,7 +31,9 @@ user_membership = Table(
     'user_membership',
     Base.metadata,
     Column('user_id', ForeignKey('user.id'), primary_key=True),
-    Column('group_id', ForeignKey('hindsite_group.id'), primary_key=True)
+    Column('group_id', ForeignKey('hindsite_group.id'), primary_key=True),
+    Column('owner', Boolean, default='false'),
+    Column('accepted_invite', Boolean, default='false')
 )
 
 # pylint: disable=invalid-name
