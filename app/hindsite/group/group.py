@@ -34,8 +34,6 @@ def search_users():
             users = get_users(request.form['search'])
         except UserSearchError as e:
             error = e.message
-        except TypeError as e:
-            users = ["No results"]
         if error is not None:
             flash(error)
             return redirect(url_for('group_page'))

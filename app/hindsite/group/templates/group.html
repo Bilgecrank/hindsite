@@ -1,15 +1,18 @@
 {% extends 'base.html' %}
 
     {% block content %}
-    <input  class="form control" type="search"
-            name="search" placeholder="Begin Typing to Search Users..."
-            hx-post="/search-users"
-            hx-trigger="input changed delay:500ms, search"
-            hx-target="#search-results"
-            hx-indicator=".htmx-indicator">
-
-    
+        <input  class="form control" type="search"
+                name="search" placeholder="Begin Typing to Search Users..."
+                hx-post="/search-users"
+                hx-trigger="input changed delay:900ms, search"
+                hx-target="#search-results"
+                hx-indicator=".htmx-indicator">
+        </input>
+        <div class="htmx-indicator text-dark">
+                <img    alt="Loading..." 
+                        src="{{url_for('static', filename='img/three-dots.svg')}}"> 
+                Searching...
+        </div>    
     <div id="search-results">
-
     </div>
     {% endblock %}
