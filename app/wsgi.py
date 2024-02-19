@@ -1,13 +1,13 @@
 """
-App creation
+App creation file
 """
 
 from app.hindsite import create_app
-from app.hindsite.extensions import db
+
 app = create_app()
 
+# pylint: disable=wrong-import-position
+from app.test_data import populate_database
+# pylint: enable=wrong-import-position
 
-# TEST OPTION: WIPE DATA FROM DB.
-with app.app_context():
-    #db.drop_all()
-    db.create_all()
+populate_database(app)
