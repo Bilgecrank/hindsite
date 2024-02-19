@@ -6,7 +6,8 @@ session management.
 from sqlalchemy import select
 from app.hindsite.extensions import db
 from app.hindsite.common_model import get_user
-from app.hindsite.tables import Group
+from app.hindsite.tables import Group, Membership
+
 
 class GroupAddError(Exception):
     """
@@ -18,6 +19,7 @@ class GroupAddError(Exception):
     def __init__(self, message):
         self.message = message
 
+
 def get_groups(email: str):
     """
     Gets all group records belonging to a user.
@@ -26,14 +28,17 @@ def get_groups(email: str):
     :returns: **groups** or **None**
     """
     user = get_user(email)
-    groups = user.groups
+    groups = []
+    for membership in user.groups:
+        groups.append(membership.group)
     return groups
+
 
 def get_group(group_id: int):
     """
     Gets a group record belonging to a user.
 
-    :param id: **int** id to check against the database
+    :param group_id: **int** id to check against the database
     :returns: **group** or **None**
     """
     stmt = select(Group).where(Group.id == group_id)
@@ -42,14 +47,23 @@ def get_group(group_id: int):
         return db.session.execute(stmt).first()[0]
     return None
 
+
 def create_group(name: str, email: str):
     """
-    Creates the group and associates the group with the current user
+    Creates the group and associates the group with the current user. The creating
+    user is labeled as the owner of the group.
+
+    :param name: The name of the group to be created.
+    :param email: The email of the user to be added to the group.
+    :returns: **Group** The newly created group.
     """
     user = get_user(email)
     group = add_group(name)
-    user.groups.append(group)
-    db.session.add(user)
+    membership = Membership()
+    membership.user = user
+    membership.owner = True
+    group.users.append(membership)
+    db.session.add(membership)
     db.session.commit()
     return group
 
