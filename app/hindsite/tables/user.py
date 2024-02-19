@@ -3,10 +3,10 @@ Class definition for the user table
 """
 import datetime
 
-from typing import Optional
+from typing import Optional, List
 from sqlalchemy import DateTime, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from app.hindsite.extensions import db, intpk, user_membership
+from app.hindsite.extensions import db, intpk
 
 
 class User(db.Model):  # pylint: disable=too-few-public-methods
@@ -31,8 +31,8 @@ class User(db.Model):  # pylint: disable=too-few-public-methods
     last_name: Mapped[Optional[str]] = mapped_column(String(50), init=False)
     display_name: Mapped[Optional[str]] = mapped_column(String(50))
     email: Mapped[str] = mapped_column(String(50), unique=True)
+    password = relationship("Password", back_populates='user')
+    groups: Mapped[List['UserMembership']] = relationship(back_populates='user', init=False)
     last_login: Mapped[datetime.datetime] = mapped_column(
         DateTime(timezone=True), default=datetime.datetime.now())
     verified: Mapped[bool] = mapped_column(default=False)
-    password = relationship("Password", back_populates='user')
-    groups = relationship('Group', secondary=user_membership, back_populates='users')

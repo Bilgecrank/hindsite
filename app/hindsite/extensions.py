@@ -25,17 +25,6 @@ class Base(DeclarativeBase, MappedAsDataclass):  # pylint: disable=too-few-publi
     The base model for the classes to be declared.
     """
 
-
-# Defines association table for the User/Group relationship
-user_membership = Table(
-    'user_membership',
-    Base.metadata,
-    Column('user_id', ForeignKey('user.id'), primary_key=True),
-    Column('group_id', ForeignKey('hindsite_group.id'), primary_key=True),
-    Column('owner', Boolean, default='false'),
-    Column('accepted_invite', Boolean, default='false')
-)
-
 # pylint: disable=invalid-name
 intpk = Annotated[int, sqlalchemy.orm.mapped_column(primary_key=True,
                                                     autoincrement=True)]
