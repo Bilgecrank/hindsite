@@ -4,7 +4,7 @@ Association table for groups and users.
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.hindsite import db
+from app.hindsite.extensions import db
 
 
 class Membership(db.Model):  # pylint: disable=too-few-public-methods

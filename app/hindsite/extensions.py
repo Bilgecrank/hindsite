@@ -3,7 +3,6 @@
 """
 import flask_login
 from flask_bootstrap import Bootstrap5
-from sqlalchemy import Table, Column, ForeignKey, Boolean
 from typing_extensions import Annotated
 import sqlalchemy.orm
 from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass

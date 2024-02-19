@@ -118,5 +118,3 @@ def add_group(name: str):
     db.session.add(new_group)
     db.session.commit()
     return new_group
-
-
