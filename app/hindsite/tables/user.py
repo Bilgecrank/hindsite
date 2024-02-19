@@ -22,6 +22,7 @@ class User(db.Model):  # pylint: disable=too-few-public-methods
         last_login: **datetime** Datetime of the User's last login into the system.
         verified: **bool** Whether or not the user's email address has been verified.
         password: **Password** Reference to password table entry.
+        groups: **Group** Groups that user currently belongs to.
     """
     __tablename__ = 'user'
 
