@@ -11,10 +11,10 @@
                 Select Group
         </button>
         <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-sm text-center" aria-labelledby="groupDropDown">
-            {% for item in groups %}
+            {% for group in groups %}
                 <li><a class="dropdown-item"
                     href="#">
-                    {{ item.name }}
+                    {{ group.name }}
                 </a>
                 </li>
             {% endfor %}

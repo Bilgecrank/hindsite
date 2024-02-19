@@ -1,18 +1,15 @@
 {% extends 'base.html' %}
 
     {% block content %}
+    <input  class="form control" type="search"
+            name="search" placeholder="Begin Typing to Search Users..."
+            hx-post="/search-users"
+            hx-trigger="input changed delay:500ms, search"
+            hx-target="#search-results"
+            hx-indicator=".htmx-indicator">
 
-    <div class="card m-5">
-        <div class="card-body">
-            <h5 class="card-title">Hello Authenticated User</h5>
-            <p class="card-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Fuga reprehenderit molestiae, vel corporis tempore ipsa mollitia! 
-                Consectetur officiis magni ullam dolores corrupti porro eaque esse. 
-                Illum repudiandae quidem commodi accusamus!
-            </p>
-            <a href="{{ url_for('group.group_page')}}" class="btn btn-primary">HOME</a>
-        </div>
+    
+    <div id="search-results">
+
     </div>
-
     {% endblock %}

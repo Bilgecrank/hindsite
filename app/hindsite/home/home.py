@@ -4,7 +4,7 @@ Template route testing for development
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app.hindsite.home.models import create_group, get_groups, GroupAddError
+from app.hindsite.home.home_model import create_group, get_groups, GroupAddError
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
