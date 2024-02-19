@@ -21,3 +21,17 @@ def populate_database(app):
                       'Ialwaysaintafraid_ofnuthin1')
         register_user('emperorssortagoodboi@imperium.vox',
                       'Isometimesaintafraid_ofnuthin1')
+        register_user('lancevancevt@gmail.com',
+                      'Vht0326TST1!')
+        register_user('emperors1goodboi@imperium.vox',
+                    'Iaintafraid_ofnuthin1')
+        register_user('emperors2notgoodboi@imperium.vox',
+                      'Ialwaysaintafraid_ofnuthin1')
+        register_user('emperor3ssortagoodboi@imperium.vox',
+                      'Isometimesaintafraid_ofnuthin1')
+        register_user('bemperorsgoodboi@imperium.vox',
+                    'Iaintafraid_ofnuthin1')
+        register_user('cemperorsnotgoodboi@imperium.vox',
+                      'Ialwaysaintafraid_ofnuthin1')
+        register_user('demperorssortagoodboi@imperium.vox',
+                      'Isometimesaintafraid_ofnuthin1')
