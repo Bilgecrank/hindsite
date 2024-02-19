@@ -27,6 +27,7 @@ def search_users():
     """
         Loads the user search results
     """
+
     error = None
     if request.method == 'POST':
         try:
@@ -37,4 +38,6 @@ def search_users():
         if error is not None:
             flash(error)
             return redirect(url_for('group_page'))
+    if request.form['search'] == "":
+        users = ""
     return render_template('partials/search-results.html', users=users)

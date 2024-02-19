@@ -26,7 +26,12 @@ def get_users(term: str):
     :returns: **User** or **None**
     """
     if term is not None:
-        users = db.session.query(User).where(User.email.contains(term))
+        #TODO: Change this to filter_by with an | clause in between
+        users = db.session.query(User) \
+        .filter(User.display_name.icontains(term) \
+                | User.email.icontains(term) \
+                | User.first_name.icontains(term) \
+                | User.last_name.icontains(term))
         if users is not None:
             return users
         return None

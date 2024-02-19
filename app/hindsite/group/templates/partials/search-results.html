@@ -1,7 +1,25 @@
-{% if users != "" %}
-    {% for user in users %}
-        <p>
-            {{ user.email }} {{ user.display_name }}
-        </p>
-    {% endfor %}
-{% endif %}
+<div class="overflow-auto mw-30 mh-30 text-light">
+    {% if users != "" %}
+        {% for user in users %}
+                <div class="content-sm bg-secondary">
+                    <div class="btn btn-secondary w-100 d-flex justify-content-end align-items-center">
+                        <p class="px-5 text-align-center">
+                            {{ user.email }}
+                        </p>
+                        <p class="px-5 text-align-center">
+                            {{ user.display_name }}
+                        </p> 
+                        <a href="#" class="px-5 btn btn-light">
+                            Invite User
+                            <img
+                            class="img-fluid"
+                            height="25"
+                            width="25"
+                            src="{{ url_for('static', filename='img/plus.svg') }}">
+                            </img>
+                        </a>
+                    </div>
+                </div>
+        {% endfor %}
+    {% endif %}
+</div>
