@@ -19,6 +19,8 @@ class UserSession(flask_login.UserMixin):
     """
     User session object that store session variables.
     """
+    facilitator = False
+    group = None
     def __init__(self, user_id):
         self.id = user_id
 

@@ -59,20 +59,6 @@ def accept_invitation(membership: Membership):
     db.session.commit()
 
 
-def get_group(group_id: int):
-    """
-    Gets a group record belonging to a user.
-
-    :param group_id: **int** id to check against the database
-    :returns: **group** or **None**
-    """
-    stmt = select(Group).where(Group.id == group_id)
-    groups = db.session.execute(stmt).first()
-    if groups is not None:
-        return db.session.execute(stmt).first()[0]
-    return None
-
-
 def create_group(name: str, email: str):
     """
     Creates the group and associates the group with the current user. The creating

@@ -8,14 +8,19 @@
                 id="groupDropDown"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
-                Select Group
+                {{ selected }}
         </button>
         <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-sm text-center" aria-labelledby="groupDropDown">
             {% for group in groups %}
-                <li><a class="dropdown-item"
-                    href="#">
-                    {{ group.name }}
-                </a>
+                <li>
+                    <form>
+                        <a class="dropdown-item"
+                            href="#"
+                            hx-post="/home?groupname={{ group.name }}"
+                            hx-target="#content">
+                            {{ group.name }}
+                        </a>
+                    </form>
                 </li>
             {% endfor %}
             
@@ -38,20 +43,19 @@
                 </span>
             </li>
         </ul>
-        <div id="invites"
-             hx-get="/invites">
+    </div>
+    <div id="invites"
+            hx-get="/invites">
 
-        </div>
-        <div 
-            id="modal"
-            class="modal modal-blur fade"
-            style="display: none"
-            aria-hidden="false"
-            tabindex="-1">
-            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                <div class="modal-content"></div>
-            </div>
-        </div>
+    </div>
+    <div 
+        id="modal"
+        class="modal modal-blur fade"
+        style="display: none"
+        aria-hidden="false"
+        tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content"></div>
         </div>
     </div>
 

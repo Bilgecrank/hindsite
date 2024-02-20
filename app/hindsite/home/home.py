@@ -25,8 +25,19 @@ def homepage():
     """
         Loads home.html, sets the title
     """
+    selected = "Select Group"
     groups = get_groups(current_user.id)
-    return render_template('home.html', title='Home', groups=groups)
+    if request.method == 'POST':
+        try:
+            current_user.group = request.args['groupname']
+        except Exception:
+            flash('There was an error.')
+
+        if current_user.group != None:
+            selected = current_user.group
+        return render_template('partials/dropdown.html', title='Home', groups=groups, selected=selected)
+    
+    return render_template('home.html', title='Home', groups=groups, selected=selected)
 
 @home.route('/invites')
 @login_required
