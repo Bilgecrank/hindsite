@@ -4,7 +4,6 @@ Template route testing for development
 import os
 from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 from flask_login import login_required
-from pymysql import IntegrityError
 from app.hindsite.group.group_model import send_invitation
 
 from app.hindsite.group.group_model import UserSearchError, get_users
