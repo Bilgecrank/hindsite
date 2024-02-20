@@ -19,20 +19,6 @@ class GroupAddError(Exception):
         self.message = message
 
 
-def get_groups(email: str):
-    """
-    Gets all group records belonging to a user.
-
-    :param email: **str** Email to check against the database
-    :returns: **list** A list of the user's current groups.
-    """
-    user = get_user(email)
-    groups = []
-    for membership in user.groups:
-        if membership.invitation_accepted is True:
-            groups.append(membership.group)
-    return groups
-
 
 def get_invitations(email: str):
     """

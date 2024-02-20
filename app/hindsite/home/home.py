@@ -4,7 +4,8 @@ Template route testing for development
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app.hindsite.home.home_model import create_group, get_groups, GroupAddError, get_invitations
+from app.hindsite.home.home_model import create_group, GroupAddError, get_invitations
+from app.hindsite.common_model import get_groups
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -32,7 +33,6 @@ def homepage():
             current_user.group = request.args['groupname']
         except Exception:
             flash('There was an error.')
-
         if current_user.group != None:
             selected = current_user.group
         return render_template('partials/dropdown.html', title='Home', groups=groups, selected=selected)
@@ -58,6 +58,7 @@ def group_add():
     if request.method == 'POST':
         try:
             create_group(request.form['groupname'], current_user.id)
+            current_user.group = request.form['groupname']
         except GroupAddError as e:
             error = e.message
     if error is not None:
