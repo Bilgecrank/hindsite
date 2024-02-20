@@ -6,7 +6,8 @@ for all users who belong to the current group.
 from sqlalchemy import select
 
 from app.hindsite.extensions import db
-from app.hindsite.tables import User
+from app.hindsite.common_model import get_user, get_group
+from app.hindsite.tables import User, Membership
 
 class UserSearchError(Exception):
     """
@@ -35,3 +36,19 @@ def get_users(term: str):
         if users is not None:
             return users
         return None
+    
+    def send_invitation(group_id: int, email: str):
+        """
+        Creates a Membership that signals an invitation to a user, by default the membership
+        is not an ownership membership and will have <code>invitation_accepted</code> set to False
+
+        :param group_id: The id of the group attached to the membership.
+        :param email: The email of the user to be added to the membership.
+        :returns: **Membership** A reference to the membership object.
+        """
+        user = get_user(email)
+        group = get_group(group_id)
+        membership = Membership(user, group)
+        db.session.add(membership)
+        db.session.commit()
+        return membership

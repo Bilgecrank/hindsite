@@ -4,7 +4,7 @@ Template route testing for development
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import login_required, current_user
-from app.hindsite.home.home_model import create_group, get_groups, GroupAddError
+from app.hindsite.home.home_model import create_group, get_groups, GroupAddError, get_invitations
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -27,6 +27,15 @@ def homepage():
     """
     groups = get_groups(current_user.id)
     return render_template('home.html', title='Home', groups=groups)
+
+@home.route('/invites')
+@login_required
+def invites():
+    """
+        Loads all the invite codes to be accepted or rejected
+    """
+    invites = get_invitations(current_user.id)
+    return render_template('partials/invites.html', invites=invites)
 
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
