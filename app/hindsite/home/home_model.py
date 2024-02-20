@@ -1,10 +1,8 @@
 """
 Defines logic adding and creating groups.
 """
-
-from sqlalchemy import select
 from app.hindsite.extensions import db
-from app.hindsite.common_model import get_group, get_user
+from app.hindsite.common_model import get_user
 from app.hindsite.tables import Group, Membership
 
 

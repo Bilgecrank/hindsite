@@ -4,8 +4,9 @@ Template route testing for development
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
-from app.hindsite.home.home_model import accept_invitation, create_group, GroupAddError, get_invitation, get_invitations
-from app.hindsite.common_model import get_group, get_groups
+from app.hindsite.home.home_model import accept_invitation, create_group, \
+    GroupAddError, get_invitation, get_invitations
+from app.hindsite.common_model import get_groups
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -38,10 +39,10 @@ def homepage():
         except Exception as ex:
             flash('There was an error.')
             print(ex)
-        if session['groupname'] != None:
+        if session['groupname'] is not None:
             selected = session['groupname']
-        return render_template('partials/dropdown.html', title='Home', groups=groups, selected=selected)
-    
+        return render_template('partials/dropdown.html', title='Home', \
+                               groups=groups, selected=selected)
     return render_template('home.html', title='Home', groups=groups, selected=selected)
 
 @home.route('/invites', methods=['POST', 'GET'])
@@ -52,8 +53,8 @@ def invites():
     """
     error = None
     if request.method == 'GET':
-        invites = get_invitations(current_user.id)
-        return render_template('partials/invites.html', invites=invites)
+        invitations = get_invitations(current_user.id)
+        return render_template('partials/invites.html', invitations=invitations)
     if request.method == 'POST':
         try:
             group = request.args['group']
@@ -61,6 +62,7 @@ def invites():
             accept_invitation(membership)
         except GroupAddError as e:
             error = e.message
+            flash(error)
     return render_template('partials/accepted.html', group=group)
 
 @home.route('/add-group', methods=['GET', 'POST'])

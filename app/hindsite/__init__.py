@@ -9,9 +9,9 @@ from app.hindsite.extensions import db
 
 def create_app():
     """
-    Application factory to create app. Initializes the configuration which loads the
-    environment variables, then initializes bootstrap, the login_manager, and the 
-    database. 
+        Application factory to create app. Initializes the configuration which loads the
+        environment variables, then initializes bootstrap, the login_manager, and the 
+        database. 
     """
 
     app = Flask(__name__)
@@ -20,12 +20,10 @@ def create_app():
     bootstrap.init_app(app)
     login_manager.init_app(app)
     db.init_app(app)
-
-    """
-    Blueprints are registered and imported as shown below. The registration order doesn't
-    matter, so long as the pylint statements are around the import and the blueprint is
-    registered directly below it.
-    """
+    
+    # Blueprints are registered and imported as shown below. The registration order doesn't
+    # matter, so long as the pylint statements are around the import and the blueprint is
+    # registered directly below it.
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
     from app.hindsite.auth.auth import auth

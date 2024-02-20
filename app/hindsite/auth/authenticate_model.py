@@ -23,12 +23,6 @@ class UserSession(flask_login.UserMixin):
     def __init__(self, user_id):
         self.id = user_id
 
-    def setData(self, key, value):
-        setattr(self, key, value)
-
-    def getData(self, key):
-        return getattr(self, key, None)
-
 class RegistrationError(Exception):
     """
     Definition for errors raised by the register_user function

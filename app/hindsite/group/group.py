@@ -20,8 +20,6 @@ def group_page():
     """
         Loads group.html, sets the title
     """
-    print(session['groupname'])
-    print(session['groupid'])
     return render_template('group.html', title='Group')
 
 @group.route('/search-users', methods=['GET', 'POST'])
@@ -55,7 +53,7 @@ def send_invite():
         try:
             user = request.args['user']
             send_invitation(session['groupid'], user)
-        except Exception as ex:
-            print(ex)
+        except UserSearchError as ex:
+            flash(ex.message)
         return "Invitation Sent!"
     return render_template('partials/search-results.html')
