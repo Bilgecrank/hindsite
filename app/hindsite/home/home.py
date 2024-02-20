@@ -36,9 +36,8 @@ def homepage():
         try:
             session['groupname'] = request.args['groupname']
             session['groupid'] = request.args['group_id']
-        except Exception as ex:
-            flash('There was an error.')
-            print(ex)
+        except GroupAddError as ex:
+            flash(ex.message)
         if session['groupname'] is not None:
             selected = session['groupname']
         return render_template('partials/dropdown.html', title='Home', \
@@ -89,4 +88,3 @@ def modal():
     """
     groups = get_groups(current_user.id)
     return render_template('partials/modal.html', groups=groups)
-

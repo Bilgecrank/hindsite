@@ -20,7 +20,7 @@ def create_app():
     bootstrap.init_app(app)
     login_manager.init_app(app)
     db.init_app(app)
-    
+
     # Blueprints are registered and imported as shown below. The registration order doesn't
     # matter, so long as the pylint statements are around the import and the blueprint is
     # registered directly below it.
