@@ -32,7 +32,7 @@ def search_users():
     error = None
     if request.method == 'POST':
         try:
-            # get users
+            #TODO: Check if user invited during search
             users = get_users(request.form['search'])
         except UserSearchError as e:
             error = e.message
@@ -51,8 +51,12 @@ def send_invite():
     """
     if request.method == 'POST':
         try:
-            user = request.args['user']
-            send_invitation(session['groupid'], user)
+            if 'groupid' in session:
+                user = request.args['user']
+                #TODO: check for an invitation prior to sending
+                send_invitation(session['groupid'], user)
+            else:
+                raise UserSearchError("no group selected")
         except UserSearchError as ex:
             flash(ex.message)
         return "Invitation Sent!"

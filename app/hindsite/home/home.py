@@ -27,10 +27,11 @@ def homepage():
     """
         Loads home.html, sets the title
     """
-    if session['groupname'] is not None:
-        selected = session['groupname']
-    else:
-        selected = "Select Group"
+    if not 'groupname' in session or session['groupname'] is None:
+        #Ensures session contains groupname and sets a default value
+        session['groupname'] = "Select a Group"
+    selected = session['groupname']
+
     groups = get_groups(current_user.id)
     if request.method == 'POST':
         try:
@@ -38,7 +39,7 @@ def homepage():
             session['groupid'] = request.args['group_id']
         except GroupAddError as ex:
             flash(ex.message)
-        if session['groupname'] is not None:
+        if 'groupname' in session:
             selected = session['groupname']
         return render_template('partials/dropdown.html', title='Home', \
                                groups=groups, selected=selected)
