@@ -9,7 +9,9 @@
                         <p class="px-5 py-1 text-align-center">
                             {{ user.display_name }}
                         </p> 
-                        <a href="#" class="px-5 py-1 btn btn-light">
+                        <a href="#" class="px-5 py-1 btn btn-light"
+                            hx-post="/send-invite?user={{ user.email }}"
+                            hx-target="#invite-code">
                             Send Invite
                             <img
                             class="img-fluid"

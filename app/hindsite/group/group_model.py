@@ -37,18 +37,18 @@ def get_users(term: str):
             return users
         return None
     
-    def send_invitation(group_id: int, email: str):
-        """
-        Creates a Membership that signals an invitation to a user, by default the membership
-        is not an ownership membership and will have <code>invitation_accepted</code> set to False
+def send_invitation(group_id: int, email: str):
+    """
+    Creates a Membership that signals an invitation to a user, by default the membership
+    is not an ownership membership and will have <code>invitation_accepted</code> set to False
 
-        :param group_id: The id of the group attached to the membership.
-        :param email: The email of the user to be added to the membership.
-        :returns: **Membership** A reference to the membership object.
-        """
-        user = get_user(email)
-        group = get_group(group_id)
-        membership = Membership(user, group)
-        db.session.add(membership)
-        db.session.commit()
-        return membership
+    :param group_id: The id of the group attached to the membership.
+    :param email: The email of the user to be added to the membership.
+    :returns: **Membership** A reference to the membership object.
+    """
+    user = get_user(email)
+    group = get_group(group_id)
+    membership = Membership(user, group)
+    db.session.add(membership)
+    db.session.commit()
+    return membership

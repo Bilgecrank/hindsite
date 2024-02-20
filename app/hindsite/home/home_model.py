@@ -4,7 +4,7 @@ Defines logic adding and creating groups.
 
 from sqlalchemy import select
 from app.hindsite.extensions import db
-from app.hindsite.common_model import get_user
+from app.hindsite.common_model import get_group, get_user
 from app.hindsite.tables import Group, Membership
 
 
@@ -34,6 +34,23 @@ def get_invitations(email: str):
         if membership.invitation_accepted is False:
             invitations.append(membership)
     return invitations
+
+
+def get_invitation(group_id: int, email: str):
+    """
+    Looks at memberships matching the user with the supplied email and
+    returns all invitations that are currently active.
+
+    :param group_id: ID of the group to get the invitation of
+    :param email: Email of the user being checked for invitations.
+    :returns: **List** A list of Memberships for invitations.
+    """
+    invitations = get_invitations(email)
+    membership = None
+    for invitation in invitations:
+        if int(invitation.group.id) == int(group_id):
+            membership = invitation
+    return membership
 
 
 def accept_invitation(membership: Membership):

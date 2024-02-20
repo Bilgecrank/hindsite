@@ -16,7 +16,7 @@
                     <form>
                         <a class="dropdown-item"
                             href="#"
-                            hx-post="/home?groupname={{ group.name }}"
+                            hx-post="/home?groupname={{ group.name }}&group_id={{ group.id }}"
                             hx-target="#content">
                             {{ group.name }}
                         </a>
@@ -44,8 +44,14 @@
             </li>
         </ul>
     </div>
+    <div id="accept-invite">
+
+    </div>
     <div id="invites"
-            hx-get="/invites">
+        hx-get="/invites"
+        hx-trigger="every 3s"
+        hx-target="#invites"
+        hx-swap="innerHTML">
 
     </div>
     <div 

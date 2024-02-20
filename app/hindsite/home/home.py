@@ -2,10 +2,10 @@
 Template route testing for development
 """
 import os
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
-from app.hindsite.home.home_model import create_group, GroupAddError, get_invitations
-from app.hindsite.common_model import get_groups
+from app.hindsite.home.home_model import accept_invitation, create_group, GroupAddError, get_invitation, get_invitations
+from app.hindsite.common_model import get_group, get_groups
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -26,27 +26,42 @@ def homepage():
     """
         Loads home.html, sets the title
     """
-    selected = "Select Group"
+    if session['groupname'] is not None:
+        selected = session['groupname']
+    else:
+        selected = "Select Group"
     groups = get_groups(current_user.id)
     if request.method == 'POST':
         try:
-            current_user.group = request.args['groupname']
-        except Exception:
+            session['groupname'] = request.args['groupname']
+            session['groupid'] = request.args['group_id']
+        except Exception as ex:
             flash('There was an error.')
-        if current_user.group != None:
-            selected = current_user.group
+            print(ex)
+        if session['groupname'] != None:
+            selected = session['groupname']
         return render_template('partials/dropdown.html', title='Home', groups=groups, selected=selected)
     
     return render_template('home.html', title='Home', groups=groups, selected=selected)
 
-@home.route('/invites')
+@home.route('/invites', methods=['POST', 'GET'])
 @login_required
 def invites():
     """
         Loads all the invite codes to be accepted or rejected
     """
-    invites = get_invitations(current_user.id)
-    return render_template('partials/invites.html', invites=invites)
+    error = None
+    if request.method == 'GET':
+        invites = get_invitations(current_user.id)
+        return render_template('partials/invites.html', invites=invites)
+    if request.method == 'POST':
+        try:
+            group = request.args['group']
+            membership = get_invitation(group, current_user.id)
+            accept_invitation(membership)
+        except GroupAddError as e:
+            error = e.message
+    return render_template('partials/accepted.html', group=group)
 
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
@@ -58,7 +73,6 @@ def group_add():
     if request.method == 'POST':
         try:
             create_group(request.form['groupname'], current_user.id)
-            current_user.group = request.form['groupname']
         except GroupAddError as e:
             error = e.message
     if error is not None:
@@ -73,3 +87,4 @@ def modal():
     """
     groups = get_groups(current_user.id)
     return render_template('partials/modal.html', groups=groups)
+

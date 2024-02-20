@@ -2,8 +2,9 @@
 Template route testing for development
 """
 import os
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, session, url_for
 from flask_login import login_required
+from app.hindsite.group.group_model import send_invitation
 
 from app.hindsite.group.group_model import UserSearchError, get_users
 
@@ -19,6 +20,8 @@ def group_page():
     """
         Loads group.html, sets the title
     """
+    print(session['groupname'])
+    print(session['groupid'])
     return render_template('group.html', title='Group')
 
 @group.route('/search-users', methods=['GET', 'POST'])
@@ -41,3 +44,18 @@ def search_users():
     if request.form['search'] == "":
         users = ""
     return render_template('partials/search-results.html', users=users)
+
+@group.route('/send-invite', methods=['GET', 'POST'])
+@login_required
+def send_invite():
+    """
+        POST route to send invite codes to other users.
+    """
+    if request.method == 'POST':
+        try:
+            user = request.args['user']
+            send_invitation(session['groupid'], user)
+        except Exception as ex:
+            print(ex)
+        return "Invitation Sent!"
+    return render_template('partials/search-results.html')
