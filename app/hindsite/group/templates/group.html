@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 
     {% block content %}
-
-    <div class="card m-5">
-        <div class="card-body">
-            <h5 class="card-title">Hello Authenticated User</h5>
-            <p class="card-text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Fuga reprehenderit molestiae, vel corporis tempore ipsa mollitia! 
-                Consectetur officiis magni ullam dolores corrupti porro eaque esse. 
-                Illum repudiandae quidem commodi accusamus!
-            </p>
-            <a href="{{ url_for('group.group_page')}}" class="btn btn-primary">HOME</a>
-        </div>
+        <div class="container-fluid w-100 p-5">
+                <h5 class="h-5">Search for users to invite</h5>
+                <input  class="form-control-lg" type="search"
+                        name="search" placeholder="Begin Typing to Search..."
+                        hx-post="/search-users"
+                        hx-trigger="input changed delay:300ms, search"
+                        hx-target="#search-results"
+                        hx-indicator=".htmx-indicator">
+                </input>
+                <div class="htmx-indicator text-dark">
+                        <img    alt="Loading..."
+                                src="{{url_for('static', filename='img/three-dots.svg')}}">
+                        Searching...
+                </div>
+        </div> 
+    <div id="search-results"  class="container-sm">
     </div>
+    <div class="container-sm" id="invite-code">
 
+    </div>
     {% endblock %}

@@ -5,6 +5,7 @@ session management.
 import re  # For serverside validation of secrets.
 
 import bcrypt
+from flask import session
 import flask_login
 from sqlalchemy import select
 
@@ -21,7 +22,6 @@ class UserSession(flask_login.UserMixin):
     """
     def __init__(self, user_id):
         self.id = user_id
-
 
 class RegistrationError(Exception):
     """
@@ -53,7 +53,6 @@ class QueryError(Exception):
 
     def __init__(self, message):
         self.message = message
-
 
 @login_manager.user_loader
 def user_loader(email: str):
@@ -135,6 +134,9 @@ def login(email: str, password: str):
     user_id = get_user(email).id
     if bcrypt.checkpw(password.encode('utf-8'), get_hashword(user_id)):
         flask_login.login_user(UserSession(email))
+        session['groupname'] = None
+        session['groupid'] = None
+        session['facilitator'] = False
         return True
     return False
 

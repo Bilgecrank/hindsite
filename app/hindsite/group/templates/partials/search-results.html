@@ -1,0 +1,27 @@
+<div class="overflow-auto w-30 text-light">
+    {% if users != "" %}
+        {% for user in users %}
+                <div class="content-sm bg-secondary">
+                    <div class="btn btn-secondary w-100 d-flex justify-content-between align-items-center">
+                        <p class="px-5 py-1 text-align-center">
+                            {{ user.email }}
+                        </p>
+                        <p class="px-5 py-1 text-align-center">
+                            {{ user.display_name }}
+                        </p> 
+                        <a href="#" class="px-5 py-1 btn btn-light"
+                            hx-post="/send-invite?user={{ user.email }}"
+                            hx-target="#invite-code">
+                            Send Invite
+                            <img
+                            class="img-fluid"
+                            height="25"
+                            width="25"
+                            src="{{ url_for('static', filename='img/plus.svg') }}">
+                            </img>
+                        </a>
+                    </div>
+                </div>
+        {% endfor %}
+    {% endif %}
+</div>
