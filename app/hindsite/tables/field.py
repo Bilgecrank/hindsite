@@ -22,9 +22,13 @@ class Field(db.Model):  # pylint: disable=too-few-public-methods
     """
     __tablename__ = 'field'
 
-    id: Mapped[intpk] = mapped_column(init=False)
+    id: Mapped[intpk]
     board_id: Mapped[int] = mapped_column(ForeignKey('board.id'))
     name: Mapped[str] = mapped_column(String(50))
     board: Mapped['Board'] = relationship(back_populates='fields')
     cards: Mapped[List['Card']] = relationship(back_populates='field')
     archived: Mapped[bool] = mapped_column(default=False)
+
+    def __init__(self, name, board):
+        self.name = name
+        self.board = board
