@@ -6,6 +6,7 @@ from app.hindsite.extensions import db
 from app.hindsite.common_model import get_user, get_group
 from app.hindsite.tables import User, Membership
 
+
 class UserSearchError(Exception):
     """
     Definition for errors raised by the login function
@@ -16,21 +17,23 @@ class UserSearchError(Exception):
     def __init__(self, message):
         self.message = message
 
+
 def get_users(term: str):
     """
     Gets a single user record.
 
-    :param email: **str** Email to check against the database
+    :param term: **str** Email to check against the database
     :returns: **User** or **None**
     """
     users = None
     if term is not None:
         users = db.session.query(User) \
-        .filter(User.display_name.icontains(term) \
-                | User.email.icontains(term) \
-                | User.first_name.icontains(term) \
-                | User.last_name.icontains(term))
+            .filter(User.display_name.icontains(term)
+                    | User.email.icontains(term)
+                    | User.first_name.icontains(term)
+                    | User.last_name.icontains(term))
     return users
+
 
 def send_invitation(group_id: int, email: str):
     """

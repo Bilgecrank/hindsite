@@ -22,4 +22,4 @@ class Group(db.Model):  # pylint: disable=too-few-public-methods
     id: Mapped[intpk] = mapped_column(init=False)
     name: Mapped[str] = mapped_column(String(50))
     users: Mapped[List['Membership']] = relationship(back_populates='group', init=False)
-    boards = relationship('Board', back_populates='groups')
+    boards: Mapped[List['Board']] = relationship(back_populates='groups', init=False)

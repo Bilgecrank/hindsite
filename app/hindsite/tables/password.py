@@ -21,12 +21,15 @@ class Password(db.Model):  # pylint: disable=too-few-public-methods
     """
     __tablename__ = 'password'
 
-    id: Mapped[intpk] = mapped_column(init=False)
+    id: Mapped[intpk]
     user_id: Mapped[int] = mapped_column(ForeignKey('user.id'))
     password: Mapped[str] = mapped_column(String(63))
+    user: Mapped['User'] = relationship(back_populates='password')
     last_updated: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True),
                                  default=datetime.datetime.now(),
                                  server_default=text(
                                  'CURRENT_TIMESTAMP ON UPDATE '
                                  'CURRENT_TIMESTAMP'))
-    user = relationship('User', back_populates='password')
+
+    def __init__(self, password):
+        self.password = password

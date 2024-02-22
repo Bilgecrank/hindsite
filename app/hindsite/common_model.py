@@ -22,6 +22,17 @@ def get_user(email: str):
     return None
 
 
+def get_user_by_id(user_id: int):
+    """
+    Fetches a single user record by id.
+
+    :param user_id: The user's primary key.
+
+    Returns:
+
+    """
+
+
 def get_groups(email: str):
     """
     Gets all group records belonging to a user.
@@ -35,6 +46,7 @@ def get_groups(email: str):
         if membership.invitation_accepted is True:
             groups.append(membership.group)
     return groups
+
 
 def get_group(group_id: int):
     """

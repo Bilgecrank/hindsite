@@ -1,6 +1,8 @@
 """
 Defines the model for the Field Table
 """
+from typing import List
+
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.hindsite.extensions import db, intpk
@@ -23,6 +25,6 @@ class Field(db.Model):  # pylint: disable=too-few-public-methods
     id: Mapped[intpk] = mapped_column(init=False)
     board_id: Mapped[int] = mapped_column(ForeignKey('board.id'))
     name: Mapped[str] = mapped_column(String(50))
+    board: Mapped['Board'] = relationship(back_populates='fields')
+    cards: Mapped[List['Card']] = relationship(back_populates='field')
     archived: Mapped[bool] = mapped_column(default=False)
-    board = relationship('Board', back_populates='fields')
-    cards = relationship('Card', back_populates='field')
