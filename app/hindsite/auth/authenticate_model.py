@@ -94,7 +94,9 @@ def register_user(email: str, password: str):
     is not a valid secret.
     """
     if is_user(email):
-        raise RegistrationError('ERROR: An account already exists with this email.')
+        raise RegistrationError('An account already exists with this email.')
+    if not valid_email(email):
+        raise RegistrationError('Please enter a valid email.')
     if not valid_secret(password):
         raise RegistrationError(
             'Passwords must at least 12 characters long, include 1 uppercase letter, 1 lowercase '
@@ -108,6 +110,19 @@ def register_user(email: str, password: str):
     db.session.add(new_user)
     db.session.commit()
     return new_user
+
+
+def valid_email(email: str):
+    """
+    Validates entered emails that largely comply with RFC 5322:
+    https://datatracker.ietf.org/doc/html/rfc5322#section-3.4
+
+    :param email: **str** Email to be analyzed.
+
+    :returns: **bool** Whether the email meats the requirements or not.
+    """
+    return re.fullmatch(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*"
+                        r"[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", email)
 
 
 def valid_secret(secret: str):
