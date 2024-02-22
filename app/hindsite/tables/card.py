@@ -38,8 +38,7 @@ class Card(db.Model):  # pylint: disable=too-few-public-methods
     card_status: Mapped[str] = mapped_column(String(50), default="New")
     archived: Mapped[bool] = mapped_column(default=False)
 
-
-    def __init__(self, field, owner, message):
+    def __init__(self, field, author, message):
         self.field = field
-        self.owner = owner
+        self.author = author
         self.message_body = message
