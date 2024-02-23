@@ -68,6 +68,7 @@ def add_field(board: Board, name: str):
     if len(name) > 50:
         raise FieldError("Field name too long(50 characters).")
     new_field = Field(board, name)
+    db.session.add(new_field)
     db.session.commit()
     return new_field
 
@@ -84,6 +85,7 @@ def add_card(field: Field, author: 'User', card_message: str):
     if len(card_message) > 2000:
         raise CardError("Card message is too long(2000 characters).")
     new_card = Card(field, author, card_message)
+    db.session.add(new_card)
     db.session.commit()
     return new_card
 
