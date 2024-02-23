@@ -42,6 +42,7 @@ class CardError(Exception):
     def __init__(self, message):
         self.message = message
 
+# CREATE
 
 def create_board(group_id: int):
     """
@@ -87,6 +88,43 @@ def add_card(field: Field, author: 'User', card_message: str):
     return new_card
 
 
+# READ
+
+
+def get_boards(group_id: int):
+    """
+    Retrieves a list of references to the boards attached to a group.
+
+    :param group_id: **int** The primary key of the group.
+    :return: **List[Board]** The boards attached to the group.
+    """
+    group = get_group(group_id)
+    return group.boards
+
+
+def get_fields(board: Board):
+    """
+    Returns a list of fields attached to a board.
+
+    :param board: **Board** The selected board to derive fields from.
+    :return: **List[Field]** A list of fields associated with the board.
+    """
+    return board.fields
+
+
+def get_cards(field: Field):
+    """
+    Returns a list of cards attached to a field.
+
+    :param field: **Field** The selected field to derive cards from.
+    :return: **List[Card]** A list of cards associated with the field.
+    """
+    return field.cards
+
+
+# UPDATE
+
+
 def set_end_date_for_board(board: Board, end_date_time: datetime.datetime):
     """
     Sets a new end date for the board.
@@ -100,7 +138,6 @@ def set_end_date_for_board(board: Board, end_date_time: datetime.datetime):
     board.end_time = end_date_time
     db.session.commit()
     return board
-
 
 def update_field_name(field: Field, name: str):
     """
@@ -116,7 +153,6 @@ def update_field_name(field: Field, name: str):
     db.session.commit()
     return field
 
-
 def move_card(card: Card, field: Field):
     """
     Changes the assigned field of a card from the current to the one specified.
@@ -128,7 +164,6 @@ def move_card(card: Card, field: Field):
     card.field = field
     db.session.commit()
     return card
-
 
 def update_card_message(card: Card, card_message: str):
     """
@@ -144,7 +179,6 @@ def update_card_message(card: Card, card_message: str):
     db.session.commit()
     return card
 
-
 def update_card_owner(card: Card, new_owner: 'User'):
     """
     Updates the owner of a card indicating possession of an issue or retrospective.
@@ -156,7 +190,6 @@ def update_card_owner(card: Card, new_owner: 'User'):
     card.owner = new_owner
     db.session.commit()
     return card
-
 
 def update_card_status(card: Card, new_status: str):
     """
