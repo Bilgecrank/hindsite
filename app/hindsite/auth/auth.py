@@ -41,8 +41,11 @@ def sign_up():
     error = ''
     if request.method == 'POST':  # Triggers if a user hits submit on a registration form.
         try:
-            register_user(request.form['email'],
-                               request.form['password'])
+            register_user(
+                    request.form['email'], 
+                    request.form['confirmEmail'],
+                    request.form['password'],
+                    request.form['confirmPassword'])
             return redirect(url_for('home.homepage'))
         except RegistrationError as e:
             error = e.message

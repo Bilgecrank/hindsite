@@ -12,7 +12,7 @@ def populate_database(app):
     :param app: Running flask app.
     """
     with app.app_context():
-        #db.drop_all()
+        # db.drop_all()
         db.create_all()
 
         # register_user('emperorsgoodboi@imperium.vox',
