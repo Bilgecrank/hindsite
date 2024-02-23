@@ -104,7 +104,7 @@ def get_boards(group_id: int, archive_status=False):
     group = get_group(group_id)
     board_list = []
     for board in group.boards:
-        if board is archive_status:
+        if board.archived is archive_status:
             board_list.append(board)
     return board_list
 
