@@ -5,6 +5,7 @@ session management.
 import re  # For serverside validation of secrets.
 
 import bcrypt
+from flask import session
 import flask_login
 from sqlalchemy import select
 
@@ -21,7 +22,6 @@ class UserSession(flask_login.UserMixin):
     """
     def __init__(self, user_id):
         self.id = user_id
-
 
 class RegistrationError(Exception):
     """
@@ -54,7 +54,6 @@ class QueryError(Exception):
     def __init__(self, message):
         self.message = message
 
-
 @login_manager.user_loader
 def user_loader(email: str):
     """
@@ -82,7 +81,7 @@ def request_loader(request):
     return UserSession(email)
 
 
-def register_user(email: str, password: str):
+def register_user(email: str, email_compare: str, password: str, password_compare: str):
     """
     Takes in a user's email and password, checks if the email is already associated with an account,
     then checks if the password is a valid entry.
@@ -94,6 +93,10 @@ def register_user(email: str, password: str):
     :raises RegistrationError: Raises this in case of an already extant account or if the password
     is not a valid secret.
     """
+    if email != email_compare:
+        raise RegistrationError('ERROR: Email and confirm email do not match.')
+    if password != password_compare:
+        raise RegistrationError('ERROR: Password and confirm password do not match.')
     if is_user(email):
         raise RegistrationError('ERROR: An account already exists with this email.')
     if not valid_secret(password):
@@ -135,6 +138,9 @@ def login(email: str, password: str):
     user_id = get_user(email).id
     if bcrypt.checkpw(password.encode('utf-8'), get_hashword(user_id)):
         flask_login.login_user(UserSession(email))
+        session['groupname'] = None
+        session['groupid'] = None
+        session['facilitator'] = False
         return True
     return False
 

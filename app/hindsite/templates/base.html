@@ -94,21 +94,21 @@
           <div class="pt-4 w-100 h-100">
             {% block content %}
             {% endblock %}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="alert alert-danger">
+                <ul>
+                  {% for message in messages %}
+                    <li>
+                        {{ message }}
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+            {% endif %}
+          {% endwith %}
           </div>
-        </div>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="alert alert-danger">
-              <ul>
-                {% for message in messages %}
-                  <li>
-                      {{ message }}
-                  </li>
-                {% endfor %}
-              </ul>
-            </div>
-          {% endif %}
-        {% endwith %}
+        </div>        
       </main>
     {{ bootstrap.load_js() }}
   </body>

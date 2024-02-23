@@ -12,12 +12,26 @@ def populate_database(app):
     :param app: Running flask app.
     """
     with app.app_context():
-        db.drop_all()
+        # db.drop_all()
         db.create_all()
 
-        register_user('emperorsgoodboi@imperium.vox',
-                    'Iaintafraid_ofnuthin1')
-        register_user('emperorsnotgoodboi@imperium.vox',
-                      'Ialwaysaintafraid_ofnuthin1')
-        register_user('emperorssortagoodboi@imperium.vox',
-                      'Isometimesaintafraid_ofnuthin1')
+        # register_user('emperorsgoodboi@imperium.vox','emperorsgoodboi@imperium.vox',
+        #             'Iaintafraid_ofnuthin1','Iaintafraid_ofnuthin1')
+        # register_user('emperorsnotgoodboi@imperium.vox','emperorsnotgoodboi@imperium.vox',
+        #               'Ialwaysaintafraid_ofnuthin1','Ialwaysaintafraid_ofnuthin1')
+        # register_user('emperorssortagoodboi@imperium.vox','emperorssortagoodboi@imperium.vox',
+        #               'Isometimesaintafraid_ofnuthin1','Isometimesaintafraid_ofnuthin1')
+        # register_user('lancevancevt@gmail.com','lancevancevt@gmail.com',
+        #               'Vht0326TST1!','Vht0326TST1!')
+        # register_user('emperors1goodboi@imperium.vox','emperors1goodboi@imperium.vox',
+        #             'Iaintafraid_ofnuthin1','Iaintafraid_ofnuthin1')
+        # register_user('emperors2notgoodboi@imperium.vox','emperors2notgoodboi@imperium.vox',
+        #               'Ialwaysaintafraid_ofnuthin1','Ialwaysaintafraid_ofnuthin1')
+        # register_user('emperor3ssortagoodboi@imperium.vox','emperor3ssortagoodboi@imperium.vox',
+        #               'Isometimesaintafraid_ofnuthin1','Isometimesaintafraid_ofnuthin1')
+        # register_user('bemperorsgoodboi@imperium.vox','bemperorsgoodboi@imperium.vox',
+        #             'Iaintafraid_ofnuthin1','Iaintafraid_ofnuthin1')
+        # register_user('cemperorsnotgoodboi@imperium.vox','cemperorsnotgoodboi@imperium.vox',
+        #               'Ialwaysaintafraid_ofnuthin1','Ialwaysaintafraid_ofnuthin1')
+        # register_user('demperorssortagoodboi@imperium.vox','demperorssortagoodboi@imperium.vox',
+        #               'Isometimesaintafraid_ofnuthin1','Isometimesaintafraid_ofnuthin1')
