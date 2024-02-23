@@ -154,6 +154,7 @@ def set_end_date_for_board(board: Board, end_date_time: datetime.datetime):
     db.session.commit()
     return board
 
+
 def update_field_name(field: Field, name: str):
     """
     Updates the name of a field.
@@ -168,6 +169,7 @@ def update_field_name(field: Field, name: str):
     db.session.commit()
     return field
 
+
 def move_card(card: Card, field: Field):
     """
     Changes the assigned field of a card from the current to the one specified.
@@ -179,6 +181,7 @@ def move_card(card: Card, field: Field):
     card.field = field
     db.session.commit()
     return card
+
 
 def update_card_message(card: Card, card_message: str):
     """
@@ -194,6 +197,7 @@ def update_card_message(card: Card, card_message: str):
     db.session.commit()
     return card
 
+
 def update_card_owner(card: Card, new_owner: 'User'):
     """
     Updates the owner of a card indicating possession of an issue or retrospective.
@@ -205,6 +209,7 @@ def update_card_owner(card: Card, new_owner: 'User'):
     card.owner = new_owner
     db.session.commit()
     return card
+
 
 def update_card_status(card: Card, new_status: str):
     """
@@ -219,3 +224,33 @@ def update_card_status(card: Card, new_status: str):
     card.card_status = new_status
     db.session.commit()
     return card
+
+
+# DELETE
+
+
+def toggle_archive_board(board: Board):
+    """
+    Toggles the archive status of a board.
+
+    :param board: The board to be archived or reactivated.
+    :return: The board whose archival was changed.
+    """
+    if board.archived is False:
+        board.archived = True
+    else:
+        board.archived = False
+    return board
+
+
+def toggle_archive_field(field: Field):
+    """
+    Toggles the archive status of a field.
+
+    :param field: **Field** The field to be archived or reactivated.
+    :return: **Field** The field whose archival was changed.
+    """
+    if field.archived is False:
+        field.archived = True
+    else:
+        field.archived = True
