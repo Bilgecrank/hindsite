@@ -7,8 +7,6 @@ import re  # For serverside validation of secrets.
 import bcrypt
 from flask import session
 import flask_login
-from sqlalchemy import select
-
 from app.hindsite.extensions import login_manager, db
 from app.hindsite.tables import User, Password
 from app.hindsite.common_model import get_user
@@ -120,8 +118,9 @@ def valid_email(email: str):
 
     :returns: **bool** Whether the email meats the requirements or not.
     """
-    return re.fullmatch(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*"
-                        r"[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", email)
+    return re.fullmatch(r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
+                        r"*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+                        email)
 
 
 def valid_secret(secret: str):

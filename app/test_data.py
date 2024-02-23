@@ -3,7 +3,6 @@ Test data function to populate the table with tables.
 """
 
 from app.hindsite.extensions import db
-from app.hindsite.auth.authenticate_model import register_user
 
 
 def populate_database(app):

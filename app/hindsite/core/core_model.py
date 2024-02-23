@@ -3,8 +3,6 @@ Defines retrospective models to access boards, fields and cards.
 """
 import datetime
 
-from sqlalchemy.orm import Mapped
-
 from app.hindsite import db
 from app.hindsite.common_model import get_group
 from app.hindsite.tables import Board, Field, Card
@@ -42,7 +40,9 @@ class CardError(Exception):
     def __init__(self, message):
         self.message = message
 
+
 # CREATE
+
 
 def create_board(group_id: int):
     """
@@ -131,7 +131,7 @@ def get_cards(field: Field, archive_status=False):
     :return: **List[Card]** A list of cards associated with the field.
     """
     card_list = []
-    for card in field.cards
+    for card in field.cards:
         if card.archived is archive_status:
             card_list.append(card)
     return card_list

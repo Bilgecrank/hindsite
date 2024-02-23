@@ -29,6 +29,6 @@ class Field(db.Model):  # pylint: disable=too-few-public-methods
     cards: Mapped[List['Card']] = relationship(back_populates='field')
     archived: Mapped[bool] = mapped_column(default=False)
 
-    def __init__(self, name, board):
+    def __init__(self, board, name):
         self.name = name
         self.board = board
