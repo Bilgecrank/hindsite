@@ -36,6 +36,7 @@ def get_groups(email: str):
             groups.append(membership.group)
     return groups
 
+
 def get_group(group_id: int):
     """
     Gets a group record belonging to a user.

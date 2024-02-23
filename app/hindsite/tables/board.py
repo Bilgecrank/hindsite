@@ -2,6 +2,7 @@
 Contains the model for defining the Board table in the database.
 """
 import datetime
+from typing import List, Optional
 
 from sqlalchemy import ForeignKey, DateTime
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -24,12 +25,15 @@ class Board(db.Model):  # pylint: disable=too-few-public-methods
     """
     __tablename__ = 'board'
 
-    id: Mapped[intpk] = mapped_column(init=False)
+    id: Mapped[intpk]
     group_id: Mapped[int] = mapped_column(ForeignKey('hindsite_group.id'))
-    timer: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
-    end_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
+    timer: Mapped[Optional[datetime.datetime]] = mapped_column(DateTime(timezone=True))
+    end_time: Mapped[Optional[datetime.datetime]] = mapped_column(DateTime(timezone=True))
+    group: Mapped['Group'] = relationship(back_populates='boards')
+    fields: Mapped[List['Field']] = relationship(back_populates='board')
     start_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True),
                                                           default=datetime.datetime.now())
     archived: Mapped[bool] = mapped_column(default=False)
-    groups = relationship('Group', back_populates='boards')
-    fields = relationship('Field', back_populates='board')
+
+    def __init__(self, group):
+        self.group = group

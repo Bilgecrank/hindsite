@@ -7,8 +7,6 @@ import re  # For serverside validation of secrets.
 import bcrypt
 from flask import session
 import flask_login
-from sqlalchemy import select
-
 from app.hindsite.extensions import login_manager, db
 from app.hindsite.tables import User, Password
 from app.hindsite.common_model import get_user
@@ -54,6 +52,7 @@ class QueryError(Exception):
     def __init__(self, message):
         self.message = message
 
+
 @login_manager.user_loader
 def user_loader(email: str):
     """
@@ -94,20 +93,35 @@ def register_user(email: str, password: str):
     is not a valid secret.
     """
     if is_user(email):
-        raise RegistrationError('ERROR: An account already exists with this email.')
+        raise RegistrationError('An account already exists with this email.')
+    if not valid_email(email):
+        raise RegistrationError('Please enter a valid email.')
     if not valid_secret(password):
         raise RegistrationError(
             'Passwords must at least 12 characters long, include 1 uppercase letter, 1 lowercase '
             'letter, 1 number, and 1 special character (!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~).')
     hashword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     new_user = User('',
-                    email=email)
-    new_user_pass = Password(user_id=new_user,
-                             password=hashword)
-    new_user.password = [new_user_pass]
+                    email=email,
+                    password=Password(password=hashword))
     db.session.add(new_user)
     db.session.commit()
     return new_user
+
+
+def valid_email(email: str):
+    """
+    Validates entered emails that largely comply with RFC 5322:
+    https://datatracker.ietf.org/doc/html/rfc5322#section-3.4
+
+    :param email: **str** Email to be analyzed.
+
+    :returns: **bool** Whether the email meats the requirements or not.
+    """
+    return re.fullmatch(
+        r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)"
+        r"*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+                        email)
 
 
 def valid_secret(secret: str):
@@ -131,8 +145,8 @@ def login(email: str, password: str):
     """
     if not is_user(email):
         raise LoginError('This email is not attached to an account.')
-    user_id = get_user(email).id
-    if bcrypt.checkpw(password.encode('utf-8'), get_hashword(user_id)):
+    stored_password = get_user(email).password.password.encode('utf-8')
+    if bcrypt.checkpw(password.encode('utf-8'), stored_password):
         flask_login.login_user(UserSession(email))
         session['groupname'] = None
         session['groupid'] = None
@@ -147,6 +161,7 @@ def logout():
     """
     flask_login.logout_user()
 
+
 def is_user(email: str):
     """
     Returns if the user is actually a user in the database by checking if their
@@ -156,19 +171,3 @@ def is_user(email: str):
     :returns: **bool** Whether the user record is present in the database.
     """
     return get_user(email) is not None
-
-
-def get_hashword(user_id: int):
-    """
-    Compares the password in the database to see if the supplied hash matches the stored hash.
-
-    :param user_id: The user id of the record to be searched.
-    :returns: **PyBytes** Returns an encoding password to be matched.
-
-    :raises QueryError: Raises when a password record is not found for a user.
-    """
-    stmt = select(Password).filter_by(user_id=user_id).order_by(Password.password)
-    password_record = db.session.execute(stmt).first()
-    if password_record is None:
-        raise QueryError('A password was not found!')
-    return password_record[0].password.encode('utf-8')

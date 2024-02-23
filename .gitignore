@@ -1,3 +1,6 @@
+# Ignore test_data.py
+app/test_data.py
+
 # Ignore diagram folder
 .diagrams/
 
