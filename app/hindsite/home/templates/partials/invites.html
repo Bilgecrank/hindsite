@@ -9,11 +9,10 @@
             <div class="content-sm bg-secondary">
                 <div class="btn btn-secondary w-100 d-flex justify-content-between align-items-center">
                     <p class="px-5 py-1 text-align-center">
-                        You've been invited to the group: {{ invite.group.name }}
+                        You've been invited to the group: {{ invitation.group.name }}
                     </p>
                     <a href="#" class="px-5 py-1 btn btn-light"
-                        hx-post="/invites?group={{ invite.group.id }}"
-                        hx-target="#accept-invite">
+                        hx-post="/invites?group={{ invitation.group.id }}">
                         Accept Invite
                         <img
                         class="img-fluid"

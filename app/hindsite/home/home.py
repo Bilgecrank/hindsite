@@ -58,12 +58,13 @@ def invites():
     if request.method == 'POST':
         try:
             group = request.args['group']
+
             membership = get_invitation(group, current_user.id)
             accept_invitation(membership)
         except GroupAddError as e:
             error = e.message
             flash(error)
-    return render_template('partials/accepted.html', group=group)
+    return render_template('partials/accepted.html')
 
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
