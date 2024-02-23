@@ -91,35 +91,50 @@ def add_card(field: Field, author: 'User', card_message: str):
 # READ
 
 
-def get_boards(group_id: int):
+def get_boards(group_id: int, archive_status=False):
     """
     Retrieves a list of references to the boards attached to a group.
 
     :param group_id: **int** The primary key of the group.
+    :param archive_status: **bool** Whether to get active boards(false) or archived boards(true).
     :return: **List[Board]** The boards attached to the group.
     """
     group = get_group(group_id)
-    return group.boards
+    board_list = []
+    for board in group.boards:
+        if board is archive_status:
+            board_list.append(board)
+    return board_list
 
 
-def get_fields(board: Board):
+def get_fields(board: Board, archive_status=False):
     """
     Returns a list of fields attached to a board.
 
     :param board: **Board** The selected board to derive fields from.
+    :param archive_status: **bool** Whether to get active fields(false) or archived fields(true).
     :return: **List[Field]** A list of fields associated with the board.
     """
-    return board.fields
+    field_list = []
+    for field in board.fields:
+        if field.archived is archive_status:
+            field_list.append(field)
+    return field_list
 
 
-def get_cards(field: Field):
+def get_cards(field: Field, archive_status=False):
     """
     Returns a list of cards attached to a field.
 
     :param field: **Field** The selected field to derive cards from.
+    :param archive_status: **bool** Whether to get active cards(false) or archived cards(true).
     :return: **List[Card]** A list of cards associated with the field.
     """
-    return field.cards
+    card_list = []
+    for card in field.cards
+        if card.archived is archive_status:
+            card_list.append(card)
+    return card_list
 
 
 # UPDATE
