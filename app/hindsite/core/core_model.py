@@ -150,7 +150,7 @@ def set_end_date_for_board(board: Board, end_date_time: datetime.datetime):
     :param end_date_time: **datetime** The end date-time of the board.
     :return: **Board** The board that was modified.
     """
-    if end_date_time > board.start_time:
+    if end_date_time < board.start_time:
         raise BoardError("End time is before start time.")
     board.end_time = end_date_time
     db.session.commit()
