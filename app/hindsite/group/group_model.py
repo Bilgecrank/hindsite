@@ -2,9 +2,8 @@
 Allows the user to search for other users and send invites, while displaying user cards
 for all users who belong to the current group.
 """
-from sqlalchemy import and_
 from app.hindsite.extensions import db
-from app.hindsite.common_model import get_user, get_group, get_all_users
+from app.hindsite.common_model import get_user, get_group
 from app.hindsite.tables import User, Membership
 
 class UserSearchError(Exception):

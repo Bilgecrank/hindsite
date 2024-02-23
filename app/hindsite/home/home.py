@@ -27,7 +27,7 @@ def homepage():
     """
         Loads home.html, sets the title
     """
-    if not 'groupname' in session or session['groupname'] is None:
+    if 'groupname' not in session or session['groupname'] is None:
         #Ensures session contains groupname and sets a default value
         session['groupname'] = "Select a Group"
     selected = session['groupname']

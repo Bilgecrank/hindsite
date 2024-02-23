@@ -42,7 +42,7 @@ def sign_up():
     if request.method == 'POST':  # Triggers if a user hits submit on a registration form.
         try:
             register_user(
-                    request.form['email'], 
+                    request.form['email'],
                     request.form['confirmEmail'],
                     request.form['password'],
                     request.form['confirmPassword'])

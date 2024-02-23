@@ -31,15 +31,14 @@ def search_users():
     error = None
     if request.method == 'POST':
         try:
-            if not 'groupid' in session \
+            if 'groupid' not in session \
                     or session['groupid'] is None \
                     or session['groupid'] == 'Select a Group':
                 # Tell the user to select a group first.
                 return render_template('partials/no-group.html')
-            else:
-                # Load in the uninvited users
-                search = request.form['search']
-                users = get_uninvited_users(session['groupid'],search)
+            # Load in the uninvited users
+            search = request.form['search']
+            users = get_uninvited_users(session['groupid'],search)
         except UserSearchError as e:
             error = e.message
         if error is not None:
@@ -58,19 +57,18 @@ def send_invite():
     if request.method == 'POST':
         try:
             term = request.args['search']
-            if not 'groupid' in session \
+            if 'groupid' not in session \
                     or session['groupid'] is None \
                     or session['groupid'] == 'Select a Group':
                 # Tell the user to select a group first.
                 return render_template('partials/no-group.html')
-            else:
-                # Load in the user arg
-                user = request.args['user']
-                send_invitation(session['groupid'], user)
-                # load in the search results
-                # users = get_uninvited_users(session['groupid'], term)
-                # users = get_uninvited_users(session['groupid'],request.form['search'])
-                return render_template('partials/invite-sent.html', term=term)
+            # Load in the user arg
+            user = request.args['user']
+            send_invitation(session['groupid'], user)
+            # load in the search results
+            # users = get_uninvited_users(session['groupid'], term)
+            # users = get_uninvited_users(session['groupid'],request.form['search'])
+            return render_template('partials/invite-sent.html', term=term)
         except UserSearchError as ex:
             flash(ex.message)
     return render_template('partials/search-results.html')
