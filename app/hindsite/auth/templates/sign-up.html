@@ -16,7 +16,7 @@
         <div class="mb-3">
           <label for="confirmEmail" class="form-label">Reenter Email</label>
           <input type="email" class="form-control" id="confirmEmail" name="confirmEmail" required>
-          <div class="invalid-feedback">
+          <div class="invalid-feedback" id="email-feedback">
             Please confirm your email address.
           </div>
         </div>
@@ -30,12 +30,16 @@
         <div class="mb-3">
           <label for="confirmPassword" class="form-label">Reenter Password</label>
           <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-          <div class="invalid-feedback">
+          <div class="invalid-feedback" id="pw-feedback">
             Please confirm your password.
           </div>
         </div>
         <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary">Register</button>
+          <button 
+            type="submit" 
+            class="btn btn-primary">
+              Register
+        </button>
         </div>
       </form>
     </div>
