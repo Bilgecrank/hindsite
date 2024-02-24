@@ -3,10 +3,11 @@ Defines retrospective models to access boards, fields and cards.
 """
 import datetime
 
+from flask import session
+
 from app.hindsite import db
 from app.hindsite.common_model import get_group
 from app.hindsite.tables import Board, Field, Card
-
 
 class BoardError(Exception):
     """

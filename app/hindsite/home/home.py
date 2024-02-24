@@ -2,6 +2,7 @@
 Template route testing for development
 """
 import os
+from typing import Callable
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import accept_invitation, create_group, \
@@ -14,6 +15,11 @@ home = Blueprint('home',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
+def authorized(facilitator: bool, route_1: Callable, route_2: Callable):
+    if facilitator == True:
+        return route_1
+    return route_2
+
 @home.route('/')
 def index():
     """
@@ -24,6 +30,9 @@ def index():
 @home.route('/home', methods=['GET', 'POST'])
 @login_required
 def homepage():
+    return authorized(session['facilitator'], facilitator_route(), participant_route())
+
+def participant_route():
     """
         Loads home.html, sets the title
     """
@@ -44,6 +53,12 @@ def homepage():
         return render_template('partials/dropdown.html', title='Home', \
                                groups=groups, selected=selected)
     return render_template('home.html', title='Home', groups=groups, selected=selected)
+
+def facilitator_route():
+    """
+        Just redirects to home at the root of the page.
+    """
+    return "It worked!"
 
 @home.route('/invites', methods=['POST', 'GET'])
 @login_required

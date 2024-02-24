@@ -1,12 +1,10 @@
 """
     Common model to be used in submodels.
 """
-
 from sqlalchemy import select
 
 from app.hindsite.extensions import db
 from app.hindsite.tables import User, Group
-
 
 def get_user(email: str):
     """
