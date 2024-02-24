@@ -80,7 +80,7 @@ def request_loader(request):
     return UserSession(email)
 
 
-def register_user(email: str, password: str):
+def register_user(email: str, email_compare: str, password: str, password_compare: str):
     """
     Takes in a user's email and password, checks if the email is already associated with an account,
     then checks if the password is a valid entry.
@@ -92,6 +92,10 @@ def register_user(email: str, password: str):
     :raises RegistrationError: Raises this in case of an already extant account or if the password
     is not a valid secret.
     """
+    if email != email_compare:
+        raise RegistrationError('ERROR: Email and confirm email do not match.')
+    if password != password_compare:
+        raise RegistrationError('ERROR: Password and confirm password do not match.')
     if is_user(email):
         raise RegistrationError('An account already exists with this email.')
     if not valid_email(email):
