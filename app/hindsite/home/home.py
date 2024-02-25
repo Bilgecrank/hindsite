@@ -2,23 +2,17 @@
 Template route testing for development
 """
 import os
-from typing import Callable
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import accept_invitation, create_group, \
     GroupAddError, get_invitation, get_invitations
-from app.hindsite.common_model import get_groups
+from app.hindsite.common_model import get_groups, authorized
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
                    __name__,
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
-
-def authorized(facilitator: bool, route_1: Callable, route_2: Callable):
-    if facilitator == True:
-        return route_1
-    return route_2
 
 @home.route('/')
 def index():
@@ -30,7 +24,7 @@ def index():
 @home.route('/home', methods=['GET', 'POST'])
 @login_required
 def homepage():
-    return authorized(session['facilitator'], facilitator_route(), participant_route())
+    return authorized(facilitator_route(), participant_route())
 
 def participant_route():
     """

@@ -1,6 +1,8 @@
 """
     Common model to be used in submodels.
 """
+from typing import Callable
+from flask import session
 from sqlalchemy import select
 
 from app.hindsite.extensions import db
@@ -56,3 +58,11 @@ def get_group(group_id: int):
     if groups is not None:
         return db.session.execute(stmt).first()[0]
     return None
+
+def authorized(route_1: Callable, route_2: Callable):
+    facilitator = False
+    if session['facilitator'] is not None:
+        facilitator = session['facilitator']
+    if facilitator == True:
+        return route_1
+    return route_2
