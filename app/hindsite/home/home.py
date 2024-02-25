@@ -24,11 +24,18 @@ def index():
 @home.route('/home', methods=['GET', 'POST'])
 @login_required
 def homepage():
+    """
+        Checks the authorization state and returns the correct
+        function depending on what the facilitator session variable
+        value is.
+    """
     return authorized(facilitator_route(), participant_route())
 
 def participant_route():
     """
-        Loads home.html, sets the title
+        Loads home.html, sets the title and loads in the group
+        selection dropdown. Periodically checks for invites sent
+        from other users to their groups and loads them.
     """
     if 'groupname' not in session or session['groupname'] is None:
         #Ensures session contains groupname and sets a default value
@@ -50,7 +57,7 @@ def participant_route():
 
 def facilitator_route():
     """
-        Just redirects to home at the root of the page.
+        Test route for facilitator mode.
     """
     return "It worked!"
 
