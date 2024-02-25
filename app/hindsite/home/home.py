@@ -29,19 +29,25 @@ def homepage():
         function depending on what the facilitator session variable
         value is.
     """
-    return authorized(facilitator_route(), participant_route())
-
-def participant_route():
-    """
-        Loads home.html, sets the title and loads in the group
-        selection dropdown. Periodically checks for invites sent
-        from other users to their groups and loads them.
-    """
     if 'groupname' not in session or session['groupname'] is None:
         #Ensures session contains groupname and sets a default value
         session['groupname'] = "Select a Group"
     selected = session['groupname']
 
+    #TODO: The first version below is the correct route. Uncomment it to enable 
+    # proper routing.
+    #
+    # The second version below is to test/develop facilitator_route()
+
+    # return authorized(facilitator_route(), participant_route())
+    return authorized(participant_route(selected), facilitator_route(selected)) #TODO: Testing Facilitator mode
+
+def participant_route(selected: str):
+    """
+        Loads home.html, sets the title and loads in the group
+        selection dropdown. Periodically checks for invites sent
+        from other users to their groups and loads them.
+    """
     groups = get_groups(current_user.id)
     if request.method == 'POST':
         try:
@@ -53,13 +59,25 @@ def participant_route():
             selected = session['groupname']
         return render_template('partials/dropdown.html', title='Home', \
                                groups=groups, selected=selected)
+    
     return render_template('home.html', title='Home', groups=groups, selected=selected)
 
-def facilitator_route():
+def facilitator_route(selected: str):
     """
-        Test route for facilitator mode.
+        Route for Facilitator mode
     """
-    return "It worked!"
+    groups = get_groups(current_user.id)
+    if request.method == 'POST':
+        try:
+            session['groupname'] = request.args['groupname']
+            session['groupid'] = request.args['group_id']
+        except GroupAddError as ex:
+            flash(ex.message)
+        if 'groupname' in session:
+            selected = session['groupname']
+        return render_template('partials/dropdown.html', title='Home', \
+                               groups=groups, selected=selected)
+    return render_template('facilitator-home.html', title='Home', groups=groups, selected=selected)
 
 @home.route('/invites', methods=['POST', 'GET'])
 @login_required

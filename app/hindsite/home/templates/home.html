@@ -44,10 +44,15 @@
             </li>
         </ul>
     </div>
+    <div class="content-sm p-3">
+        {% block facilitator %}
+        {% endblock %}
+    </div>
     <div id="accept-invite">
 
     </div>
-    <div id="invites"
+    <div class="overflow-auto-sm text-light m-5"
+        id="invites"
         hx-get="/invites"
         hx-trigger="every 3s"
         hx-target="#invites"
