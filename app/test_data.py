@@ -63,6 +63,12 @@ def populate_database(app):
             output = output + a_card.message_body
         print(output)
         output = ''
+        boards = core.get_boards(group.id)
+        fields = core.get_fields(board)
+        cards = core.get_cards(field)
+        core.toggle_archive_board(boards[2])
+        core.toggle_archive_field(fields[2])
+        core.toggle_archive_card(cards[1])
         for got_board in core.get_boards(group.id):
             output = output + str(got_board.id) + ' | '
         output = output + '\n'
