@@ -21,3 +21,6 @@
     animation: rotate-out 0.25s;
     animation-fill-mode: forwards;
 }
+.h-90{
+    height: 90%;
+}

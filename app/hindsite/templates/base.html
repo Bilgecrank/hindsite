@@ -9,7 +9,7 @@
           href="{{ url_for('static', filename='styles/style.css')}}">
     <script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
   </head>
-  <body>
+  <body class="vh-100">
     <div class="row-g-0">
       <div class="column g-0 col">
         <!--Navbar needs to be fixed-top in order to adjust the height of the sidebar in large
@@ -44,7 +44,7 @@
         </nav>
             </div>
       </div>
-    <div class="row g-0">
+    <div class="row g-0 h-100">
       <div class="column g-0 col-sm-0 col-md-2">
         <div
           id="top-nav"
@@ -89,7 +89,7 @@
       </div>
       <!--The padding-top (pt) classes here are to adjust the main content down to account
       for the hidden portion of the sidebar in large screens-->
-      <main class="column g-0 col-sm-12 col-md-10 pt-5">
+      <main class="column g-0 col-sm-10 col-md-10 pt-5">
         <div class="pt-5 w-100 h-100">
           <div class="pt-4 w-100 h-100">
             {% block content %}

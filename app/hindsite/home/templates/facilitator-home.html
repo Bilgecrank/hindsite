@@ -1,7 +1,57 @@
 {% extends 'home.html' %}
 
     {% block facilitator %}
-        <div class="content-md bg-dark p-2 text-light">
-            Facilitator Mode!
+        <div class="content-md p-2 text-light h-100">
+            <!-- Mockup of the carousel and boards, cards and fields -->
+            <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
+                <div class="carousel-indicators">
+                    <button 
+                        type="button" 
+                        data-bs-target="#carousel" 
+                        data-bs-slide-to="0" 
+                        class="active" 
+                        aria-current="true" 
+                        aria-label="Slide 1"></button>
+                    <button 
+                        type="button" 
+                        data-bs-target="#carousel" 
+                        data-bs-slide-to="1" 
+                        aria-label="Slide 2"></button>
+                </div>
+                <div class="carousel-inner h-100">
+                    <div class="carousel-item active">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Quaerat aut eveniet voluptatum ea, natus suscipit laudantium
+                                    dolores tenetur rem nulla deserunt, ipsa recusandae nisi, blanditiis
+                                    atque saepe harum error alias.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Quaerat aut eveniet voluptatum ea, natus suscipit laudantium
+                                    dolores tenetur rem nulla deserunt, ipsa recusandae nisi, blanditiis
+                                    atque saepe harum error alias.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                        <span class="visually-hidden">Prev</span>
+                    </button>
+                    <button class="carousel-control-next" data-bs-target="#carousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
         </div>
     {% endblock %}
