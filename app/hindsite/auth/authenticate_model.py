@@ -5,7 +5,7 @@ session management.
 import re  # For serverside validation of secrets.
 
 import bcrypt
-from flask import session
+from flask import flash, make_response, redirect, session, url_for
 import flask_login
 from app.hindsite.extensions import login_manager, db
 from app.hindsite.tables import User, Password
@@ -78,6 +78,13 @@ def request_loader(request):
     if not is_user(email):
         return None
     return UserSession(email)
+
+@login_manager.unauthorized_handler
+def unauthorized():
+    response = make_response("error", 401)
+    response.headers['hx-redirect'] = url_for('auth.sign_in')
+    flash("You must log-in to continue", "error")
+    return response
 
 
 def register_user(email: str, email_compare: str, password: str, password_compare: str):
