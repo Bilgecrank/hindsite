@@ -29,13 +29,3 @@ def history():
     """
     title = 'History'
     return render_template('history.html', title=title)
-
-
-@core.route('/settings')
-@login_required
-def settings():
-    """
-        Loads settings.html, sets the title
-    """
-    title = 'Settings'
-    return render_template('settings.html', title=title)

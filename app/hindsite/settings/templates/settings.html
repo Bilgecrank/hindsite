@@ -1,45 +1,45 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4" id="settings-container">
+  <div class="container mt-4" id="settings-container">
 
-    <!-- Display Name Field -->
-    <div class="mb-3">
-      <form method="POST" hx-post="/update_display_name" hx-target="#settings-container" hx-swap="outerHTML">
-        <label for="display_name">Display Name</label>
-        <input type="text" id="display_name" name="display_name" value="{{ user_settings.display_name }}"
-               placeholder="{% if user_settings.display_name %}{{ user_settings.display_name }}{% else %}Enter new display name{% endif %}"
-               required>
-        <button type="submit" class="btn btn-primary">Change</button>
-      </form>
-    </div>
+      <!-- Display Name Field -->
+      <div class="mb-3">
+        <form method="POST" hx-post="/update_display_name" hx-target="#settings-container" hx-swap="outerHTML">
+          <label for="display_name">Display Name</label>
+          <input type="text" id="display_name" name="display_name" value="{{ user_settings.display_name }}"
+                placeholder="{% if user_settings.display_name %}{{ user_settings.display_name }}{% else %}Enter new display name{% endif %}"
+                required>
+          <button type="submit" class="btn btn-primary">Change</button>
+        </form>
+      </div>
 
-    <!-- Email Field -->
-    <div class="mb-3">
-      <form method="POST" hx-post="/update_email" hx-target="#settings-container" hx-swap="outerHTML">
-        <label for="newEmail">Email Address</label>
-        <input type="email" id="newEmail" name="email" value="{{ user_settings.email }}"
-               placeholder="{% if user_settings.email %} {{ user_settings.email }}{% else %}Enter new email{% endif %}"
-               required>
-        <button type="submit" class="btn btn-primary">Change</button>
-      </form>
-    </div>
+      <!-- Email Field -->
+      <div class="mb-3">
+        <form method="POST" hx-post="/update_email" hx-target="#settings-container" hx-swap="outerHTML">
+          <label for="newEmail">Email Address</label>
+          <input type="email" id="newEmail" name="email" value="{{ user_settings.email }}"
+                placeholder="{% if user_settings.email %} {{ user_settings.email }}{% else %}Enter new email{% endif %}"
+                required>
+          <button type="submit" class="btn btn-primary">Change</button>
+        </form>
+      </div>
 
-    <!-- Password Field -->
-    <div class="mb-3">
-      <form method="POST" hx-post="/update_password" hx-target="#settings-container" hx-swap="outerHTML">
-        <label for="newPassword">Password</label>
-        <input type="password" id="newPassword" value="{{ user_settings.password }}" name="password" placeholder="Enter new password" required>
-        <button type="submit" class="btn btn-primary">Change</button>
-      </form>
-    </div>
+      <!-- Password Field -->
+      <div class="mb-3">
+        <form method="POST" hx-post="/update_password" hx-target="#settings-container" hx-swap="outerHTML">
+          <label for="newPassword">Password</label>
+          <input type="password" id="newPassword" value="{{ user_settings.password }}" name="password" placeholder="Enter new password" required>
+          <button type="submit" class="btn btn-primary">Change</button>
+        </form>
+      </div>
 
-    <!-- Account Deletion Form -->
-    <div class="mb-3">
-      <form method="POST" hx-post="/delete_account" hx-target="#settings-container" hx-swap="outerHTML">
-        <button type="submit" class="btn btn-danger">Delete Account</button>
-      </form>
-    </div>
+      <!-- Account Deletion Form -->
+      <div class="mb-3">
+        <form method="POST" hx-post="/delete_account" hx-target="#settings-container" hx-swap="outerHTML">
+          <button type="submit" class="btn btn-danger">Delete Account</button>
+        </form>
+      </div>
 
-</div>
+  </div>
 {% endblock %}
