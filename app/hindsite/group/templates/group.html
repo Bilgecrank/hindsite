@@ -23,6 +23,17 @@
         </div> 
         <div id="invite-code">
         </div>
-        <div id="search-results"  class="container-sm">
+        <div id="search-results"  class="overflow-auto">
+        </div>
+        <div class="content-sm">
+                {% for user in users %}
+                <div class="content-sm bg-secondary">
+                        <div class="btn btn-secondary w-100 h-100 d-flex justify-content-start align-items-center">
+                                <p class="px-1 py-1 text-align-center">
+                                {{ user.user.email }}
+                                </p>
+                        </div>
+                </div>
+                {% endfor %}
         </div>
     {% endblock %}

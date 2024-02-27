@@ -53,7 +53,7 @@ def send_invitation(group_id: int, email: str):
 
 def get_uninvited_users(group_id: int, term: str):
     """
-    Gets all group records that a user hasn't been invited to.
+    Gets all user records that haven't been invited to a group.
     
     :param group_id: The id of the group being searched for uninvited users.
     :param term: The search term being used to populate the users.
@@ -72,3 +72,16 @@ def get_uninvited_users(group_id: int, term: str):
         if user not in members:
             uninvited_users.append(user)
     return uninvited_users
+
+def get_invited_users(group_id: int):
+    """
+    Gets all user records that have been invited to a group.
+
+    :param group_id: The id of the group that's currently selected.
+    "returns *list* a list of user objects
+    """
+    invited_users = []
+    group = get_group(group_id)
+    for member in group.users:
+        invited_users.append(member)
+    return invited_users

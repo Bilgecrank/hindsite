@@ -6,7 +6,7 @@ from flask import Blueprint, flash, redirect, render_template, request, session,
 from flask_login import login_required
 from app.hindsite.group.group_model import send_invitation
 
-from app.hindsite.group.group_model import UserSearchError, get_uninvited_users
+from app.hindsite.group.group_model import UserSearchError, get_uninvited_users, get_invited_users
 
 static_dir = os.path.abspath('static')
 group = Blueprint('group',
@@ -20,7 +20,11 @@ def group_page():
     """
         Loads group.html, sets the title
     """
-    return render_template('group.html', title='Group')
+    group = session.get('groupid')
+    users = []
+    if group is not None:
+        users = get_invited_users(group)
+    return render_template('group.html', title='Group', users=users)
 
 @group.route('/search-users', methods=['GET', 'POST'])
 @login_required

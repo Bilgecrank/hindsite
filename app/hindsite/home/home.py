@@ -84,6 +84,8 @@ def facilitator_route(selected: str):
 def invites():
     """
         Loads all the invite codes to be accepted or rejected
+    TODO: Put the invite codes into a modal, add decline button, create
+    notification bell to open the modal.
     """
     error = None
     if request.method == 'GET':
