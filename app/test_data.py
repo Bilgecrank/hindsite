@@ -44,6 +44,7 @@ def populate_database(app):
         # group = create_group('Imperium', 'emperorsgoodboi@imperium.vox')
 
         # board = core.create_board(group.id)
+        # board = core.set_start_date_for_board(board, datetime(2024,3,14))
         # core.create_board(group.id)
         # core.create_board(group.id)
         # field = core.add_field(board, 'A really good field.')
@@ -55,7 +56,8 @@ def populate_database(app):
         #                                                                'Test Test Test')
         # core.add_card(field, get_user('emperorsgoodboi@imperium.vox'), 'Test ')
         # print(str(board.end_time))
-        # core.set_end_date_for_board(board, datetime.now())
+        # core.set_end_date_for_board(board, datetime(2024,3,16))
+        # print(str(board.start_time))
         # print(str(board.end_time))
         # output = ''
         # core.move_card(card2, field2)

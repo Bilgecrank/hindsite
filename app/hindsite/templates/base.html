@@ -9,14 +9,13 @@
           href="{{ url_for('static', filename='styles/style.css')}}">
     <script src="{{ url_for('static', filename='htmx.min.js') }}"></script>
   </head>
-  <body class="vh-100">
+  <body class="vh-100" id="body">
     <div class="row-g-0">
       <div class="column g-0 col">
         <!--Navbar needs to be fixed-top in order to adjust the height of the sidebar in large
         screens. Because of this, the offcanvas is covered by the navbar. Some padding 
         adjustments were used below to move hidden portions down into the visible frame-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top"
-              id="redTheme">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
           <div class="justify-content-start container-fluid px-3 py-3">
             <button class="navbar-toggler d-lg-none rotation"
               type="button"

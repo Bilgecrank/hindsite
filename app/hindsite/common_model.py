@@ -72,7 +72,6 @@ def authorized(route_1: Callable, route_2: Callable):
     return route_2
 
 
-
 class BoardError(Exception):
     """
     Definition for errors raised by board function
@@ -157,6 +156,17 @@ def add_card(field: Field, author: 'User', card_message: str):
 
 # READ
 
+def get_most_recent_board(group_id: int, archive_status=False):
+    """
+    Retrieves the most recent board attached to a group
+
+    :param group_id: **int** The primary key of the group.
+    :param archive_status: **bool** Whether to get active boards(false) or archived boards(true).
+    :return: **List[Board]** The boards attached to the group.
+    """
+    group = get_group(group_id)
+    board = group.boards
+    return board
 
 def get_boards(group_id: int, archive_status=False):
     """
@@ -205,7 +215,19 @@ def get_cards(field: Field, archive_status=False):
 
 
 # UPDATE
+def set_start_date_for_board(board: Board, start_date_time: datetime.datetime):
+    """
+    Sets a new start date for the board.
 
+    :param board: **Board** The board to be modified.
+    :param end_date_time: **datetime** The start date-time of the board.
+    :return: **Board** The board that was modified.
+    """
+    if start_date_time < datetime.datetime.today():
+        raise BoardError("Start time is before current time and date")
+    board.start_time = start_date_time
+    db.session.commit()
+    return board
 
 def set_end_date_for_board(board: Board, end_date_time: datetime.datetime):
     """

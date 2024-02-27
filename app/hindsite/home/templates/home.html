@@ -2,7 +2,7 @@
 
     {% block content %}
 
-    <div class="container-fluid m-0 dropdown-center" id="content">
+    <div class="container-fluid m-0 dropdown-center" id="dropdown-container">
         <button class="btn btn-secondary container-fluid m-0 dropdown-toggle"
                 type="button"
                 id="groupDropDown"
@@ -17,7 +17,7 @@
                         <a class="dropdown-item"
                             href="#"
                             hx-post="/home?groupname={{ group.name }}&group_id={{ group.id }}"
-                            hx-target="#content">
+                            hx-target="#dropdown-container">
                             {{ group.name }}
                         </a>
                     </form>
@@ -44,7 +44,7 @@
             </li>
         </ul>
     </div>
-    <div class="content h-90">
+    <div class="content h-90" id="facilitator">
         {% block facilitator %}
         {% endblock %}
     </div>

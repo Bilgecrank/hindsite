@@ -1,12 +1,13 @@
 """
 Template route testing for development
 """
+import datetime
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import accept_invitation, create_group, \
     GroupAddError, get_invitation, get_invitations
-from app.hindsite.common_model import create_board, get_groups, authorized
+from app.hindsite.common_model import add_card, add_field, create_board, get_boards, get_groups, authorized, get_most_recent_board, get_user, set_start_date_for_board
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -39,8 +40,8 @@ def homepage():
     #
     # The second version below is to test/develop facilitator_route()
 
-    # return authorized(facilitator_route(), participant_route())
-    return authorized(participant_route(selected), facilitator_route(selected)) #TODO: Testing Facilitator mode
+    return authorized(facilitator_route(selected), participant_route(selected))
+    # return authorized(participant_route(selected), facilitator_route(selected)) #TODO: Testing Facilitator mode
 
 def participant_route(selected: str):
     """
@@ -67,6 +68,17 @@ def facilitator_route(selected: str):
         Route for Facilitator mode
     """
     groups = get_groups(current_user.id)
+    board = None
+    if 'groupid' in session and session['groupid'] is not None:
+            board = create_board(session['groupid'])
+            field = add_field(board, "Test Field")
+            add_card(field, get_user(current_user.id), "Test Card")
+            add_card(field, get_user(current_user.id), "Test Card2")
+            add_card(field, get_user(current_user.id), "Test Card3")
+            add_card(field, get_user(current_user.id), "Test Card4")
+            add_card(field, get_user(current_user.id), "Test Card5")
+            add_card(field, get_user(current_user.id), "Test Card6")
+
     if request.method == 'POST':
         try:
             session['groupname'] = request.args['groupname']
@@ -75,9 +87,9 @@ def facilitator_route(selected: str):
             flash(ex.message)
         if 'groupname' in session:
             selected = session['groupname']
-        return render_template('partials/dropdown.html', title='Home', \
-                               groups=groups, selected=selected)
-    return render_template('facilitator-home.html', title='Home', groups=groups, selected=selected)
+        return render_template('partials/facilitator-blob.html', title='Home', \
+                               groups=groups, selected=selected, boards=board)
+    return render_template('facilitator-home.html', title='Home', groups=groups, selected=selected, boards=board)
 
 @home.route('/invites', methods=['POST', 'GET'])
 @login_required
@@ -112,7 +124,7 @@ def group_add():
     if request.method == 'POST':
         try:
             create_group(request.form['groupname'], current_user.id)
-            create_board
+            #TODO: Create a default board
         except GroupAddError as e:
             error = e.message
     if error is not None:
