@@ -4,7 +4,7 @@ Test data function to populate the table with tables.
 from datetime import datetime
 
 from app.hindsite.auth.authenticate_model import register_user
-import app.hindsite.core.core_model as core
+import app.hindsite.common_model as core
 from app.hindsite.common_model import get_user
 
 from app.hindsite.home.home_model import create_group

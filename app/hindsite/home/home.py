@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import accept_invitation, create_group, \
     GroupAddError, get_invitation, get_invitations
-from app.hindsite.common_model import get_groups, authorized
+from app.hindsite.common_model import create_board, get_groups, authorized
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -112,6 +112,7 @@ def group_add():
     if request.method == 'POST':
         try:
             create_group(request.form['groupname'], current_user.id)
+            create_board
         except GroupAddError as e:
             error = e.message
     if error is not None:
