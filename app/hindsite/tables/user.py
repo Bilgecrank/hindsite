@@ -30,7 +30,7 @@ class User(db.Model):  # pylint: disable=too-few-public-methods
     first_name: Mapped[Optional[str]] = mapped_column(String(50), init=False)
     last_name: Mapped[Optional[str]] = mapped_column(String(50), init=False)
     display_name: Mapped[Optional[str]] = mapped_column(String(50))
-    email: Mapped[str] = mapped_column(String(50), unique=True)
+    email = Mapped[str](String(50), unique=True, onupdate="lower(new.email)", oninsert="lower(new.email)")
     password: Mapped['Password'] = relationship(back_populates='user')
     groups: Mapped[List['Membership']] = relationship(back_populates='user', init=False)
     last_login: Mapped[datetime.datetime] = mapped_column(
