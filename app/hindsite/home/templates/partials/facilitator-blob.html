@@ -1,72 +1,46 @@
-
-{% block content %}
-
-<div class="container-fluid m-0 dropdown-center" id="dropdown-container">
-    <button class="btn btn-secondary container-fluid m-0 dropdown-toggle"
-            type="button"
-            id="groupDropDown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false">
-            {{ selected }}
-    </button>
-    <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-sm text-center" aria-labelledby="groupDropDown">
-        {% for group in groups %}
-            <li>
-                <form>
-                    <a class="dropdown-item"
-                        href="#"
-                        hx-post="/home?groupname={{ group.name }}&group_id={{ group.id }}"
-                        hx-target="#dropdown-container">
-                        {{ group.name }}
-                    </a>
-                </form>
-            </li>
-        {% endfor %}
-        
-        <li>
-            <span class="container-fluid d-flex align-items-center">
-                <a class="dropdown-item"
-                    href="#"
-                    hx-get="/modal"
-                    hx-target="#modal"
-                    hx-trigger="click"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modal">
-                    <img
-                        class="img-fluid"
-                        height="50"
-                        width="50"
-                        src="{{ url_for('static', filename='img/plus.svg') }}">
-                    </img>
-                </a>
-            </span>
-        </li>
-    </ul>
-</div>
-<div class="content h-90" id="facilitator">
-    {% block facilitator %}
-    {% endblock %}
-</div>
-<div id="accept-invite">
-
-</div>
-<div class="overflow-auto-sm text-light m-5"
-    id="invites"
-    hx-get="/invites"
-    hx-trigger="every 3s"
-    hx-target="#invites"
-    hx-swap="innerHTML">
-
-</div>
-<div 
-    id="modal"
-    class="modal modal-blur fade"
-    style="display: none"
-    aria-hidden="false"
-    tabindex="-1">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content"></div>
+<div class="content-md p-2 text-light h-100">
+    <!-- Mockup of the carousel and boards, cards and fields -->
+    <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
+        <div class="carousel-indicators">
+            <button 
+                type="button" 
+                data-bs-target="#carousel" 
+                data-bs-slide-to="0" 
+                class="active" 
+                aria-current="true" 
+                aria-label="Slide 1"></button>
+            <button 
+                type="button" 
+                data-bs-target="#carousel" 
+                data-bs-slide-to="1" 
+                aria-label="Slide 2"></button>
+        </div>
+        <!-- load board -->
+        <div class="carousel-inner h-100">
+            <!-- Load fields -->
+            {% for field in board.fields %}
+            <div class="carousel-item">
+                <p>{{ field.name }}</p>
+                <!-- load cards -->
+                {% for card in field.cards %}
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{ card.message_body }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">Prev</span>
+            </button>
+            <button class="carousel-control-next" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
 </div>
-
-{% endblock %}

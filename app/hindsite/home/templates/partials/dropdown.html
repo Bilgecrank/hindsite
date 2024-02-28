@@ -9,14 +9,14 @@
     <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-sm text-center" aria-labelledby="groupDropDown">
         {% for group in groups %}
             <li>
-                <form>
-                    <a class="dropdown-item"
-                        href="#"
-                        hx-post="/home?groupname={{ group.name }}&group_id={{ group.id }}"
-                        hx-target="#facilitator"
-                        hx-swap="none">
+                <form   
+                        action="/home?groupname={{ group.name }}&group_id={{ group.id }}"
+                        method="post">
+                    <button 
+                        class="dropdown-item"
+                        type="submit">
                         {{ group.name }}
-                    </a>
+                    </button>
                 </form>
             </li>
         {% endfor %}

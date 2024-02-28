@@ -40,8 +40,8 @@ def homepage():
     #
     # The second version below is to test/develop facilitator_route()
 
-    return authorized(facilitator_route(selected), participant_route(selected))
-    # return authorized(participant_route(selected), facilitator_route(selected)) #TODO: Testing Facilitator mode
+    # return authorized(facilitator_route(selected), participant_route(selected))
+    return authorized(participant_route(selected), facilitator_route(selected)) #TODO: Testing Facilitator mode
 
 def participant_route(selected: str):
     """
@@ -72,12 +72,16 @@ def facilitator_route(selected: str):
     if 'groupid' in session and session['groupid'] is not None:
             board = create_board(session['groupid'])
             field = add_field(board, "Test Field")
+            field2 = add_field(board, "Test Field 2")
             add_card(field, get_user(current_user.id), "Test Card")
             add_card(field, get_user(current_user.id), "Test Card2")
             add_card(field, get_user(current_user.id), "Test Card3")
             add_card(field, get_user(current_user.id), "Test Card4")
             add_card(field, get_user(current_user.id), "Test Card5")
             add_card(field, get_user(current_user.id), "Test Card6")
+            add_card(field2, get_user(current_user.id), "Test Card")
+            add_card(field2, get_user(current_user.id), "Test Card2")
+            add_card(field2, get_user(current_user.id), "Test Card3")
 
     if request.method == 'POST':
         try:
@@ -87,7 +91,7 @@ def facilitator_route(selected: str):
             flash(ex.message)
         if 'groupname' in session:
             selected = session['groupname']
-        return render_template('partials/facilitator-blob.html', title='Home', \
+        return render_template('facilitator-home.html', title='Home', \
                                groups=groups, selected=selected, boards=board)
     return render_template('facilitator-home.html', title='Home', groups=groups, selected=selected, boards=board)
 
@@ -106,7 +110,6 @@ def invites():
     if request.method == 'POST':
         try:
             group = request.args['group']
-
             membership = get_invitation(group, current_user.id)
             accept_invitation(membership)
         except GroupAddError as e:
@@ -123,7 +126,8 @@ def group_add():
     error = None
     if request.method == 'POST':
         try:
-            create_group(request.form['groupname'], current_user.id)
+            groupname = request.form['groupname']
+            group = create_group(groupname, current_user.id)
             #TODO: Create a default board
         except GroupAddError as e:
             error = e.message
@@ -139,3 +143,17 @@ def modal():
     """
     groups = get_groups(current_user.id)
     return render_template('partials/modal.html', groups=groups)
+
+@home.route('/facilitator-display', methods=['GET', 'POST'])
+@login_required
+def facilitator_display():
+    """
+        Route to retrieve the cards using HTMx polling
+    """
+    groupid = ''
+    board = None
+    if session.get('groupid') is not None:
+        groupid = session.get('groupid')
+        boards = get_boards(groupid, False)
+        board = boards[0]
+    return render_template('partials/facilitator-blob.html', title='Home', board=board)

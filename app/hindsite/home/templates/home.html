@@ -2,7 +2,7 @@
 
     {% block content %}
 
-    <div class="container-fluid m-0 dropdown-center" id="dropdown-container">
+    <div class="container-fluid m-0 dropdown-center" id="content">
         <button class="btn btn-secondary container-fluid m-0 dropdown-toggle"
                 type="button"
                 id="groupDropDown"
@@ -13,13 +13,14 @@
         <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-sm text-center" aria-labelledby="groupDropDown">
             {% for group in groups %}
                 <li>
-                    <form>
-                        <a class="dropdown-item"
-                            href="#"
-                            hx-post="/home?groupname={{ group.name }}&group_id={{ group.id }}"
-                            hx-target="#dropdown-container">
+                    <form   
+                            action="/home?groupname={{ group.name }}&group_id={{ group.id }}"
+                            method="post">
+                        <button 
+                            class="dropdown-item"
+                            type="submit">
                             {{ group.name }}
-                        </a>
+                        </button>
                     </form>
                 </li>
             {% endfor %}
@@ -54,7 +55,7 @@
     <div class="overflow-auto-sm text-light m-5"
         id="invites"
         hx-get="/invites"
-        hx-trigger="every 3s"
+        hx-trigger="onload"
         hx-target="#invites"
         hx-swap="innerHTML">
 
