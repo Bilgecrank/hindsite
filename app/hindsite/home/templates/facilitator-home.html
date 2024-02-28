@@ -1,7 +1,7 @@
 {% extends 'home.html' %}
 
     {% block facilitator %}
-        <div class="content-md p-2 text-light h-100">
+        <div class="content-fluid text-light h-100 w-100">
             <!-- Mockup of the carousel and boards, cards and fields -->
             <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
                 <div class="carousel-indicators">
@@ -32,7 +32,7 @@
                                 <h4 class="h4 px-5">{{ field.name }}</h4>
                                 <!-- load cards -->
                                 {% for card in field.cards %}
-                                <div class="card my-5 w-50 align-self-center">
+                                <div class="card my-5 w-75 align-self-center">
                                     <div class="card-body py-5">
                                         <p class="card-text">
                                             {{ card.message_body }}
@@ -43,11 +43,11 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
+                    <button class="carousel-control-prev position-fixed" data-bs-target="#carousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">Prev</span>
                     </button>
-                    <button class="carousel-control-next" data-bs-target="#carousel" data-bs-slide="next">
+                    <button class="carousel-control-next position-fixed" data-bs-target="#carousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
