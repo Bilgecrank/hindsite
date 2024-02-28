@@ -7,8 +7,8 @@
                             {{ user.email }}
                         </p>
                         <a href="#" class="px-2 btn btn-light h-100 w-30"
-                            hx-post="/send-invite?search={{ term }}&user={{ user.email }}"
-                            hx-target="#search-results">
+                            hx-post="/send-invite?user={{ user.email }}"
+                            hx-target="#invite-code">
                             Send Invite
                             <img
                             class="img-fluid"
@@ -22,3 +22,9 @@
         {% endfor %}
     {% endif %}
 </div>
+<div class="content-sm text-light">
+    <div class="alert alert-danger">
+        Please <a href="{{ url_for('home.homepage') }}">select a group</a> first.
+    </div>
+</div>
+
