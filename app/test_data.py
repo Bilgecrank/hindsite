@@ -4,11 +4,12 @@ Test data function to populate the table with tables.
 from datetime import datetime
 
 from app.hindsite.auth.authenticate_model import register_user
-import app.hindsite.common_model as core
+import app.hindsite.core.core_model as core
 from app.hindsite.common_model import get_user
 
 from app.hindsite.home.home_model import create_group
 from app.hindsite.extensions import db
+from app.hindsite.tables import Membership
 
 
 def populate_database(app):
@@ -17,10 +18,11 @@ def populate_database(app):
     :param app: Running flask app.
     """
     with app.app_context():
-        # db.drop_all()
+        db.drop_all()
         db.create_all()
-        # group = create_test_user_and_group()
-        # create_test_bfcs(group)
+        group = create_test_user_and_group()
+        simulate_invite(group)
+        create_test_bfcs(group)
         # tests_for_bfcs(group)
         # toggle_bfcs(group)
         # show_active_and_inactive_bfcs(group)
@@ -53,6 +55,18 @@ def create_test_user_and_group():
                   'Isometimesaintafraid_ofnuthin1', 'Isometimesaintafraid_ofnuthin1')
 
     return create_group('Imperium', 'emperorsgoodboi@imperium.vox')
+
+
+def simulate_invite(group: 'Group'):
+    """
+    Simulates a user getting an invite to a group.
+    :param group:
+    :return:
+    """
+    user = get_user('emperorsnotgoodboi@imperium.vox')
+    membership = Membership(user, group)
+    db.session.add(membership)
+    db.session.commit()
 
 
 def create_test_bfcs(group):
