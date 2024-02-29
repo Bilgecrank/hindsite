@@ -41,7 +41,7 @@ def homepage():
     # The second version below is to test/develop facilitator_route()
 
     # return authorized(facilitator_route(selected), participant_route(selected))
-    return authorized(participant_route(selected), facilitator_route(selected)) #TODO: Testing Facilitator mode
+    return authorized(participant_route(selected), facilitator_route(selected))
 
 def participant_route(selected: str):
     """
@@ -69,19 +69,20 @@ def facilitator_route(selected: str):
     """
     groups = get_groups(current_user.id)
     board = None
+    boards = None
+    # TODO: Get the boards for the group
     if 'groupid' in session and session['groupid'] is not None:
-            board = create_board(session['groupid'])
-            field = add_field(board, "Test Field")
-            field2 = add_field(board, "Test Field 2")
-            add_card(field, get_user(current_user.id), "Test Card")
-            add_card(field, get_user(current_user.id), "Test Card2")
-            add_card(field, get_user(current_user.id), "Test Card3")
-            add_card(field, get_user(current_user.id), "Test Card4")
-            add_card(field, get_user(current_user.id), "Test Card5")
-            add_card(field, get_user(current_user.id), "Test Card6")
-            add_card(field2, get_user(current_user.id), "Test Card")
-            add_card(field2, get_user(current_user.id), "Test Card2")
-            add_card(field2, get_user(current_user.id), "Test Card3")
+        # a group is selected, so we can populate the boards
+        boards = get_boards(session.get('groupid'))
+        if boards is None:
+            #create the board defaults
+            #add the boards to the board selector
+            pass
+        else:
+            #populate the board selector
+            #select the most recent board
+            pass
+        #render the page
 
     if request.method == 'POST':
         try:
@@ -91,9 +92,10 @@ def facilitator_route(selected: str):
             flash(ex.message)
         if 'groupname' in session:
             selected = session['groupname']
-        return render_template('facilitator-home.html', title='Home', \
-                               groups=groups, selected=selected, boards=board)
-    return render_template('facilitator-home.html', title='Home', groups=groups, selected=selected, boards=board)
+        return render_template('facilitator-home.html', title='Facilitator Home', \
+                               groups=groups, selected=selected, board=board)
+    return render_template('facilitator-home.html', title='Facilitator Home', \
+                           groups=groups, selected=selected, board=board)
 
 @home.route('/invites', methods=['POST', 'GET'])
 @login_required

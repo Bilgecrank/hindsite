@@ -21,7 +21,7 @@
                 <!-- load board -->
                 <div class="carousel-inner h-100 overflow-scroll">
                     <!-- Load fields -->
-                    {% for field in boards.fields %}
+                    {% for field in board.fields %}
                     <!-- Different beginnings depending on the first field -->
                     {% if loop.index <= 1 %}
                         <div class="carousel-item active">
@@ -43,11 +43,11 @@
                             </div>
                         </div>
                     {% endfor %}
-                    <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
+                    <button class="carousel-control-prev w-10" data-bs-target="#carousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">Prev</span>
                     </button>
-                    <button class="carousel-control-next" data-bs-target="#carousel" data-bs-slide="next">
+                    <button class="carousel-control-next w-10" data-bs-target="#carousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
