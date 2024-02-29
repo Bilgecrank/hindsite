@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 
     {% block content %}
+
+        <div id="accept-invite">
+
+        </div>
+        <div class="overflow-auto-sm text-light m-5"
+            id="invites"
+            hx-get="/invites"
+            hx-trigger="every 3s"
+            hx-target="#invites"
+            hx-swap="innerHTML">
+
+        </div>
         <div class="container-fluid w-100 p-5 d-flex flex-column align-items-center">
                 <div>
                         <h5 class="h-5">Search for users to invite</h5>

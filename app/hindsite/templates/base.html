@@ -76,7 +76,12 @@
                 </li>
                 <li class="nav-items">
                   <a href="{{ url_for('core.retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1">Retrospective
-                  <span class="badge bg-danger">Active</span>
+                    <div    id="retro_active"
+                            hx-get="/retro_active"
+                            hx-trigger="every 3s"
+                            hx-target="#retro_active"
+                            hx-swap="innerHTML">
+                    </div>
                   </a>
                 </li>
                 <li class="nav-items">
@@ -84,7 +89,11 @@
                 </li>
                 <li class="nav-items">
                   <a href="{{ url_for('group.group_page')}}" class="btn btn-outline-light w-100 mx-1 my-1">Group
-                  <span class="badge bg-danger">2 Invites</span>
+                    <div    id="invite_count"
+                            hx-get="/invite_count"
+                            hx-trigger="every 3s"
+                            hx-target="#invite_count"
+                            hx-swap="innerHTML"></div>
                   </a>
                 </li>
                 <li class="nav-items">

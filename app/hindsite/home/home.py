@@ -5,8 +5,7 @@ import datetime
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
-from app.hindsite.home.home_model import accept_invitation, create_group, \
-    GroupAddError, get_invitation, get_invitations
+from app.hindsite.home.home_model import create_group, GroupAddError
 from app.hindsite.common_model import add_card, add_field, create_board, get_boards, get_groups, authorized, get_most_recent_board, get_user, set_start_date_for_board
 
 static_dir = os.path.abspath('static')
@@ -94,29 +93,6 @@ def facilitator_route(selected: str):
         return render_template('facilitator-home.html', title='Home', \
                                groups=groups, selected=selected, boards=board)
     return render_template('facilitator-home.html', title='Home', groups=groups, selected=selected, boards=board)
-
-
-@home.route('/invites', methods=['POST', 'GET'])
-@login_required
-def invites():
-    """
-        Loads all the invite codes to be accepted or rejected
-    TODO: Put the invite codes into a modal, add decline button, create
-    notification bell to open the modal.
-    """
-    error = None
-    if request.method == 'GET':
-        invitations = get_invitations(current_user.id)
-        return render_template('partials/invites.html', invitations=invitations)
-    if request.method == 'POST':
-        try:
-            group = request.args['group']
-            membership = get_invitation(group, current_user.id)
-            accept_invitation(membership)
-        except GroupAddError as e:
-            error = e.message
-            flash(error)
-    return render_template('partials/accepted.html')
 
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
