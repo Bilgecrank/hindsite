@@ -29,16 +29,20 @@
                         <div class="carousel-item">
                     {% endif %}
                             <div class="content-fluid d-flex flex-column text-secondary">
-                                <h4 class="h4 px-5">{{ field.name }}</h4>
+                                <a href="/rename-field" class="btn btn-light d-flex justify-content-start">
+                                    <h4 class="h4 px-5">{{ field.name }}</h4>
+                                </a>
                                 <!-- load cards -->
                                 {% for card in field.cards %}
-                                <div class="card my-5 w-75 align-self-center">
-                                    <div class="card-body py-5">
-                                        <p class="card-text">
-                                            {{ card.message_body }}
-                                        </p>
+                                <a href="/edit-card" class="btn btn-light d-flex justify-content-start">
+                                    <div class="card my-5 w-100">
+                                        <div class="card-body py-5 d-flex justify-content-start">
+                                                <p class="card-text">
+                                                    {{ card.message_body }}
+                                                </p>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
                                 {% endfor %}
                             </div>
                         </div>

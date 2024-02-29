@@ -9,6 +9,13 @@ from app.hindsite.home.home_model import accept_invitation, create_group, \
     GroupAddError, get_invitation, get_invitations
 from app.hindsite.common_model import add_card, add_field, create_board, get_boards, get_groups, authorized, get_most_recent_board, get_user, set_start_date_for_board
 
+#TODO:  Remove padding for cards in facilitator-home
+#TODO:  Set max size for cards and include overflow-hidden in classes
+#TODO:  Create routes for edit-card and rename-field
+#TODO:  Put field name and buttons into a span
+#           Justify self right for controls
+#           Each element has own link
+
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
                    __name__,
