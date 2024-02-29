@@ -15,6 +15,7 @@ from app.hindsite.common_model import add_card, add_field, create_board, get_boa
 #TODO:  Put field name and buttons into a span
 #           Justify self right for controls
 #           Each element has own link
+#TODO:  Populate the carousel buttons based on the number of fields
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -48,7 +49,7 @@ def homepage():
     # The second version below is to test/develop facilitator_route()
 
     # return authorized(facilitator_route(selected), participant_route(selected))
-    return authorized(participant_route(selected), facilitator_route(selected))
+    return authorized(participant_route(selected), facilitator_route(selected)) #TODO: TESTING
 
 def participant_route(selected: str):
     """
@@ -83,17 +84,17 @@ def facilitator_route(selected: str):
         group_id = session.get('groupid')
         boards = get_boards(group_id)
         if boards is None or boards == []:
+            #creates the board defaults
+            #adds the boards to the board selector
             board = create_board(group_id)
             field = add_field(board, "New Category")
             add_card(field, get_user(current_user.id), 'Enter Card Data')
-            #create the board defaults
-            #add the boards to the board selector
         else:
+            #populates the board selector
+            #selects the most recent board
+
             #TODO: add a selection method for the board
             board = boards[0]
-            #populate the board selector
-            #select the most recent board
-            pass
 
     if request.method == 'POST':
         try:
