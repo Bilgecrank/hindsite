@@ -1,10 +1,10 @@
 <div    id="invite_count"
         hx-get="/invite_count"
-        hx-trigger="every 3s"
+        hx-trigger="load, every 3s"
         hx-target="#invite_count"
         hx-swap="innerHTML">
     {% if count > 0 %}
-    <span class="badge bg-danger">
+    <span class="badge bg-danger position-absolute top-50 end-0 translate-middle-y">
     {{ count }} Invites
     </span>
     {% endif %}
