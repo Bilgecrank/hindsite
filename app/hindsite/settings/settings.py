@@ -8,7 +8,7 @@ name, email, and password, and deleting the account.
 import os
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import login_required
+from flask_login import current_user, login_required
 from app.hindsite.settings.settings_model import update_user_settings, get_user_settings, UpdateError
 from app.hindsite.tables import User
 
@@ -28,7 +28,7 @@ def settings_page():
     Returns:
         Rendered template for the settings page with current user settings.
     """
-    return render_template('settings.html', title='Settings', user_settings=get_user_settings(User.email))
+    return render_template('settings.html', title='Settings', user_settings=get_user_settings(current_user.id))
 
 
 @settings.route('/update_display_name', methods=['POST'])
@@ -42,7 +42,7 @@ def update_display_name():
         """
     try:
         new_display_name = request.form['display_name']
-        update_user_settings(email=User.email, new_display_name=new_display_name)
+        update_user_settings(email=current_user.email, new_display_name=new_display_name)
         flash('Display name successfully updated.')
     except UpdateError as e:
         flash(str(e), 'error')
@@ -61,7 +61,7 @@ def update_email():
         """
     try:
         new_email = request.form['email']
-        update_user_settings(email=User.email, new_email=new_email)
+        update_user_settings(email=current_user.email, new_email=new_email)
         flash('Email successfully updated: redirected to sign in page.')
     except UpdateError as e:
         flash(str(e), 'error')
@@ -81,7 +81,7 @@ def update_password():
         """
     try:
         new_password = request.form['password']
-        update_user_settings(email=User.email, new_password=new_password)
+        update_user_settings(email=current_user.id, new_password=new_password)
         flash('Password successfully updated.')
     except UpdateError as e:
         flash(str(e), 'error')
