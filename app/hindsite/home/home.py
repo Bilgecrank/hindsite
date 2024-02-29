@@ -7,7 +7,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import accept_invitation, create_group, \
     GroupAddError, get_invitation, get_invitations
-from app.hindsite.common_model import FieldError, add_card, add_field, \
+from app.hindsite.common_model import CardError, FieldError, add_card, add_field, \
         create_board, get_boards, get_card, get_field, get_fields, get_groups, authorized, \
         get_board, get_user, set_start_date_for_board, update_card_message, update_field_name
 
@@ -167,7 +167,7 @@ def card_edit():
             card = get_card(card_id, field)
             print("field_id %s board_id %s card_id %s" %(field_id, board_id, card_id))
             update_card_message(card, card_text)
-        except FieldError as e:
+        except CardError as e:
             error = e.message
     if error is not None:
         flash(error)
