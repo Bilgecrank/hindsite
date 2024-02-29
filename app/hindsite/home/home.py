@@ -76,14 +76,14 @@ def facilitator_route(selected: str):
         group_id = session.get('groupid')
         boards = get_boards(group_id)
         if boards is None or boards == []:
-            print("No boards present")
             board = create_board(group_id)
             field = add_field(board, "New Category")
             add_card(field, get_user(current_user.id), 'Enter Card Data')
             #create the board defaults
             #add the boards to the board selector
         else:
-            print(boards)
+            #TODO: add a selection method for the board
+            board = boards[0]
             #populate the board selector
             #select the most recent board
             pass
