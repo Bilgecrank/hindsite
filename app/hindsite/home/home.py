@@ -97,6 +97,7 @@ def facilitator_route(selected: str):
     return render_template('facilitator-home.html', title='Facilitator Home', \
                            groups=groups, selected=selected, board=board)
 
+
 @home.route('/invites', methods=['POST', 'GET'])
 @login_required
 def invites():

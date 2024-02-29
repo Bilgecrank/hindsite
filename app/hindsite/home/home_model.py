@@ -17,7 +17,6 @@ class GroupAddError(Exception):
         self.message = message
 
 
-
 def get_invitations(email: str):
     """
     Looks at memberships matching the user with the supplied email and
