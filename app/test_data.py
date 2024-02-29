@@ -18,11 +18,11 @@ def populate_database(app):
     :param app: Running flask app.
     """
     with app.app_context():
-        db.drop_all()
+        # db.drop_all()
         db.create_all()
-        group = create_test_user_and_group()
-        simulate_invite(group)
-        create_test_bfcs(group)
+        # group = create_test_user_and_group()
+        # simulate_invite(group)
+        # create_test_bfcs(group)
         # tests_for_bfcs(group)
         # toggle_bfcs(group)
         # show_active_and_inactive_bfcs(group)

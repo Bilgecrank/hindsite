@@ -73,16 +73,20 @@ def facilitator_route(selected: str):
     # TODO: Get the boards for the group
     if 'groupid' in session and session['groupid'] is not None:
         # a group is selected, so we can populate the boards
-        boards = get_boards(session.get('groupid'))
-        if boards is None:
+        group_id = session.get('groupid')
+        boards = get_boards(group_id)
+        if boards is None or boards == []:
+            print("No boards present")
+            board = create_board(group_id)
+            field = add_field(board, "New Category")
+            add_card(field, get_user(current_user.id), 'Enter Card Data')
             #create the board defaults
             #add the boards to the board selector
-            pass
         else:
+            print(boards)
             #populate the board selector
             #select the most recent board
             pass
-        #render the page
 
     if request.method == 'POST':
         try:
