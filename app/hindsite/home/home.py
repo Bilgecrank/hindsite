@@ -7,7 +7,9 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import accept_invitation, create_group, \
     GroupAddError, get_invitation, get_invitations
-from app.hindsite.common_model import add_card, add_field, create_board, get_boards, get_groups, authorized, get_most_recent_board, get_user, set_start_date_for_board
+from app.hindsite.common_model import FieldError, add_card, add_field, \
+        create_board, get_boards, get_card, get_field, get_fields, get_groups, authorized, \
+        get_board, get_user, set_start_date_for_board, update_card_message, update_field_name
 
 #TODO:  Remove padding for cards in facilitator-home
 #TODO:  Set max size for cards and include overflow-hidden in classes
@@ -145,27 +147,77 @@ def facilitator_display():
         board = boards[0]
     return render_template('partials/facilitator-blob.html', title='Home', board=board)
 
+
+# MODAL ROUTES AND POST ROUTES
+@home.route('/edit-card', methods=['POST', 'GET'])
+@login_required
+def card_edit():
+    """
+        Route modal POSTs to for changing a card text
+    """
+    error = None
+    if request.method == 'POST':
+        try:
+            card_text = request.form['card-text']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            card_id = int(request.args['card_id'])
+            board = get_board(session['groupid'], board_id)
+            field = get_field(field_id, board)
+            card = get_card(card_id, field)
+            print("field_id %s board_id %s card_id %s" %(field_id, board_id, card_id))
+            update_card_message(card, card_text)
+        except FieldError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/card-modal')
+@login_required
+def card_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = request.args['field_id']
+    board_id = request.args['board_id']
+    card_id = request.args['card_id']
+    return render_template('partials/edit-card-modal.html', \
+                           field_id=field_id, board_id=board_id, card_id=card_id)
+
 @home.route('/rename-field', methods=['GET','POST'])
 @login_required
 def rename_field():
     """
-        Route to open the modal form to rename the field
+        Route modal POSTs to for renaming a field
     """
+    
+    error = None
     if request.method == 'POST':
-        selected = ""
-        #do stuff
+        try:
+            fieldname = request.form['fieldname']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            board = get_board(session['groupid'], board_id)
+            field = get_field(field_id, board)
+            update_field_name(field, fieldname)
+        except FieldError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
     return redirect(url_for('home.homepage'))
-
-# MODAL ROUTES AND POST ROUTES
 
 @home.route('/field-modal')
 @login_required
 def field_modal():
     """
-        Route to retrieve the modal using HTMx
+        Route to retrieve the field modal using HTMx
     """
-    groups = get_groups(current_user.id)
-    return render_template('partials/edit-field-modal.html', groups=groups)
+    field_id = request.args['field_id']
+    board_id = request.args['board_id']
+    return render_template('partials/edit-field-modal.html', \
+                           field_id=field_id, board_id=board_id)
+
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
 def group_add():

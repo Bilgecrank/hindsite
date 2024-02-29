@@ -30,17 +30,28 @@
                     {% endif %}
                             <div class="content-fluid d-flex flex-column text-secondary">
                                 <a  href="#"
-                                    hx-get="/field-modal"
+                                    hx-get="/field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
                                     hx-target="#modal"
                                     hx-trigger="click"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modal" 
-                                    class="btn btn-light d-flex justify-content-start">
+                                    class="btn btn-light d-flex justify-content-start"
+                                    field_id="{{ field.id }}"
+                                    group_id="{{ board.id }}">
                                     <h4 class="h4 px-5">{{ field.name }}</h4>
                                 </a>
                                 <!-- load cards -->
                                 {% for card in field.cards %}
-                                <a href="/edit-card" class="btn btn-light d-flex justify-content-start">
+                                <a  href="#"
+                                    hx-get="/card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                    hx-target="#modal"
+                                    hx-trigger="click" 
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal" 
+                                    class="btn btn-light d-flex justify-content-start"
+                                    card_id="{{ card.id }}"
+                                    field_id="{{ field.id }}"
+                                    group_id="{{ board.id }}">
                                     <div class="card my-5 w-100">
                                         <div class="card-body py-5 d-flex justify-content-start">
                                                 <p class="card-text">

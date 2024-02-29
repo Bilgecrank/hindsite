@@ -156,17 +156,20 @@ def add_card(field: Field, author: 'User', card_message: str):
 
 # READ
 
-def get_most_recent_board(group_id: int, archive_status=False):
+def get_board(group_id: int, board_id: int, archive_status=False):
     """
     Retrieves the most recent board attached to a group
 
     :param group_id: **int** The primary key of the group.
     :param archive_status: **bool** Whether to get active boards(false) or archived boards(true).
-    :return: **List[Board]** The boards attached to the group.
+    :return: **board** The board attached to the group with the id or **None**.
     """
     group = get_group(group_id)
-    board = group.boards
-    return board
+    rtn_board = None
+    for board in group.boards:
+        if board.id == board_id:
+            rtn_board = board
+    return rtn_board
 
 def get_boards(group_id: int, archive_status=False):
     """
@@ -198,6 +201,19 @@ def get_fields(board: Board, archive_status=False):
             field_list.append(field)
     return field_list
 
+def get_field(field_id: int, board: Board):
+    """
+    Returns a single field attached to a board.
+
+    :param board: **Board** The selected board to derive the field from.
+    :param field_id: **int** The id of the field to select
+    :return: **Field** The selected field or **None** if the field isn't found
+    """
+    rtn_field = None
+    for field in board.fields:
+        if field.id == field_id:
+            rtn_field = field
+    return rtn_field
 
 def get_cards(field: Field, archive_status=False):
     """
@@ -213,7 +229,14 @@ def get_cards(field: Field, archive_status=False):
             card_list.append(card)
     return card_list
 
-
+def get_card(card_id: int, field: Field):
+    """
+    """
+    rtn_card = None
+    for card in field.cards:
+        if card.id == card_id:
+            rtn_card = card
+    return rtn_card
 # UPDATE
 def set_start_date_for_board(board: Board, start_date_time: datetime.datetime):
     """
