@@ -131,33 +131,6 @@ def invites():
             flash(error)
     return render_template('partials/accepted.html')
 
-@home.route('/add-group', methods=['GET', 'POST'])
-@login_required
-def group_add():
-    """
-        The route for the add group dropdown item.
-    """
-    error = None
-    if request.method == 'POST':
-        try:
-            groupname = request.form['groupname']
-            group = create_group(groupname, current_user.id)
-            #TODO: Create a default board
-        except GroupAddError as e:
-            error = e.message
-    if error is not None:
-        flash(error)
-    return redirect(url_for('home.homepage'))
-
-@home.route('/modal')
-@login_required
-def modal():
-    """
-        Route to retrieve the modal using HTMx
-    """
-    groups = get_groups(current_user.id)
-    return render_template('partials/modal.html', groups=groups)
-
 @home.route('/facilitator-display', methods=['GET', 'POST'])
 @login_required
 def facilitator_display():
@@ -171,3 +144,53 @@ def facilitator_display():
         boards = get_boards(groupid, False)
         board = boards[0]
     return render_template('partials/facilitator-blob.html', title='Home', board=board)
+
+@home.route('/rename-field', methods=['GET','POST'])
+@login_required
+def rename_field():
+    """
+        Route to open the modal form to rename the field
+    """
+    if request.method == 'POST':
+        selected = ""
+        #do stuff
+    return redirect(url_for('home.homepage'))
+
+# MODAL ROUTES AND POST ROUTES
+
+@home.route('/field-modal')
+@login_required
+def field_modal():
+    """
+        Route to retrieve the modal using HTMx
+    """
+    groups = get_groups(current_user.id)
+    return render_template('partials/edit-field-modal.html', groups=groups)
+@home.route('/add-group', methods=['GET', 'POST'])
+@login_required
+def group_add():
+    """
+        The route for the add group dropdown item.
+    """
+    error = None
+    if request.method == 'POST':
+        try:
+            groupname = request.form['groupname']
+            group = create_group(groupname, current_user.id)
+            session['groupname'] = group.name
+            #TODO: Create a default board
+        except GroupAddError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
+    #Redirects to home and selects the groupname and group_id
+    return redirect(url_for('home.homepage', groupname=groupname, group_id=group.id), code=307)
+
+@home.route('/group-modal')
+@login_required
+def group_modal():
+    """
+        Route to retrieve the modal using HTMx
+    """
+    groups = get_groups(current_user.id)
+    return render_template('partials/add-group-modal.html', groups=groups)

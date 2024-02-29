@@ -29,7 +29,13 @@
                         <div class="carousel-item">
                     {% endif %}
                             <div class="content-fluid d-flex flex-column text-secondary">
-                                <a href="/rename-field" class="btn btn-light d-flex justify-content-start">
+                                <a  href="#"
+                                    hx-get="/field-modal"
+                                    hx-target="#modal"
+                                    hx-trigger="click"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal" 
+                                    class="btn btn-light d-flex justify-content-start">
                                     <h4 class="h4 px-5">{{ field.name }}</h4>
                                 </a>
                                 <!-- load cards -->
