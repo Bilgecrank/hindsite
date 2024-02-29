@@ -5,19 +5,18 @@
             <!-- Mockup of the carousel and boards, cards and fields -->
             <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
                 <div class="carousel-indicators">
-                    <!-- TODO: Populate these dynamically based on number of fields -->
+                    <!-- Populated dynamically based on number of fields -->
+                    {% for field in board.fields %}
                     <button 
                         type="button" 
                         data-bs-target="#carousel" 
-                        data-bs-slide-to="0" 
+                        data-bs-slide-to="{{ loop.index }}" 
+                        {% if loop.index == 0 %}
                         class="active" 
+                        {% endif %}
                         aria-current="true" 
-                        aria-label="Slide 1"></button>
-                    <button 
-                        type="button" 
-                        data-bs-target="#carousel" 
-                        data-bs-slide-to="1" 
-                        aria-label="Slide 2"></button>
+                        aria-label="Slide {{ loop.index + 1 }}"></button>
+                    {% endfor %}
                 </div>
                 <!-- load board -->
                 <div class="carousel-inner h-100 overflow-scroll">

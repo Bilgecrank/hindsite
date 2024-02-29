@@ -15,7 +15,6 @@ from app.hindsite.common_model import add_card, add_field, create_board, get_boa
 #TODO:  Put field name and buttons into a span
 #           Justify self right for controls
 #           Each element has own link
-#TODO:  Populate the carousel buttons based on the number of fields
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
