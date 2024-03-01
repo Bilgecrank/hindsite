@@ -25,7 +25,17 @@
               aria-label="Toggle Navigation">
               <span class="navbar-toggler-icon">
               </span>
+              <div    id="bubble"
+                      hx-get="/bubble"
+                      hx-trigger="load, every 3s"
+                      hx-target="#bubble"
+                      hx-swap="innerHTML">
+
+              </div>
+
+
             </button>
+
             <a href="{{ url_for('home.homepage') }}" class="navbar-brand mx-3">
               <span class="fw-bold primary">
                 <div class="text-center">hindsITe<br>Retrospective</div>
@@ -65,13 +75,26 @@
                   <a href="{{ url_for('home.homepage')}}" class="btn btn-outline-light w-100 mx-1 my-1">HOME</a>
                 </li>
                 <li class="nav-items">
-                  <a href="{{ url_for('core.retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1">Retrospective</a>
+                  <a href="{{ url_for('core.retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1 position-relative">Retrospective
+                    <div    id="retro_active"
+                            hx-get="/retro_active"
+                            hx-trigger="load, every 3s"
+                            hx-target="#retro_active"
+                            hx-swap="innerHTML">
+                    </div>
+                  </a>
                 </li>
                 <li class="nav-items">
                   <a href="{{ url_for('core.history')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
                 </li>
                 <li class="nav-items">
-                  <a href="{{ url_for('group.group_page')}}" class="btn btn-outline-light w-100 mx-1 my-1">Group</a>
+                  <a href="{{ url_for('group.group_page')}}" class="btn btn-outline-light w-100 mx-1 my-1 position-relative">Group
+                    <div    id="invite_count"
+                            hx-get="/invite_count"
+                            hx-trigger="load, every 3s"
+                            hx-target="#invite_count"
+                            hx-swap="innerHTML"></div>
+                  </a>
                 </li>
                 <li class="nav-items">
                   <a href="{{ url_for('settings.settings_page')}}" class="btn btn-outline-light w-100 mx-1 my-1">Settings</a>

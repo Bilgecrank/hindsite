@@ -46,18 +46,6 @@
         </ul>
     </div>
 
-    <div id="accept-invite">
-
-    </div>
-    <div class="overflow-auto-sm text-light m-5"
-        id="invites"
-        hx-get="/invites"
-        hx-trigger="every 3s"
-        hx-target="#invites"
-        hx-swap="innerHTML">
-
-    </div>
-
     <div class="content h-90" id="facilitator">
         {% block facilitator %}
         {% endblock %}

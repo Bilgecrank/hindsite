@@ -5,8 +5,7 @@ import datetime
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
-from app.hindsite.home.home_model import accept_invitation, create_group, \
-    GroupAddError, get_invitation, get_invitations
+from app.hindsite.home.home_model import create_group, GroupAddError
 from app.hindsite.common_model import CardError, FieldError, add_card, add_field, \
         create_board, get_boards, get_card, get_field, get_fields, get_groups, authorized, \
         get_board, get_user, set_start_date_for_board, update_card_message, update_field_name
