@@ -1,0 +1,11 @@
+<div    id="retro_active"
+        hx-get="/retro_active"
+        hx-trigger="load, every 3s"
+        hx-target="#retro_active"
+        hx-swap="innerHTML">
+    {% if count > 0 %}
+    <span class="badge bg-danger position-absolute top-50 end-0 translate-middle-y">
+    Active
+    </span>
+    {% endif %}
+</div>

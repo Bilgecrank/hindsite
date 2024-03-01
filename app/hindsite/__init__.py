@@ -50,4 +50,9 @@ def create_app():
     # pylint: enable=wrong-import-position,import-outside-toplevel
     app.register_blueprint(settings)
 
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.common import common
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(common)
+
     return app

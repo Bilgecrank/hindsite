@@ -1,7 +1,7 @@
 {% extends 'home.html' %}
 
     {% block facilitator %}
-        <div class="content-md p-2 text-light h-100">
+        <div class="content-fluid text-light h-100 w-100">
             <!-- Mockup of the carousel and boards, cards and fields -->
             <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
                 <div class="carousel-indicators">
@@ -18,31 +18,31 @@
                         data-bs-slide-to="1" 
                         aria-label="Slide 2"></button>
                 </div>
-                <div class="carousel-inner h-100">
-                    <div class="carousel-item active">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Quaerat aut eveniet voluptatum ea, natus suscipit laudantium
-                                    dolores tenetur rem nulla deserunt, ipsa recusandae nisi, blanditiis
-                                    atque saepe harum error alias.
-                                </p>
+                <!-- load board -->
+                <div class="carousel-inner h-100 overflow-scroll">
+                    <!-- Load fields -->
+                    {% for field in boards.fields %}
+                    <!-- Different beginnings depending on the first field -->
+                    {% if loop.index <= 1 %}
+                        <div class="carousel-item active">
+                    {% else %}
+                        <div class="carousel-item">
+                    {% endif %}
+                            <div class="content-fluid d-flex flex-column text-secondary">
+                                <h4 class="h4 px-5">{{ field.name }}</h4>
+                                <!-- load cards -->
+                                {% for card in field.cards %}
+                                <div class="card my-5 w-75 align-self-center">
+                                    <div class="card-body py-5">
+                                        <p class="card-text">
+                                            {{ card.message_body }}
+                                        </p>
+                                    </div>
+                                </div>
+                                {% endfor %}
                             </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Quaerat aut eveniet voluptatum ea, natus suscipit laudantium
-                                    dolores tenetur rem nulla deserunt, ipsa recusandae nisi, blanditiis
-                                    atque saepe harum error alias.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                     <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">Prev</span>

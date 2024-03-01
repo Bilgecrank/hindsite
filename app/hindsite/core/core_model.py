@@ -3,11 +3,10 @@ Defines retrospective models to access boards, fields and cards.
 """
 import datetime
 
-from flask import session
-
 from app.hindsite import db
 from app.hindsite.common_model import get_group
 from app.hindsite.tables import Board, Field, Card
+
 
 class BoardError(Exception):
     """
@@ -256,4 +255,19 @@ def toggle_archive_field(field: Field):
     if field.archived is False:
         field.archived = True
     else:
-        field.archived = True
+        field.archived = False
+    return field
+
+
+def toggle_archive_card(card: Card):
+    """
+    Toggles the archive status of a card.
+
+    :param card: **Card** The card to be archived or reactivated.
+    :return: **Card** The card whose archival was changed.
+    """
+    if card.archived is False:
+        card.archived = True
+    else:
+        card.archived = False
+    return card
