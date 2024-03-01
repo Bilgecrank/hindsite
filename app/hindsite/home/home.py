@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 from app.hindsite.home.home_model import create_group, GroupAddError
 from app.hindsite.common_model import CardError, FieldError, add_card, add_field, \
         create_board, get_boards, get_card, get_field, get_fields, get_groups, authorized, \
-        get_board, get_user, set_start_date_for_board, toggle_archive_card, update_card_message, update_field_name
+        get_board, get_user, set_start_date_for_board, toggle_archive_card, toggle_archive_field, update_card_message, update_field_name
 
 #TODO:  Remove padding for cards in facilitator-home
 #TODO:  Set max size for cards and include overflow-hidden in classes
@@ -142,7 +142,6 @@ def card_edit():
             board = get_board(group_id, board_id)
             field = get_field(field_id, board)
             card = get_card(card_id, field)
-            print("field_id %s board_id %s card_id %s" %(field_id, board_id, card_id))
             update_card_message(card, card_text)
         except CardError as e:
             error = e.message
@@ -378,13 +377,10 @@ def delete_card():
         field_id = int(request.args['field_id'])
         board_id = int(request.args['board_id'])
         group_id = session.get('groupid')
-        # print("field id %s board id %s card id %s group id %s" %(field_id, board_id, card_id, group_id))
         board = get_board(group_id, board_id)
-        # print(board)
         field = get_field(field_id, board)
         card = get_card(card_id, field)
         card = toggle_archive_card(card)
-        print(card.archived)
     return redirect(url_for('home.homepage'))
     
 @home.route('/delete-field', methods=['GET','POST'])
@@ -393,3 +389,15 @@ def delete_field():
     """
         Route to delete the selected field
     """
+    #TODO: needs error checking
+    if request.method == 'POST':
+        field_id = int(request.args['field_id'])
+        board_id = int(request.args['board_id'])
+        group_id = session.get('groupid')
+        # print("field id %s board id %s card id %s group id %s" %(field_id, board_id, card_id, group_id))
+        board = get_board(group_id, board_id)
+        # print(board)
+        field = get_field(field_id, board)
+        field = toggle_archive_field(field)
+
+    return redirect(url_for('home.homepage'))

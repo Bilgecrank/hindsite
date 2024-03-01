@@ -373,7 +373,6 @@ def toggle_archive_card(card: Card):
     :param card: **Card** The card to be archived or reactivated.
     :return: **Card** The card whose archival was changed.
     """
-    print (card.archived)
     card.archived = not card.archived
     db.session.commit()
     return card
