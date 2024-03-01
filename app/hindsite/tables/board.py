@@ -28,12 +28,13 @@ class Board(db.Model):  # pylint: disable=too-few-public-methods
     id: Mapped[intpk]
     group_id: Mapped[int] = mapped_column(ForeignKey('hindsite_group.id'))
     timer: Mapped[Optional[datetime.datetime]] = mapped_column(DateTime(timezone=True))
-    end_time: Mapped[Optional[datetime.datetime]] = mapped_column(DateTime(timezone=True))
+    start_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
+    end_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True))
     group: Mapped['Group'] = relationship(back_populates='boards')
     fields: Mapped[List['Field']] = relationship(back_populates='board')
-    start_time: Mapped[datetime.datetime] = mapped_column(DateTime(timezone=True),
-                                                          default=datetime.datetime.now())
     archived: Mapped[bool] = mapped_column(default=False)
 
-    def __init__(self, group):
+    def __init__(self, group, start_time, end_time ):
         self.group = group
+        self.start_time = start_time
+        self.end_time = end_time

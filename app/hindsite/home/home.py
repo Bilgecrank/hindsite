@@ -69,18 +69,18 @@ def facilitator_route(selected: str):
     groups = get_groups(current_user.id)
     board = None
     if 'groupid' in session and session['groupid'] is not None:
-            board = create_board(session['groupid'])
-            field = add_field(board, "Test Field")
-            field2 = add_field(board, "Test Field 2")
-            add_card(field, get_user(current_user.id), "Test Card")
-            add_card(field, get_user(current_user.id), "Test Card2")
-            add_card(field, get_user(current_user.id), "Test Card3")
-            add_card(field, get_user(current_user.id), "Test Card4")
-            add_card(field, get_user(current_user.id), "Test Card5")
-            add_card(field, get_user(current_user.id), "Test Card6")
-            add_card(field2, get_user(current_user.id), "Test Card")
-            add_card(field2, get_user(current_user.id), "Test Card2")
-            add_card(field2, get_user(current_user.id), "Test Card3")
+        board = create_board(session['groupid'])
+        field = add_field(board, "Test Field")
+        field2 = add_field(board, "Test Field 2")
+        add_card(field, get_user(current_user.id), "Test Card")
+        add_card(field, get_user(current_user.id), "Test Card2")
+        add_card(field, get_user(current_user.id), "Test Card3")
+        add_card(field, get_user(current_user.id), "Test Card4")
+        add_card(field, get_user(current_user.id), "Test Card5")
+        add_card(field, get_user(current_user.id), "Test Card6")
+        add_card(field2, get_user(current_user.id), "Test Card")
+        add_card(field2, get_user(current_user.id), "Test Card2")
+        add_card(field2, get_user(current_user.id), "Test Card3")
 
     if request.method == 'POST':
         try:
