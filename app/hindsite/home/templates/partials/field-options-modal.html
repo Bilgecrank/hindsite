@@ -1,35 +1,31 @@
 <div id="content" class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header text-bg-dark">
-            <h5 class="modal-title">Field Options</h5>
+            <h5 class="modal-title">Card Options</h5>
         </div>
-        <div class="modal-body text-bg-dark">
-            <form action="/rename-field?field_id={{ field_id }}&board_id={{ board_id }}" method="post" class="needs-validation my-5" >
-                <div class="row align-items-center">
-                    <div class="col-auto">
-                        <label for="fieldname" class="form-label">Enter New Category</label>
-                        <input type="text" class="form-control my-3" id="fieldname" name="fieldname" min="1" required>
-                        <div class="invalid-feedback">
-                            Not complete yet
-                        </div>
-                    </div>
-                    <div class="row align-items-center justify-content-space-between my-3">
-                        <div class="col-auto">
-                            <button
-                                type="submit"
-                                class="btn btn-secondary mx-1"
-                                href="#">
-                                    Submit</a>
-                            <button
-                                type="button"
-                                class="btn btn-secondary mx-1"
-                                href="#"
-                                data-bs-dismiss="modal">
-                                    Cancel</a>
-                        </div>
-                    </div>
-                </div>
-            </form>
+        <div class="modal-body text-bg-dark d-flex flex-column">
+            <a 
+                href="#" 
+                hx-get="/add-field-modal?&board_id={{ board_id }}&field_id={{ field_id }}"
+                hx-target="#modal"
+                hx-trigger="click"
+                data-bs-target="#modal"
+                class="btn btn-outline-secondary">
+                Add Field
+            </a>
+            <a 
+                href="#" 
+                class="btn btn-outline-danger">
+                Delete Field
+            </a>
+            <button
+                type="button"
+                class="btn btn-outline-secondary mx-1"
+                href="#"
+                data-bs-dismiss="modal">
+                    Cancel
+            </button>
+        </div>
         </div>
     </div>
 </div>

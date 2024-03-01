@@ -240,7 +240,7 @@ def new_field():
             board_id = int(request.args['board_id'])
             board = get_board(session['groupid'], board_id)
             field = get_field(field_id, board)
-            update_field_name(field, fieldname)
+            add_field(board, fieldname)
         except FieldError as e:
             error = e.message
     if error is not None:
@@ -254,8 +254,9 @@ def add_field_modal():
         Route to retrieve the add field modal using HTMx
     """
     board_id = request.args['board_id']
-    return render_template('partials/edit-field-modal.html', \
-                           board_id=board_id)
+    field_id = request.args['field_id']
+    return render_template('partials/add-field-modal.html', \
+                           board_id=board_id, field_id=field_id)
 
 
 @home.route('/add-card', methods=['GET','POST'])
@@ -290,3 +291,72 @@ def add_card_modal():
     board_id = request.args['board_id']
     return render_template('partials/add-card-modal.html', \
                            field_id=field_id, board_id=board_id)
+
+# OPTIONS ROUTES AND MODALS
+# TODO: Change these to dropdowns.
+@home.route('/card-options', methods=['GET','POST'])
+@login_required
+def card_options():
+    """
+        Route modal POSTs to for card options
+    """
+    
+    error = None
+    if request.method == 'POST':
+        try:
+            card_text = request.form['card-text']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            board = get_board(session['groupid'], board_id)
+            field = get_field(field_id, board)
+            add_card(field, get_user(current_user.id), card_text)
+        except CardError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/card-options-modal')
+@login_required
+def card_options_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = request.args['field_id']
+    board_id = request.args['board_id']
+    return render_template('partials/card-options-modal.html', \
+                           field_id=field_id, board_id=board_id)
+
+@home.route('/field-options', methods=['GET','POST'])
+@login_required
+def field_options():
+    """
+        Route modal POSTs to for card options
+    """
+    
+    error = None
+    if request.method == 'POST':
+        try:
+            field_name = request.form['field_name']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            board = get_board(session['groupid'], board_id)
+            field = get_field(field_id, board)
+        except CardError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/field-options-modal')
+@login_required
+def field_options_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = request.args['field_id']
+    board_id = request.args['board_id']
+    board = get_board(session['groupid'], board_id)
+    return render_template('partials/field-options-modal.html', \
+                           field_id=field_id, board_id=board_id, board=board)
+
