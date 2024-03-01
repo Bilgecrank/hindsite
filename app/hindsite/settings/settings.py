@@ -42,7 +42,7 @@ def update_display_name():
         """
     try:
         new_display_name = request.form['display_name']
-        update_user_settings(email=current_user.email, new_display_name=new_display_name)
+        update_user_settings(email=current_user.id, new_display_name=new_display_name)
         flash('Display name successfully updated.')
     except UpdateError as e:
         flash(str(e), 'error')
@@ -61,7 +61,7 @@ def update_email():
         """
     try:
         new_email = request.form['email']
-        update_user_settings(email=current_user.email, new_email=new_email)
+        update_user_settings(email=current_user.id, new_email=new_email)
         flash('Email successfully updated: redirected to sign in page.')
     except UpdateError as e:
         flash(str(e), 'error')
