@@ -167,8 +167,9 @@ def get_board(group_id: int, board_id: int, archive_status=False):
     group = get_group(group_id)
     rtn_board = None
     for board in group.boards:
-        if board.id == board_id:
-            rtn_board = board
+        if board.archived is False:
+            if board.id == board_id:
+                rtn_board = board
     return rtn_board
 
 def get_boards(group_id: int, archive_status=False):
@@ -211,8 +212,9 @@ def get_field(field_id: int, board: Board):
     """
     rtn_field = None
     for field in board.fields:
-        if field.id == field_id:
-            rtn_field = field
+        if field.archived is False:
+            if field.id == field_id:
+                rtn_field = field
     return rtn_field
 
 def get_cards(field: Field, archive_status=False):
@@ -234,8 +236,9 @@ def get_card(card_id: int, field: Field):
     """
     rtn_card = None
     for card in field.cards:
-        if card.id == card_id:
-            rtn_card = card
+        if card.archived is False:
+            if card.id == card_id:
+                rtn_card = card
     return rtn_card
 # UPDATE
 def set_start_date_for_board(board: Board, start_date_time: datetime.datetime):
@@ -347,10 +350,8 @@ def toggle_archive_board(board: Board):
     :param board: The board to be archived or reactivated.
     :return: The board whose archival was changed.
     """
-    if board.archived is False:
-        board.archived = True
-    else:
-        board.archived = False
+    board.archived = not board.archived
+    db.session.commit()
     return board
 
 
@@ -361,7 +362,18 @@ def toggle_archive_field(field: Field):
     :param field: **Field** The field to be archived or reactivated.
     :return: **Field** The field whose archival was changed.
     """
-    if field.archived is False:
-        field.archived = True
-    else:
-        field.archived = True
+    field.archived = not field.archived
+    db.session.commit()
+    return field
+
+def toggle_archive_card(card: Card):
+    """
+    Toggles the archive status of a card
+
+    :param card: **Card** The card to be archived or reactivated.
+    :return: **Card** The card whose archival was changed.
+    """
+    print (card.archived)
+    card.archived = not card.archived
+    db.session.commit()
+    return card

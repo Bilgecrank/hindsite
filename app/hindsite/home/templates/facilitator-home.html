@@ -6,128 +6,140 @@
             <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
                 <div class="carousel-indicators">
                     <!-- Populated dynamically based on number of fields -->
-                    {% for field in board.fields %}
-                    <button 
-                        type="button" 
-                        data-bs-target="#carousel" 
-                        data-bs-slide-to="{{ loop.index -1 }}" 
-                        {% if loop.index == 1 %}
-                        class="active" 
-                        {% endif %}
-                        aria-current="true" 
-                        aria-label="Slide {{ loop.index - 1 }}"></button>
-                    {% endfor %}
+                    {% set count = namespace(value=0) %}
+                        {% for field in board.fields %}
+                            {% if field.archived == false %}
+                                {{ count.value }}
+                                <button 
+                                    type="button" 
+                                    data-bs-target="#carousel" 
+                                    data-bs-slide-to="{{ count.value }}" 
+                                    {% if count.value == 0 %}
+                                    class="active" 
+                                    {% endif %}
+                                    aria-current="true" 
+                                    aria-label="Slide {{ count.value }}"></button>
+                                {% set count.value = count.value + 1 %}
+                            {% endif %}
+                        {% endfor %}
                 </div>
                 <!-- load board -->
                 <div class="carousel-inner h-100 overflow-scroll">
                     <!-- Load fields -->
+                    {% set count = namespace(value=0) %}
                     {% for field in board.fields %}
-                    <!-- Different beginnings depending on the first field -->
-                        {% if loop.index <= 1 %}
-                        <div class="carousel-item active py-3">
-                        {% else %}
-                        <div class="carousel-item py-3">
-                        {% endif %}
-                            <div class="content-fluid d-flex flex-column text-secondary">
-                                <span class="content-fluid d-flex justify-content-center w-100">
-                                    <span class="content-fluid bg-light d-flex justify-content-between w-90">
-                                        <a  href="#"
-                                            hx-get="/edit-field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
-                                            hx-target="#modal"
-                                            hx-trigger="click"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modal"
-                                            class="btn btn-light d-flex flex-column justify-content-center"
-                                            field_id="{{ field.id }}"
-                                            group_id="{{ board.id }}">
-                                            <h4 class="h4 px-5">{{ field.name }}</h4>
-                                        </a>
-                                        <a 
-                                            href="#" 
-                                            class="btn btn-light"
-                                            hx-get="/field-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
-                                            hx-target="#modal"
-                                            hx-trigger="click"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modal">
-                                            <img
-                                                class="img-fluid m-0 p-0"
-                                                height="70"
-                                                width="70"
-                                                src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
-                                            </img>
-                                        </a>
-                                    </span>
-                                </span>
-                                <!-- load cards -->
-                                {% for card in field.cards %}
-                                <span class="content-fluid d-flex justify-content-center w-100">
-                                    <span class="d-flex flex-column align-items-center w-90 bg-light py-3">
-                                        <div class="card h-100 w-90">
-                                            <div class="card-body py-1 rounded-3 shadow d-flex flex-column align-items-center w-100 h-100"> 
-                                                <div class="w-100 h-25 d-flex justify-content-between">
-                                                    <img 
-                                                        class="btn btn-outline-dark m-0 align-self-center"
-                                                        height="50"
-                                                        width="50"
-                                                        src="{{ url_for('static', filename='img/check-circle-outline.svg') }}">
-                                                    </img>
-                                                    <img 
-                                                        class="btn btn-outline-dark m-0 align-self-center"
-                                                        height="50"
-                                                        width="50"
-                                                        hx-get="/card-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
-                                                        hx-target="#modal"
-                                                        hx-trigger="click"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#modal"
-                                                        src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
-                                                    </img>
-                                                </div>
-                                                <a  href="#"
-                                                hx-get="/edit-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                        {% if field.archived == false %}
+                            <!-- Different beginnings depending on the first field -->
+                            {% if count.value <= 0 %}
+                            <div class="carousel-item active py-3">
+                            {% else %}
+                            <div class="carousel-item py-3">
+                            {% endif %}
+                                <div class="content-fluid d-flex flex-column text-secondary">
+                                    <span class="content-fluid d-flex justify-content-center w-100">
+                                        <span class="content-fluid bg-light d-flex justify-content-between w-90">
+                                            <a  href="#"
+                                                hx-get="/edit-field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
                                                 hx-target="#modal"
                                                 hx-trigger="click"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modal"
-                                                class="btn d-flex justify-content-start w-90 p-0 my-0 vh-10 overflow-hidden"
-                                                card_id="{{ card.id }}"
+                                                class="btn btn-light d-flex flex-column justify-content-center"
                                                 field_id="{{ field.id }}"
-                                                group_id="{{ board.id }}">  
-                                                    <p class="card-text py-2 text-start">
-                                                        {{ card.message_body }}
-                                                    </p>
-                                                </a>
-                                                <div class="py-2 w-100 d-flex justify-content-between">
-                                                    <!-- TODO: replace -->
-                                                    <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
-                                                    <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                group_id="{{ board.id }}">
+                                                <h4 class="h4 px-5">{{ field.name }}</h4>
+                                            </a>
+                                            <a 
+                                                href="#" 
+                                                class="btn btn-light"
+                                                hx-get="/field-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
+                                                hx-target="#modal"
+                                                hx-trigger="click"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal">
+                                                <img
+                                                    class="img-fluid m-0 p-0"
+                                                    height="70"
+                                                    width="70"
+                                                    src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
+                                                </img>
+                                            </a>
+                                        </span>
                                     </span>
-                                </span>
-                                {% endfor %}
-                                <!-- Add card control-->
-                                <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
-                                    <a  href="#"
-                                        class="btn btn-light"
-                                        hx-get="/add-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
-                                        hx-target="#modal"
-                                        hx-trigger="click"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#modal">
-                                        <p class="text-dark m-0 p-0"><strong>Add Card</strong></p>
-                                        <img
-                                            class="img-fluid m-0 p-0"
-                                            height="50"
-                                            width="50"
-                                            src="{{ url_for('static', filename='img/plus.svg') }}">
-                                        </img>
-                                    </a>
+                                    <!-- load cards -->
+                                    {% for card in field.cards %}
+                                        {{ card.archived }}
+                                        {% if card.archived == false %}
+                                        <span class="content-fluid d-flex justify-content-center w-100">
+                                            <span class="d-flex flex-column align-items-center w-90 bg-light py-3">
+                                                <div class="card h-100 w-90">
+                                                    <div class="card-body py-1 rounded-3 shadow d-flex flex-column align-items-center w-100 h-100"> 
+                                                        <div class="w-100 h-25 d-flex justify-content-between">
+                                                            <img 
+                                                                class="btn btn-outline-dark m-0 align-self-center"
+                                                                height="50"
+                                                                width="50"
+                                                                src="{{ url_for('static', filename='img/check-circle-outline.svg') }}">
+                                                            </img>
+                                                            <img 
+                                                                class="btn btn-outline-dark m-0 align-self-center"
+                                                                height="50"
+                                                                width="50"
+                                                                hx-get="/card-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                                                hx-target="#modal"
+                                                                hx-trigger="click"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#modal"
+                                                                src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
+                                                            </img>
+                                                        </div>
+                                                        <a  href="#"
+                                                        hx-get="/edit-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                                        hx-target="#modal"
+                                                        hx-trigger="click"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#modal"
+                                                        class="btn d-flex justify-content-start w-90 p-0 my-0 vh-10 overflow-hidden"
+                                                        card_id="{{ card.id }}"
+                                                        field_id="{{ field.id }}"
+                                                        group_id="{{ board.id }}">  
+                                                            <p class="card-text py-2 text-start">
+                                                                {{ card.message_body }}
+                                                            </p>
+                                                        </a>
+                                                        <div class="py-2 w-100 d-flex justify-content-between">
+                                                            <!-- TODO: replace -->
+                                                            <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
+                                                            <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </span>
+                                        </span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    <!-- Add card control-->
+                                    <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
+                                        <a  href="#"
+                                            class="btn btn-light"
+                                            hx-get="/add-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
+                                            hx-target="#modal"
+                                            hx-trigger="click"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modal">
+                                            <p class="text-dark m-0 p-0"><strong>Add Card</strong></p>
+                                            <img
+                                                class="img-fluid m-0 p-0"
+                                                height="50"
+                                                width="50"
+                                                src="{{ url_for('static', filename='img/plus.svg') }}">
+                                            </img>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            {% set count.value = count.value + 1 %}
+                        {% endif %}
                     {% endfor %}
                     <button class="carousel-control-prev w-5" data-bs-target="#carousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>

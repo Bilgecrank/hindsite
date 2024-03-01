@@ -8,7 +8,7 @@ from flask_login import login_required, current_user
 from app.hindsite.home.home_model import create_group, GroupAddError
 from app.hindsite.common_model import CardError, FieldError, add_card, add_field, \
         create_board, get_boards, get_card, get_field, get_fields, get_groups, authorized, \
-        get_board, get_user, set_start_date_for_board, update_card_message, update_field_name
+        get_board, get_user, set_start_date_for_board, toggle_archive_card, update_card_message, update_field_name
 
 #TODO:  Remove padding for cards in facilitator-home
 #TODO:  Set max size for cards and include overflow-hidden in classes
@@ -61,7 +61,7 @@ def participant_route(selected: str):
     if request.method == 'POST':
         try:
             session['groupname'] = request.args['groupname']
-            session['groupid'] = request.args['group_id']
+            session['groupid'] = int(request.args['group_id'])
         except GroupAddError as ex:
             flash(ex.message)
         if 'groupname' in session:
@@ -99,7 +99,7 @@ def facilitator_route(selected: str):
     if request.method == 'POST':
         try:
             session['groupname'] = request.args['groupname']
-            session['groupid'] = request.args['group_id']
+            session['groupid'] = int(request.args['group_id'])
         except GroupAddError as ex:
             flash(ex.message)
         if 'groupname' in session:
@@ -138,7 +138,8 @@ def card_edit():
             field_id = int(request.args['field_id'])
             board_id = int(request.args['board_id'])
             card_id = int(request.args['card_id'])
-            board = get_board(session['groupid'], board_id)
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
             field = get_field(field_id, board)
             card = get_card(card_id, field)
             print("field_id %s board_id %s card_id %s" %(field_id, board_id, card_id))
@@ -155,9 +156,9 @@ def card_modal():
     """
         Route to retrieve the field modal using HTMx
     """
-    field_id = request.args['field_id']
-    board_id = request.args['board_id']
-    card_id = request.args['card_id']
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    card_id = int(request.args['card_id'])
     return render_template('partials/edit-card-modal.html', \
                            field_id=field_id, board_id=board_id, card_id=card_id)
 
@@ -174,7 +175,8 @@ def edit_field():
             fieldname = request.form['fieldname']
             field_id = int(request.args['field_id'])
             board_id = int(request.args['board_id'])
-            board = get_board(session['groupid'], board_id)
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
             field = get_field(field_id, board)
             update_field_name(field, fieldname)
         except FieldError as e:
@@ -189,8 +191,8 @@ def edit_field_modal():
     """
         Route to retrieve the field modal using HTMx
     """
-    field_id = request.args['field_id']
-    board_id = request.args['board_id']
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
     return render_template('partials/edit-field-modal.html', \
                            field_id=field_id, board_id=board_id)
 
@@ -236,10 +238,9 @@ def new_field():
     if request.method == 'POST':
         try:
             fieldname = request.form['fieldname']
-            field_id = int(request.args['field_id'])
             board_id = int(request.args['board_id'])
-            board = get_board(session['groupid'], board_id)
-            field = get_field(field_id, board)
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
             add_field(board, fieldname)
         except FieldError as e:
             error = e.message
@@ -253,8 +254,8 @@ def add_field_modal():
     """
         Route to retrieve the add field modal using HTMx
     """
-    board_id = request.args['board_id']
-    field_id = request.args['field_id']
+    board_id = int(request.args['board_id'])
+    field_id = int(request.args['field_id'])
     return render_template('partials/add-field-modal.html', \
                            board_id=board_id, field_id=field_id)
 
@@ -272,7 +273,8 @@ def new_card():
             card_text = request.form['card-text']
             field_id = int(request.args['field_id'])
             board_id = int(request.args['board_id'])
-            board = get_board(session['groupid'], board_id)
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
             field = get_field(field_id, board)
             add_card(field, get_user(current_user.id), card_text)
         except CardError as e:
@@ -287,8 +289,8 @@ def add_card_modal():
     """
         Route to retrieve the field modal using HTMx
     """
-    field_id = request.args['field_id']
-    board_id = request.args['board_id']
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
     return render_template('partials/add-card-modal.html', \
                            field_id=field_id, board_id=board_id)
 
@@ -307,7 +309,8 @@ def card_options():
             card_text = request.form['card-text']
             field_id = int(request.args['field_id'])
             board_id = int(request.args['board_id'])
-            board = get_board(session['groupid'], board_id)
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
             field = get_field(field_id, board)
             add_card(field, get_user(current_user.id), card_text)
         except CardError as e:
@@ -322,10 +325,11 @@ def card_options_modal():
     """
         Route to retrieve the field modal using HTMx
     """
-    field_id = request.args['field_id']
-    board_id = request.args['board_id']
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    card_id = int(request.args['card_id'])
     return render_template('partials/card-options-modal.html', \
-                           field_id=field_id, board_id=board_id)
+                           field_id=field_id, board_id=board_id, card_id=card_id)
 
 @home.route('/field-options', methods=['GET','POST'])
 @login_required
@@ -337,10 +341,10 @@ def field_options():
     error = None
     if request.method == 'POST':
         try:
-            field_name = request.form['field_name']
             field_id = int(request.args['field_id'])
             board_id = int(request.args['board_id'])
-            board = get_board(session['groupid'], board_id)
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
             field = get_field(field_id, board)
         except CardError as e:
             error = e.message
@@ -354,9 +358,38 @@ def field_options_modal():
     """
         Route to retrieve the field modal using HTMx
     """
-    field_id = request.args['field_id']
-    board_id = request.args['board_id']
-    board = get_board(session['groupid'], board_id)
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    group_id = session.get('groupid')
+    board = get_board(group_id, board_id)
     return render_template('partials/field-options-modal.html', \
                            field_id=field_id, board_id=board_id, board=board)
 
+# DELETE ROUTES
+@home.route('/delete-card', methods=['GET','POST'])
+@login_required
+def delete_card():
+    """
+        Route to delete the selected card
+    """
+    #TODO: needs error checking
+    if request.method == 'POST':
+        card_id = int(request.args['card_id'])
+        field_id = int(request.args['field_id'])
+        board_id = int(request.args['board_id'])
+        group_id = session.get('groupid')
+        # print("field id %s board id %s card id %s group id %s" %(field_id, board_id, card_id, group_id))
+        board = get_board(group_id, board_id)
+        # print(board)
+        field = get_field(field_id, board)
+        card = get_card(card_id, field)
+        card = toggle_archive_card(card)
+        print(card.archived)
+    return redirect(url_for('home.homepage'))
+    
+@home.route('/delete-field', methods=['GET','POST'])
+@login_required
+def delete_field():
+    """
+        Route to delete the selected field
+    """
