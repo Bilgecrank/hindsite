@@ -124,7 +124,7 @@ def facilitator_display():
     return render_template('partials/facilitator-blob.html', title='Home', board=board)
 
 
-# MODAL ROUTES AND POST ROUTES
+# EDIT ROUTES AND POST ROUTES
 @home.route('/edit-card', methods=['POST', 'GET'])
 @login_required
 def card_edit():
@@ -149,7 +149,7 @@ def card_edit():
         flash(error)
     return redirect(url_for('home.homepage'))
 
-@home.route('/card-modal')
+@home.route('/edit-card-modal')
 @login_required
 def card_modal():
     """
@@ -161,9 +161,9 @@ def card_modal():
     return render_template('partials/edit-card-modal.html', \
                            field_id=field_id, board_id=board_id, card_id=card_id)
 
-@home.route('/rename-field', methods=['GET','POST'])
+@home.route('/edit-field', methods=['GET','POST'])
 @login_required
-def rename_field():
+def edit_field():
     """
         Route modal POSTs to for renaming a field
     """
@@ -183,9 +183,9 @@ def rename_field():
         flash(error)
     return redirect(url_for('home.homepage'))
 
-@home.route('/field-modal')
+@home.route('/edit-field-modal')
 @login_required
-def field_modal():
+def edit_field_modal():
     """
         Route to retrieve the field modal using HTMx
     """
@@ -194,7 +194,7 @@ def field_modal():
     return render_template('partials/edit-field-modal.html', \
                            field_id=field_id, board_id=board_id)
 
-
+# ADD ROUTES AND POST ROUTES
 
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
@@ -216,11 +216,44 @@ def group_add():
     #Redirects to home and selects the groupname and group_id
     return redirect(url_for('home.homepage', groupname=groupname, group_id=group.id), code=307)
 
-@home.route('/group-modal')
+@home.route('/add-group-modal')
 @login_required
-def group_modal():
+def group_add_modal():
     """
         Route to retrieve the modal using HTMx
     """
     groups = get_groups(current_user.id)
     return render_template('partials/add-group-modal.html', groups=groups)
+
+@home.route('/add-field', methods=['GET','POST'])
+@login_required
+def new_field():
+    """
+        Route modal POSTs to for renaming a field
+    """
+    
+    error = None
+    if request.method == 'POST':
+        try:
+            fieldname = request.form['fieldname']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            board = get_board(session['groupid'], board_id)
+            field = get_field(field_id, board)
+            update_field_name(field, fieldname)
+        except FieldError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/add-field-modal')
+@login_required
+def add_field_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = request.args['field_id']
+    board_id = request.args['board_id']
+    return render_template('partials/edit-field-modal.html', \
+                           field_id=field_id, board_id=board_id)

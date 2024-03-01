@@ -32,7 +32,7 @@
                                 <span class="content-fluid d-flex justify-content-center w-100">
                                     <span class="content-fluid bg-light d-flex justify-content-between w-90">
                                         <a  href="#"
-                                            hx-get="/field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
+                                            hx-get="/edit-field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
                                             hx-target="#modal"
                                             hx-trigger="click"
                                             data-bs-toggle="modal"
@@ -57,7 +57,7 @@
                                 <span class="content-fluid d-flex justify-content-center w-100">
                                     <span class="d-flex justify-content-center w-90 bg-light">
                                         <a  href="#"
-                                            hx-get="/card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                            hx-get="/edit-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
                                             hx-target="#modal"
                                             hx-trigger="click"
                                             data-bs-toggle="modal"
@@ -79,12 +79,17 @@
                                 <!-- TODO: add link -->
                                 <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
                                     <a  href="#"
-                                        class="btn">
+                                        class="btn btn-light"
+                                        hx-get="/add-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
+                                        hx-target="#modal"
+                                        hx-trigger="click"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#modal">
                                         <p class="text-dark m-0 p-0"><strong>Add Card</strong></p>
                                         <img
                                             class="img-fluid m-0 p-0"
-                                            height="70"
-                                            width="70"
+                                            height="50"
+                                            width="50"
                                             src="{{ url_for('static', filename='img/plus.svg') }}">
                                         </img>
                                     </a>
