@@ -109,29 +109,6 @@ def facilitator_route(selected: str):
     return render_template('facilitator-home.html', title='Facilitator Home', \
                            groups=groups, selected=selected, board=board)
 
-
-@home.route('/invites', methods=['POST', 'GET'])
-@login_required
-def invites():
-    """
-        Loads all the invite codes to be accepted or rejected
-    TODO: Put the invite codes into a modal, add decline button, create
-    notification bell to open the modal.
-    """
-    error = None
-    if request.method == 'GET':
-        invitations = get_invitations(current_user.id)
-        return render_template('partials/invites.html', invitations=invitations)
-    if request.method == 'POST':
-        try:
-            group = request.args['group']
-            membership = get_invitation(group, current_user.id)
-            accept_invitation(membership)
-        except GroupAddError as e:
-            error = e.message
-            flash(error)
-    return render_template('partials/accepted.html')
-
 @home.route('/facilitator-display', methods=['GET', 'POST'])
 @login_required
 def facilitator_display():
