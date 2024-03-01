@@ -21,6 +21,10 @@
     animation: rotate-out 0.25s;
     animation-fill-mode: forwards;
 }
+.vh-10{
+    height: 10vh;
+    max-height: 10vh;
+}
 .h-90{
     height: 90%;
 }

@@ -55,25 +55,44 @@
                                 <!-- load cards -->
                                 {% for card in field.cards %}
                                 <span class="content-fluid d-flex justify-content-center w-100">
-                                    <span class="d-flex justify-content-center w-90 bg-light">
-                                        <a  href="#"
-                                            hx-get="/edit-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
-                                            hx-target="#modal"
-                                            hx-trigger="click"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#modal"
-                                            class="btn d-flex justify-content-start w-90 py-0 my-0"
-                                            card_id="{{ card.id }}"
-                                            field_id="{{ field.id }}"
-                                            group_id="{{ board.id }}">
-                                            <div class="card h-100 w-100">
-                                                <div class="card-body rounded-3 shadow py-5 d-flex justify-content-start w-100 h-100">
-                                                        <p class="card-text">
-                                                            {{ card.message_body }}
-                                                        </p>
+                                    <span class="d-flex flex-column align-items-center w-90 bg-light">
+                                        <div class="card h-100 w-90">
+                                            <div class="card-body py-1 rounded-3 shadow d-flex flex-column align-items-center w-100 h-100"> 
+                                                <div class="w-100 h-25 d-flex justify-content-between">
+                                                    <img 
+                                                        class="m-0 align-self-center"
+                                                        height="50"
+                                                        width="50"
+                                                        src="{{ url_for('static', filename='img/check-circle-outline.svg') }}">
+                                                    </img>
+                                                    <img 
+                                                        class="m-0 align-self-center"
+                                                        height="50"
+                                                        width="50"
+                                                        src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
+                                                    </img>
+                                                </div>
+                                                <a  href="#"
+                                                hx-get="/edit-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                                hx-target="#modal"
+                                                hx-trigger="click"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#modal"
+                                                class="btn d-flex justify-content-start w-90 p-0 my-0 vh-10 overflow-hidden"
+                                                card_id="{{ card.id }}"
+                                                field_id="{{ field.id }}"
+                                                group_id="{{ board.id }}">  
+                                                    <p class="card-text py-2">
+                                                        {{ card.message_body }}
+                                                    </p>
+                                                </a>
+                                                <div class="py-2 w-100 d-flex justify-content-between">
+                                                    <!-- TODO: replace -->
+                                                    <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
+                                                    <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
                                                 </div>
                                             </div>
-                                        </a>
+                                        </div>
                                     </span>
                                 </span>
                                 <!-- TODO: add link -->
