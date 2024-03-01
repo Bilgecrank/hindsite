@@ -23,52 +23,81 @@
                     <!-- Load fields -->
                     {% for field in board.fields %}
                     <!-- Different beginnings depending on the first field -->
-                    {% if loop.index <= 1 %}
-                        <div class="carousel-item active">
-                    {% else %}
-                        <div class="carousel-item">
-                    {% endif %}
+                        {% if loop.index <= 1 %}
+                        <div class="carousel-item active py-3">
+                        {% else %}
+                        <div class="carousel-item py-3">
+                        {% endif %}
                             <div class="content-fluid d-flex flex-column text-secondary">
-                                <a  href="#"
-                                    hx-get="/field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
-                                    hx-target="#modal"
-                                    hx-trigger="click"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal" 
-                                    class="btn btn-light d-flex justify-content-start"
-                                    field_id="{{ field.id }}"
-                                    group_id="{{ board.id }}">
-                                    <h4 class="h4 px-5">{{ field.name }}</h4>
-                                </a>
+                                <span class="content-fluid d-flex justify-content-center w-100">
+                                    <span class="content-fluid bg-light d-flex justify-content-between w-90">
+                                        <a  href="#"
+                                            hx-get="/field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
+                                            hx-target="#modal"
+                                            hx-trigger="click"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modal"
+                                            class="btn btn-light d-flex flex-column justify-content-center"
+                                            field_id="{{ field.id }}"
+                                            group_id="{{ board.id }}">
+                                            <h4 class="h4 px-5">{{ field.name }}</h4>
+                                        </a>
+                                        <a href="#" class="btn btn-light">
+                                            <img
+                                                class="img-fluid m-0 p-0"
+                                                height="70"
+                                                width="70"
+                                                src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
+                                            </img>
+                                        </a>
+                                    </span>
+                                </span>
                                 <!-- load cards -->
                                 {% for card in field.cards %}
-                                <a  href="#"
-                                    hx-get="/card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
-                                    hx-target="#modal"
-                                    hx-trigger="click" 
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modal" 
-                                    class="btn btn-light d-flex justify-content-start"
-                                    card_id="{{ card.id }}"
-                                    field_id="{{ field.id }}"
-                                    group_id="{{ board.id }}">
-                                    <div class="card my-5 w-100">
-                                        <div class="card-body py-5 d-flex justify-content-start">
-                                                <p class="card-text">
-                                                    {{ card.message_body }}
-                                                </p>
-                                        </div>
-                                    </div>
-                                </a>
+                                <span class="content-fluid d-flex justify-content-center w-100">
+                                    <span class="d-flex justify-content-center w-90 bg-light">
+                                        <a  href="#"
+                                            hx-get="/card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                            hx-target="#modal"
+                                            hx-trigger="click"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#modal"
+                                            class="btn d-flex justify-content-start w-90 py-0 my-0"
+                                            card_id="{{ card.id }}"
+                                            field_id="{{ field.id }}"
+                                            group_id="{{ board.id }}">
+                                            <div class="card h-100 w-100">
+                                                <div class="card-body rounded-3 shadow py-5 d-flex justify-content-start w-100 h-100">
+                                                        <p class="card-text">
+                                                            {{ card.message_body }}
+                                                        </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </span>
+                                </span>
+                                <!-- TODO: add link -->
+                                <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
+                                    <a  href="#"
+                                        class="btn">
+                                        <p class="text-dark m-0 p-0"><strong>Add Card</strong></p>
+                                        <img
+                                            class="img-fluid m-0 p-0"
+                                            height="70"
+                                            width="70"
+                                            src="{{ url_for('static', filename='img/plus.svg') }}">
+                                        </img>
+                                    </a>
+                                </div>
                                 {% endfor %}
                             </div>
                         </div>
                     {% endfor %}
-                    <button class="carousel-control-prev w-10" data-bs-target="#carousel" data-bs-slide="prev">
+                    <button class="carousel-control-prev w-5" data-bs-target="#carousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">Prev</span>
                     </button>
-                    <button class="carousel-control-next w-10" data-bs-target="#carousel" data-bs-slide="next">
+                    <button class="carousel-control-next w-5" data-bs-target="#carousel" data-bs-slide="next">
                         <span class="carousel-control-next-icon"></span>
                         <span class="visually-hidden">Next</span>
                     </button>

@@ -194,6 +194,8 @@ def field_modal():
     return render_template('partials/edit-field-modal.html', \
                            field_id=field_id, board_id=board_id)
 
+
+
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
 def group_add():
