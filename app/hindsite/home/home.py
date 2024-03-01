@@ -229,7 +229,7 @@ def group_add_modal():
 @login_required
 def new_field():
     """
-        Route modal POSTs to for renaming a field
+        Route modal POSTs to for adding a field
     """
     
     error = None
@@ -251,9 +251,42 @@ def new_field():
 @login_required
 def add_field_modal():
     """
+        Route to retrieve the add field modal using HTMx
+    """
+    board_id = request.args['board_id']
+    return render_template('partials/edit-field-modal.html', \
+                           board_id=board_id)
+
+
+@home.route('/add-card', methods=['GET','POST'])
+@login_required
+def new_card():
+    """
+        Route modal POSTs to for adding a card
+    """
+    
+    error = None
+    if request.method == 'POST':
+        try:
+            card_text = request.form['card-text']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            board = get_board(session['groupid'], board_id)
+            field = get_field(field_id, board)
+            add_card(field, get_user(current_user.id), card_text)
+        except CardError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/add-card-modal')
+@login_required
+def add_card_modal():
+    """
         Route to retrieve the field modal using HTMx
     """
     field_id = request.args['field_id']
     board_id = request.args['board_id']
-    return render_template('partials/edit-field-modal.html', \
+    return render_template('partials/add-card-modal.html', \
                            field_id=field_id, board_id=board_id)

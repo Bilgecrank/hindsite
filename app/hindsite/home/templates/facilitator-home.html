@@ -55,18 +55,18 @@
                                 <!-- load cards -->
                                 {% for card in field.cards %}
                                 <span class="content-fluid d-flex justify-content-center w-100">
-                                    <span class="d-flex flex-column align-items-center w-90 bg-light">
+                                    <span class="d-flex flex-column align-items-center w-90 bg-light py-3">
                                         <div class="card h-100 w-90">
                                             <div class="card-body py-1 rounded-3 shadow d-flex flex-column align-items-center w-100 h-100"> 
                                                 <div class="w-100 h-25 d-flex justify-content-between">
                                                     <img 
-                                                        class="m-0 align-self-center"
+                                                        class="btn btn-outline-dark m-0 align-self-center"
                                                         height="50"
                                                         width="50"
                                                         src="{{ url_for('static', filename='img/check-circle-outline.svg') }}">
                                                     </img>
                                                     <img 
-                                                        class="m-0 align-self-center"
+                                                        class="btn btn-outline-dark m-0 align-self-center"
                                                         height="50"
                                                         width="50"
                                                         src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
@@ -82,7 +82,7 @@
                                                 card_id="{{ card.id }}"
                                                 field_id="{{ field.id }}"
                                                 group_id="{{ board.id }}">  
-                                                    <p class="card-text py-2">
+                                                    <p class="card-text py-2 text-start">
                                                         {{ card.message_body }}
                                                     </p>
                                                 </a>
@@ -95,7 +95,8 @@
                                         </div>
                                     </span>
                                 </span>
-                                <!-- TODO: add link -->
+                                {% endfor %}
+                                <!-- Add card control-->
                                 <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
                                     <a  href="#"
                                         class="btn btn-light"
@@ -113,7 +114,6 @@
                                         </img>
                                     </a>
                                 </div>
-                                {% endfor %}
                             </div>
                         </div>
                     {% endfor %}
