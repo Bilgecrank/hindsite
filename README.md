@@ -15,9 +15,10 @@ Hello! This project is currently a capstone project for a CMSC 495 course at the
 2. Next, you need to run `pip install -r requirements.txt` in the root directory of the project.
 
    -Note: this project was created with the latest version of Python 3. There are no version locks in the requirements.txt yet.
+
    -Reccomendation: Use a virtual environment to install the requirements, rather than your operating system.
    
-3. Finally, you need a .env file in the root directory of the project folder with the following environment variables:
+4. Finally, you need a .env file in the root directory of the project folder with the following environment variables:
   
     `MYSQLUSER = ""
     
@@ -31,7 +32,7 @@ Hello! This project is currently a capstone project for a CMSC 495 course at the
     
     SECRET_KEY = ""`
 
-4. Finally, to run the server, the following command is run from the root directory of the app in the terminal:
+5. Finally, to run the server, the following command is run from the root directory of the app in the terminal:
 
   `gunicorn --timeout 600 --chdir app wsgi:app`
   
