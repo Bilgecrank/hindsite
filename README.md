@@ -7,7 +7,7 @@ A SCRUM retrospective tool to empower teams.
 ![UMGC Logo](https://www.umgc.edu/content/experience-fragments/umgc/language-masters/en/header/master/_jcr_content/root/header_copy/image.coreimg.svg/1705606255029/umgc-logo-preferred-rgb.svg)
 Hello! This project is currently a capstone project for a CMSC 495 course at the University of Maryland Global Campus. We are not accepting pull-requests outside our collaborative group so far, but after the assignment is submitted and graded, we can accept open-source collaboration after the fact.
 
-##To run the project locally, you'll need to complete a few steps:
+## To run the project locally, you'll need to complete a few steps:
 
 1. First, you need to set up a MySQL Database:
    -https://dev.mysql.com/doc/mysql-getting-started/en/
@@ -39,7 +39,7 @@ Hello! This project is currently a capstone project for a CMSC 495 course at the
   
   `gunicorn --timeout 600 --chdir app wsgi:app --reload`
 
-##Some tips:
+## Some tips:
 
 Information for your local environment will go inside the double quotes. For example, the default port for MySQL is 3306, so:
   
