@@ -140,6 +140,28 @@
                             {% set count.value = count.value + 1 %}
                         {% endif %}
                     {% endfor %}
+                    {% if count.value == 0 %}
+                    <div class="carousel-item active">
+                        <!-- Add Field control-->
+                        <div class="content-fluid p-2 my-5 align-self-center text-center w-100">
+                            <a  href="#"
+                                class="btn btn-outline-secondary w-25"
+                                hx-get="/add-field-modal?&board_id={{ board.id }}&field_id=0"
+                                hx-target="#modal"
+                                hx-trigger="click"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modal">
+                                <p class="text-dark m-0 p-0"><strong>New Field</strong></p>
+                                <img
+                                    class="img-fluid m-0 p-0"
+                                    height="50"
+                                    width="50"
+                                    src="{{ url_for('static', filename='img/plus.svg') }}">
+                                </img>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
                     <button class="carousel-control-prev w-5" data-bs-target="#carousel" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon"></span>
                         <span class="visually-hidden">Prev</span>
