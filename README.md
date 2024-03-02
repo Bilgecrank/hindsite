@@ -17,7 +17,7 @@ To run the project locally, you'll need to complete a few steps.
    -Note: this project was created with the latest version of Python 3. There are no version locks in the requirements.txt yet.
    -Reccomendation: Use a virtual environment to install the requirements, rather than your operating system.
    
-4. Finally, you need a .env file in the root directory of the project folder with the following environment variables:
+3. Finally, you need a .env file in the root directory of the project folder with the following environment variables:
   
     `MYSQLUSER = ""
     
@@ -45,7 +45,7 @@ To run the project locally, you'll need to complete a few steps.
   
   For the database, an empty MySQL database with the name that's in the environment variable will be populated when you run the command. You just have to make sure that you populate the .env files with the connection information to your MySQL server.
 
-5. Finally, to run the server, the following command is run from the root directory of the app in the terminal:
+4. Finally, to run the server, the following command is run from the root directory of the app in the terminal:
 
   `gunicorn --timeout 600 --chdir app wsgi:app`
   
