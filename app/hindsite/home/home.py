@@ -176,21 +176,24 @@ def group_add():
         The route for the add group dropdown item.
     """
     error = None
+    group = None
     if request.method == 'POST':
         if authorized():
             try:
-                groupname = request.form['groupname']
-                group = create_group(groupname, current_user.id)
+                group = create_group(request.form['groupname'], current_user.id)
                 session['groupname'] = group.name
                 #TODO: Create a default board
             except GroupAddError as e:
                 error = e.message
+                flash(error)
         else:
             flash("You are not authorized to perform that action")
     if error is not None:
         flash(error)
     #Redirects to home and selects the groupname and group_id
-    return redirect(url_for('home.homepage', groupname=groupname, group_id=group.id), code=307)
+    if group is not None:
+        return redirect(url_for('home.homepage', groupname=group.name, group_id=group.id), code=307)
+    return redirect(url_for('home.homepage'))
 
 @home.route('/add-group-modal')
 @login_required

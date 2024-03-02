@@ -26,13 +26,16 @@ def create_group(name: str, email: str):
     :param email: The email of the user to be added to the group.
     :returns: **Group** The newly created group.
     """
-    user = get_user(email)
-    group = add_group(name)
-    membership = Membership(user, group)
-    membership.owner = True
-    membership.invitation_accepted = True
-    db.session.add(membership)
-    db.session.commit()
+    try:
+        user = get_user(email)
+        group = add_group(name)
+        membership = Membership(user, group)
+        membership.owner = True
+        membership.invitation_accepted = True
+        db.session.add(membership)
+        db.session.commit()
+    except GroupAddError as e:
+        raise GroupAddError(e.message) from e
     return group
 
 
@@ -41,6 +44,8 @@ def add_group(name: str):
     Inserts a group into the groups table of the database.
     need to take a user id and append the group id to the user record
     """
+    if len(name) > 50:
+        raise GroupAddError('Group name is too long(50 characters).')
     new_group = Group(name=name)
     db.session.add(new_group)
     db.session.commit()
