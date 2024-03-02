@@ -79,15 +79,21 @@ def request_loader(request):
         return None
     return UserSession(email)
 
+
 @login_manager.unauthorized_handler
 def unauthorized():
+    """
+    Defines the unauthorized handler for the login_manager.
+
+    :return: **Response**
+    """
     response = make_response(render_template('401.html'), 401)
     response.headers['hx-redirect'] = url_for('auth.sign_in')
     flash("You must log-in to continue", "error")
     return response
 
 
-def register_user(email: str, email_compare: str, password: str, password_compare: str):
+def register_user(email: str, password: str):
     """
     Takes in a user's email and password, checks if the email is already associated with an account,
     then checks if the password is a valid entry.
@@ -99,10 +105,6 @@ def register_user(email: str, email_compare: str, password: str, password_compar
     :raises RegistrationError: Raises this in case of an already extant account or if the password
     is not a valid secret.
     """
-    if email != email_compare:
-        raise RegistrationError('ERROR: Email and confirm email do not match.')
-    if password != password_compare:
-        raise RegistrationError('ERROR: Password and confirm password do not match.')
     if is_user(email):
         raise RegistrationError('An account already exists with this email.')
     if not valid_email(email):
@@ -163,7 +165,6 @@ def valid_display_name(display_name: str):
     if display_name != display_name.strip():
         return False
     return True
-
 
 
 def login(email: str, password: str):
