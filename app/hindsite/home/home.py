@@ -6,7 +6,14 @@ import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import create_group, GroupAddError
-from app.hindsite.common_model import add_card, add_field, create_board, get_boards, get_groups, authorized, get_most_recent_board, get_user, set_start_date_for_board
+from app.hindsite.common_model import *
+
+#TODO:  Remove padding for cards in facilitator-home
+#TODO:  Set max size for cards and include overflow-hidden in classes
+#TODO:  Create routes for edit-card and rename-field
+#TODO:  Put field name and buttons into a span
+#           Justify self right for controls
+#           Each element has own link
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -34,65 +41,133 @@ def homepage():
         session['groupname'] = "Select a Group"
     selected = session['groupname']
 
-    #TODO: The first version below is the correct route. Uncomment it to enable 
-    # proper routing.
-    #
-    # The second version below is to test/develop facilitator_route()
+    groups = get_groups(current_user.id)
 
-    # return authorized(facilitator_route(selected), participant_route(selected))
-    return authorized(participant_route(selected), facilitator_route(selected)) #TODO: Testing Facilitator mode
+    # Need to check for 'POST' first in case there's a redirect from a participant
+    if request.method == 'POST':
+        try:
+            session['groupname'] = request.args['groupname']
+            session['groupid'] = int(request.args['group_id'])
+            group_id = session.get('groupid')
+            ownership = get_ownership(current_user.id, group_id)
+            session['facilitator'] = ownership
+        except Exception as ex:
+            print(ex)
+        if 'groupname' in session:
+            selected = session['groupname']
 
-def participant_route(selected: str):
+    board = None
+    boards = None
+    if 'groupid' in session and session['groupid'] is not None:
+        # a group is selected, so we can populate the boards
+        group_id = session.get('groupid')
+        boards = get_boards(group_id)
+        if boards is None or boards == []:
+            #creates the board defaults
+            #adds the boards to the board selector
+            board = create_board(group_id)
+            field = add_field(board, "New Category")
+            add_card(field, get_user(current_user.id), 'Enter Card Data')
+        boards = get_boards(group_id)
+        #populates the board selector
+        #selects the most recent board
+        #TODO: add a selection method for the board
+        board = boards[0]
+    return authorized_routes(facilitator_route(selected, groups, board), participant_route(selected, groups, board))
+
+def participant_route(selected: str, groups: Group, board: Board):
     """
         Loads home.html, sets the title and loads in the group
         selection dropdown. Periodically checks for invites sent
         from other users to their groups and loads them.
     """
-    groups = get_groups(current_user.id)
-    if request.method == 'POST':
-        try:
-            session['groupname'] = request.args['groupname']
-            session['groupid'] = request.args['group_id']
-        except GroupAddError as ex:
-            flash(ex.message)
-        if 'groupname' in session:
-            selected = session['groupname']
-        return render_template('partials/dropdown.html', title='Home', \
-                               groups=groups, selected=selected)
-    
-    return render_template('home.html', title='Home', groups=groups, selected=selected)
+    return render_template('home.html', title='Home', groups=groups, selected=selected, board=board)
 
-def facilitator_route(selected: str):
+def facilitator_route(selected: str, groups: Group, board: Board):
     """
         Route for Facilitator mode
     """
-    groups = get_groups(current_user.id)
-    board = None
-    if 'groupid' in session and session['groupid'] is not None:
-        board = create_board(session['groupid'])
-        field = add_field(board, "Test Field")
-        field2 = add_field(board, "Test Field 2")
-        add_card(field, get_user(current_user.id), "Test Card")
-        add_card(field, get_user(current_user.id), "Test Card2")
-        add_card(field, get_user(current_user.id), "Test Card3")
-        add_card(field, get_user(current_user.id), "Test Card4")
-        add_card(field, get_user(current_user.id), "Test Card5")
-        add_card(field, get_user(current_user.id), "Test Card6")
-        add_card(field2, get_user(current_user.id), "Test Card")
-        add_card(field2, get_user(current_user.id), "Test Card2")
-        add_card(field2, get_user(current_user.id), "Test Card3")
+    return render_template('facilitator-home.html', title='Facilitator Home', \
+                           groups=groups, selected=selected, board=board)
 
+
+# EDIT ROUTES AND POST ROUTES
+@home.route('/edit-card', methods=['POST', 'GET'])
+@login_required
+def card_edit():
+    """
+        Route modal POSTs to for changing a card text
+    """
+    error = None
     if request.method == 'POST':
-        try:
-            session['groupname'] = request.args['groupname']
-            session['groupid'] = request.args['group_id']
-        except GroupAddError as ex:
-            flash(ex.message)
-        if 'groupname' in session:
-            selected = session['groupname']
-        return render_template('facilitator-home.html', title='Home', \
-                               groups=groups, selected=selected, boards=board)
-    return render_template('facilitator-home.html', title='Home', groups=groups, selected=selected, boards=board)
+        if authorized():
+            try:
+                card_text = request.form['card-text']
+                field_id = int(request.args['field_id'])
+                board_id = int(request.args['board_id'])
+                card_id = int(request.args['card_id'])
+                group_id = session.get('groupid')
+                board = get_board(group_id, board_id)
+                field = get_field(field_id, board)
+                card = get_card(card_id, field)
+                update_card_message(card, card_text)
+            except CardError as e:
+                error = e.message
+        if error is not None:
+            flash(error)
+        else:
+            flash("You are not authorized to perform that action")
+    return redirect(url_for('home.homepage'))
+
+@home.route('/edit-card-modal')
+@login_required
+def card_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    card_id = int(request.args['card_id'])
+    return render_template('partials/edit-card-modal.html', \
+                           field_id=field_id, board_id=board_id, card_id=card_id)
+
+@home.route('/edit-field', methods=['GET','POST'])
+@login_required
+def edit_field():
+    """
+        Route modal POSTs to for renaming a field
+    """
+    error = None
+    if request.method == 'POST':
+        if authorized():
+            try:
+                fieldname = request.form['fieldname']
+                field_id = int(request.args['field_id'])
+                board_id = int(request.args['board_id'])
+                group_id = session.get('groupid')
+                board = get_board(group_id, board_id)
+                field = get_field(field_id, board)
+                update_field_name(field, fieldname)
+            except FieldError as e:
+                error = e.message
+        else:
+            flash("You are not authorized to perform that action")
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/edit-field-modal')
+@login_required
+def edit_field_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    return render_template('partials/edit-field-modal.html', \
+                           field_id=field_id, board_id=board_id)
+
+# ADD ROUTES AND POST ROUTES
 
 @home.route('/add-group', methods=['GET', 'POST'])
 @login_required
@@ -102,35 +177,217 @@ def group_add():
     """
     error = None
     if request.method == 'POST':
-        try:
-            groupname = request.form['groupname']
-            group = create_group(groupname, current_user.id)
-            #TODO: Create a default board
-        except GroupAddError as e:
-            error = e.message
+        if authorized():
+            try:
+                groupname = request.form['groupname']
+                group = create_group(groupname, current_user.id)
+                session['groupname'] = group.name
+                #TODO: Create a default board
+            except GroupAddError as e:
+                error = e.message
+        else:
+            flash("You are not authorized to perform that action")
     if error is not None:
         flash(error)
-    return redirect(url_for('home.homepage'))
+    #Redirects to home and selects the groupname and group_id
+    return redirect(url_for('home.homepage', groupname=groupname, group_id=group.id), code=307)
 
-@home.route('/modal')
+@home.route('/add-group-modal')
 @login_required
-def modal():
+def group_add_modal():
     """
         Route to retrieve the modal using HTMx
     """
     groups = get_groups(current_user.id)
-    return render_template('partials/modal.html', groups=groups)
+    return render_template('partials/add-group-modal.html', groups=groups)
 
-@home.route('/facilitator-display', methods=['GET', 'POST'])
+@home.route('/add-field', methods=['GET','POST'])
 @login_required
-def facilitator_display():
+def new_field():
     """
-        Route to retrieve the cards using HTMx polling
+        Route modal POSTs to for adding a field
     """
-    groupid = ''
-    board = None
-    if session.get('groupid') is not None:
-        groupid = session.get('groupid')
-        boards = get_boards(groupid, False)
-        board = boards[0]
-    return render_template('partials/facilitator-blob.html', title='Home', board=board)
+    
+    error = None
+    if request.method == 'POST':
+        if authorized():
+            try:
+                fieldname = request.form['fieldname']
+                board_id = int(request.args['board_id'])
+                group_id = session.get('groupid')
+                board = get_board(group_id, board_id)
+                add_field(board, fieldname)
+            except FieldError as e:
+                error = e.message
+        else:
+            flash("You are not authorized to perform that action")
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/add-field-modal')
+@login_required
+def add_field_modal():
+    """
+        Route to retrieve the add field modal using HTMx
+    """
+    board_id = int(request.args['board_id'])
+    field_id = int(request.args['field_id'])
+    return render_template('partials/add-field-modal.html', \
+                           board_id=board_id, field_id=field_id)
+
+
+@home.route('/add-card', methods=['GET','POST'])
+@login_required
+def new_card():
+    """
+        Route modal POSTs to for adding a card
+    """
+    
+    error = None
+    if request.method == 'POST':
+        if authorized():
+            try:
+                card_text = request.form['card-text']
+                field_id = int(request.args['field_id'])
+                board_id = int(request.args['board_id'])
+                group_id = session.get('groupid')
+                board = get_board(group_id, board_id)
+                field = get_field(field_id, board)
+                add_card(field, get_user(current_user.id), card_text)
+            except CardError as e:
+                error = e.message
+        else:
+            flash("You are not authorized to perform that action")
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/add-card-modal')
+@login_required
+def add_card_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    return render_template('partials/add-card-modal.html', \
+                           field_id=field_id, board_id=board_id)
+
+# OPTIONS ROUTES AND MODALS
+# TODO: Change these to dropdowns.
+@home.route('/card-options', methods=['GET','POST'])
+@login_required
+def card_options():
+    """
+        Route modal POSTs to for card options
+    """
+    
+    error = None
+    if request.method == 'POST':
+        if authorized():
+            try:
+                card_text = request.form['card-text']
+                field_id = int(request.args['field_id'])
+                board_id = int(request.args['board_id'])
+                group_id = session.get('groupid')
+                board = get_board(group_id, board_id)
+                field = get_field(field_id, board)
+                add_card(field, get_user(current_user.id), card_text)
+            except CardError as e:
+                error = e.message
+        else:
+            flash("You are not authorized to perform that action")
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/card-options-modal')
+@login_required
+def card_options_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    card_id = int(request.args['card_id'])
+    return render_template('partials/card-options-modal.html', \
+                           field_id=field_id, board_id=board_id, card_id=card_id)
+
+@home.route('/field-options', methods=['GET','POST'])
+@login_required
+def field_options():
+    """
+        Route modal POSTs to for card options
+    """
+    
+    error = None
+    if request.method == 'POST':
+        if authorized():
+            try:
+                field_id = int(request.args['field_id'])
+                board_id = int(request.args['board_id'])
+                group_id = session.get('groupid')
+                board = get_board(group_id, board_id)
+                field = get_field(field_id, board)
+            except CardError as e:
+                error = e.message
+        else:
+            flash("You are not authorized to perform that action")
+    if error is not None:
+        flash(error)
+    return redirect(url_for('home.homepage'))
+
+@home.route('/field-options-modal')
+@login_required
+def field_options_modal():
+    """
+        Route to retrieve the field modal using HTMx
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    group_id = session.get('groupid')
+    board = get_board(group_id, board_id)
+    return render_template('partials/field-options-modal.html', \
+                           field_id=field_id, board_id=board_id, board=board)
+
+# DELETE ROUTES
+@home.route('/delete-card', methods=['GET','POST'])
+@login_required
+def delete_card():
+    """
+        Route to delete the selected card
+    """
+    if authorized():
+        #TODO: needs error checking
+        if request.method == 'POST':
+            card_id = int(request.args['card_id'])
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            field = get_field(field_id, board)
+            card = get_card(card_id, field)
+            card = toggle_archive_card(card)
+        else:
+            flash("You are not authorized to perform that action")
+    return redirect(url_for('home.homepage'))
+    
+@home.route('/delete-field', methods=['GET','POST'])
+@login_required
+def delete_field():
+    """
+        Route to delete the selected field
+    """
+    if authorized():
+        #TODO: needs error checking
+        if request.method == 'POST':
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            field = get_field(field_id, board)
+            field = toggle_archive_field(field)
+    else:
+            flash("You are not authorized to perform that action")
+    return redirect(url_for('home.homepage'))
