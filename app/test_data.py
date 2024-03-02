@@ -23,7 +23,7 @@ def populate_database(app):
         group = create_test_user_and_group()
         simulate_invite(group)
         create_test_bfcs(group)
-        print(common.get_all_boards_by_end_date(group.id))
+        # print(common.get_all_boards_by_end_date(group.id))
         # tests_for_bfcs(group)
         # toggle_bfcs(group)
         # show_active_and_inactive_bfcs(group)
