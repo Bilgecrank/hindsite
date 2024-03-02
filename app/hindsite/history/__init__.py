@@ -4,8 +4,8 @@ Core blueprints
 
 from flask import Blueprint
 
-bp = Blueprint('auth', __name__)
+bp = Blueprint('history', __name__)
 
 # pylint: disable=wrong-import-position
-from app.hindsite.core import core
+from app.hindsite.history import history
 # pylint: enable=wrong-import-position

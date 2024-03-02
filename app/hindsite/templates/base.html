@@ -75,7 +75,7 @@
                   <a href="{{ url_for('home.homepage')}}" class="btn btn-outline-light w-100 mx-1 my-1">HOME</a>
                 </li>
                 <li class="nav-items">
-                  <a href="{{ url_for('core.retrospective')}}" class="btn btn-outline-light w-100 mx-1 my-1 position-relative">Retrospective
+                  <a href="{{ url_for('retrospective.retrospective_view')}}" class="btn btn-outline-light w-100 mx-1 my-1 position-relative">Retrospective
                     <div    id="retro_active"
                             hx-get="/retro_active"
                             hx-trigger="load, every 3s"
@@ -85,7 +85,7 @@
                   </a>
                 </li>
                 <li class="nav-items">
-                  <a href="{{ url_for('core.history')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
+                  <a href="{{ url_for('history.history_page')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
                 </li>
                 <li class="nav-items">
                   <a href="{{ url_for('group.group_page')}}" class="btn btn-outline-light w-100 mx-1 my-1 position-relative">Group

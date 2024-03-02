@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+    {% block content %}
+        <div 
+            class="content-fluid text-light h-100 w-100" 
+            id="retrospective"
+            hx-get="/retro-test"
+            hx-trigger="load, every 15s"
+            hx-target="#retrospective"
+            hx-swap="innerHTML">
+            
+        </div>
+
+        <div 
+            id="modal"
+            class="modal modal-blur fade"
+            style="display: none"
+            aria-hidden="false"
+            tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+    {% endblock %}

@@ -4,7 +4,7 @@
             <h5 class="modal-title">Edit Card</h5>
         </div>
         <div class="modal-body text-bg-dark">
-            <form action="/edit-card?field_id={{ field_id }}&board_id={{ board_id }}&card_id={{ card_id }}" method="post" class="needs-validation my-5" >
+            <form class="needs-validation my-5">
                 <div class="row align-items-center">
                     <div class="col-auto">
                         <label for="card-text" class="form-label">Enter Text</label>
@@ -18,7 +18,12 @@
                             <button
                                 type="submit"
                                 class="btn btn-secondary mx-1"
-                                href="#">
+                                href="#"
+                                hx-trigger="click"
+                                hx-post="/redit-card?field_id={{ field_id }}&board_id={{ board_id }}&card_id={{ card_id }}"
+                                hx-swap="innerHTML"
+                                hx-target="#card_{{ card_id }}"
+                                data-bs-dismiss="modal">
                                     Change</a>
                             <button
                                 type="button"
