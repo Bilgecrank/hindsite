@@ -74,13 +74,19 @@ def get_group(group_id: int):
         return db.session.execute(stmt).first()[0]
     return None
 
-def authorized(route_1: Callable, route_2: Callable):
+def authorized_routes(route_1: Callable, route_2: Callable):
     facilitator = False
-    if session['facilitator'] is not None:
-        facilitator = session['facilitator']
+    if 'facilitator' in session:
+        facilitator = session.get('facilitator')
     if facilitator == True:
         return route_1
     return route_2
+
+def authorized():
+    facilitator = False
+    if 'facilitator' in session:
+        facilitator = session.get('facilitator')
+    return facilitator
 
 
 class BoardError(Exception):
