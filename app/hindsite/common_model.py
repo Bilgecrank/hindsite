@@ -49,6 +49,17 @@ def get_groups(email: str):
             groups.append(membership.group)
     return groups
 
+def get_ownership(email: str, group_id: int):
+    user = get_user(email)
+    groups = []
+    ownership = False
+    for membership in user.groups:
+        if membership.owner is True:
+            groups.append(membership.group)
+    for group in groups:
+        if group.id == group_id:
+            ownership = True
+    return ownership
 
 def get_group(group_id: int):
     """

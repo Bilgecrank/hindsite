@@ -6,9 +6,7 @@ import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import create_group, GroupAddError
-from app.hindsite.common_model import CardError, FieldError, add_card, add_field, \
-        create_board, get_boards, get_card, get_field, get_fields, get_groups, authorized, \
-        get_board, get_user, set_start_date_for_board, toggle_archive_card, toggle_archive_field, update_card_message, update_field_name
+from app.hindsite.common_model import *
 
 #TODO:  Remove padding for cards in facilitator-home
 #TODO:  Set max size for cards and include overflow-hidden in classes
@@ -48,8 +46,8 @@ def homepage():
     #
     # The second version below is to test/develop facilitator_route()
 
-    # return authorized(facilitator_route(selected), participant_route(selected))
-    return authorized(participant_route(selected), facilitator_route(selected)) #TODO: TESTING
+    return authorized(facilitator_route(selected), participant_route(selected))
+    # return authorized(participant_route(selected), facilitator_route(selected)) #TODO: TESTING
 
 def participant_route(selected: str):
     """
@@ -62,11 +60,14 @@ def participant_route(selected: str):
         try:
             session['groupname'] = request.args['groupname']
             session['groupid'] = int(request.args['group_id'])
+            group_id = session.get('groupid')
+            ownership = get_ownership(current_user.id, group_id)
+            session['facilitator'] = ownership
         except GroupAddError as ex:
             flash(ex.message)
         if 'groupname' in session:
             selected = session['groupname']
-        return render_template('partials/dropdown.html', title='Home', \
+        return render_template('home.html', title='Home', \
                                groups=groups, selected=selected)
     
     return render_template('home.html', title='Home', groups=groups, selected=selected)
@@ -394,9 +395,7 @@ def delete_field():
         field_id = int(request.args['field_id'])
         board_id = int(request.args['board_id'])
         group_id = session.get('groupid')
-        # print("field id %s board id %s card id %s group id %s" %(field_id, board_id, card_id, group_id))
         board = get_board(group_id, board_id)
-        # print(board)
         field = get_field(field_id, board)
         field = toggle_archive_field(field)
 
