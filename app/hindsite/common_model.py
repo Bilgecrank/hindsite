@@ -12,6 +12,7 @@ from app.hindsite.tables.board import Board
 from app.hindsite.tables.card import Card
 from app.hindsite.tables.field import Field
 
+
 def get_user(email: str):
     """
     Gets a single user record.
@@ -25,6 +26,7 @@ def get_user(email: str):
         return db.session.execute(stmt).first()[0]
     return None
 
+
 def get_all_users():
     """
     Gets all user records.
@@ -34,6 +36,7 @@ def get_all_users():
     stmt = select(User)
     users = db.session.execute(stmt).all()
     return users
+
 
 def get_groups(email: str):
     """
@@ -125,14 +128,20 @@ class CardError(Exception):
 # CREATE
 
 
-def create_board(group_id: int):
+def create_board(group_id: int,
+                 start_time: datetime = datetime.datetime.now(),
+                 end_time: datetime = datetime.datetime.now() +
+                                      datetime.timedelta(30)):
     """
     Creates a board and matches it to a group_id.
 
     :param group_id:
+    :param start_time:
+    :param end_time:
+
     :return: The Board object created.
     """
-    new_board = Board(get_group(group_id))
+    new_board = Board(get_group(group_id), start_time, end_time)
     db.session.add(new_board)
     db.session.commit()
     return new_board
@@ -189,6 +198,7 @@ def get_board(group_id: int, board_id: int, archive_status=False):
                 rtn_board = board
     return rtn_board
 
+
 def get_boards(group_id: int, archive_status=False):
     """
     Retrieves a list of references to the boards attached to a group.
@@ -203,6 +213,17 @@ def get_boards(group_id: int, archive_status=False):
         if board.archived is archive_status:
             board_list.append(board)
     return board_list
+
+
+def get_all_boards_by_end_date(group_id: int):
+    """
+    Returns a list of boards by end_date descending.
+    :param group_id: The id of the group associated with the boards.
+    :return: **List** of **Board** with end-date descending.
+    """
+    group = get_group(group_id)
+    stmt = select(Board).where(Board.group == group).order_by(Board.end_time.desc())
+    return db.session.execute(stmt).all()
 
 
 def get_fields(board: Board, archive_status=False):
@@ -258,6 +279,8 @@ def get_card(card_id: int, field: Field):
                 rtn_card = card
     return rtn_card
 # UPDATE
+
+
 def set_start_date_for_board(board: Board, start_date_time: datetime.datetime):
     """
     Sets a new start date for the board.
@@ -271,6 +294,7 @@ def set_start_date_for_board(board: Board, start_date_time: datetime.datetime):
     board.start_time = start_date_time
     db.session.commit()
     return board
+
 
 def set_end_date_for_board(board: Board, end_date_time: datetime.datetime):
     """
@@ -313,6 +337,7 @@ def move_card(card: Card, field: Field):
     card.field = field
     db.session.commit()
     return card
+
 
 def update_card_message(card: Card, card_message: str):
     """
@@ -386,7 +411,6 @@ def toggle_archive_field(field: Field):
 def toggle_archive_card(card: Card):
     """
     Toggles the archive status of a card
-
     :param card: **Card** The card to be archived or reactivated.
     :return: **Card** The card whose archival was changed.
     """
