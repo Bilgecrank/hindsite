@@ -57,22 +57,24 @@ def homepage():
             selected = session['groupname']
 
     board = None
-    boards = None
+    boards = []
     if 'groupid' in session and session['groupid'] is not None:
-        # a group is selected, so we can populate the boards
-        group_id = session.get('groupid')
-        boards = get_boards(group_id)
-        if boards is None or boards == []:
-            #creates the board defaults
-            #adds the boards to the board selector
-            board = create_board(group_id)
-            field = add_field(board, "New Category")
-            add_card(field, get_user(current_user.id), 'Enter Card Data')
-        boards = get_boards(group_id)
-        #populates the board selector
-        #selects the most recent board
-        #TODO: add a selection method for the board
-        board = boards[0]
+        if get_group(session.get('groupid')) is not None:
+            # a group is selected, so we can populate the boards
+            group_id = session.get('groupid')
+            boards = get_boards(group_id)
+            if boards is None or boards == []:
+                #creates the board defaults
+                #adds the boards to the board selector
+                board = create_board(group_id)
+                field = add_field(board, "New Category")
+                add_card(field, get_user(current_user.id), 'Enter Card Data')
+            boards = get_boards(group_id)
+            #populates the board selector
+            #selects the most recent board
+            #TODO: add a selection method for the board
+            board = boards[0]
+
     return authorized_routes(facilitator_route(selected, groups, board), participant_route(selected, groups, board))
 
 def participant_route(selected: str, groups: Group, board: Board):
@@ -100,23 +102,20 @@ def card_edit():
     """
     error = None
     if request.method == 'POST':
-        if authorized():
-            try:
-                card_text = request.form['card-text']
-                field_id = int(request.args['field_id'])
-                board_id = int(request.args['board_id'])
-                card_id = int(request.args['card_id'])
-                group_id = session.get('groupid')
-                board = get_board(group_id, board_id)
-                field = get_field(field_id, board)
-                card = get_card(card_id, field)
-                update_card_message(card, card_text)
-            except CardError as e:
-                error = e.message
-        if error is not None:
-            flash(error)
-        else:
-            flash("You are not authorized to perform that action")
+        try:
+            card_text = request.form['card-text']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            card_id = int(request.args['card_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            field = get_field(field_id, board)
+            card = get_card(card_id, field)
+            update_card_message(card, card_text)
+        except CardError as e:
+            error = e.message
+    if error is not None:
+        flash(error)
     return redirect(url_for('home.homepage'))
 
 @home.route('/edit-card-modal')
@@ -139,19 +138,16 @@ def edit_field():
     """
     error = None
     if request.method == 'POST':
-        if authorized():
-            try:
-                fieldname = request.form['fieldname']
-                field_id = int(request.args['field_id'])
-                board_id = int(request.args['board_id'])
-                group_id = session.get('groupid')
-                board = get_board(group_id, board_id)
-                field = get_field(field_id, board)
-                update_field_name(field, fieldname)
-            except FieldError as e:
-                error = e.message
-        else:
-            flash("You are not authorized to perform that action")
+        try:
+            fieldname = request.form['fieldname']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            field = get_field(field_id, board)
+            update_field_name(field, fieldname)
+        except FieldError as e:
+            error = e.message
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
@@ -176,17 +172,15 @@ def group_add():
         The route for the add group dropdown item.
     """
     error = None
+    groupname = "Select a Group"
     if request.method == 'POST':
-        if authorized():
-            try:
-                groupname = request.form['groupname']
-                group = create_group(groupname, current_user.id)
-                session['groupname'] = group.name
-                #TODO: Create a default board
-            except GroupAddError as e:
-                error = e.message
-        else:
-            flash("You are not authorized to perform that action")
+        try:
+            groupname = request.form['groupname']
+            group = create_group(groupname, current_user.id)
+            session['groupname'] = group.name
+            #TODO: Create a default board
+        except GroupAddError as e:
+            error = e.message
     if error is not None:
         flash(error)
     #Redirects to home and selects the groupname and group_id
@@ -210,17 +204,14 @@ def new_field():
     
     error = None
     if request.method == 'POST':
-        if authorized():
-            try:
-                fieldname = request.form['fieldname']
-                board_id = int(request.args['board_id'])
-                group_id = session.get('groupid')
-                board = get_board(group_id, board_id)
-                add_field(board, fieldname)
-            except FieldError as e:
-                error = e.message
-        else:
-            flash("You are not authorized to perform that action")
+        try:
+            fieldname = request.form['fieldname']
+            board_id = int(request.args['board_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            add_field(board, fieldname)
+        except FieldError as e:
+            error = e.message
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
@@ -246,19 +237,16 @@ def new_card():
     
     error = None
     if request.method == 'POST':
-        if authorized():
-            try:
-                card_text = request.form['card-text']
-                field_id = int(request.args['field_id'])
-                board_id = int(request.args['board_id'])
-                group_id = session.get('groupid')
-                board = get_board(group_id, board_id)
-                field = get_field(field_id, board)
-                add_card(field, get_user(current_user.id), card_text)
-            except CardError as e:
-                error = e.message
-        else:
-            flash("You are not authorized to perform that action")
+        try:
+            card_text = request.form['card-text']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            field = get_field(field_id, board)
+            add_card(field, get_user(current_user.id), card_text)
+        except CardError as e:
+            error = e.message
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
@@ -285,19 +273,16 @@ def card_options():
     
     error = None
     if request.method == 'POST':
-        if authorized():
-            try:
-                card_text = request.form['card-text']
-                field_id = int(request.args['field_id'])
-                board_id = int(request.args['board_id'])
-                group_id = session.get('groupid')
-                board = get_board(group_id, board_id)
-                field = get_field(field_id, board)
-                add_card(field, get_user(current_user.id), card_text)
-            except CardError as e:
-                error = e.message
-        else:
-            flash("You are not authorized to perform that action")
+        try:
+            card_text = request.form['card-text']
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            field = get_field(field_id, board)
+            add_card(field, get_user(current_user.id), card_text)
+        except CardError as e:
+            error = e.message
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
@@ -323,17 +308,14 @@ def field_options():
     
     error = None
     if request.method == 'POST':
-        if authorized():
-            try:
-                field_id = int(request.args['field_id'])
-                board_id = int(request.args['board_id'])
-                group_id = session.get('groupid')
-                board = get_board(group_id, board_id)
-                field = get_field(field_id, board)
-            except CardError as e:
-                error = e.message
-        else:
-            flash("You are not authorized to perform that action")
+        try:
+            field_id = int(request.args['field_id'])
+            board_id = int(request.args['board_id'])
+            group_id = session.get('groupid')
+            board = get_board(group_id, board_id)
+            field = get_field(field_id, board)
+        except CardError as e:
+            error = e.message
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
@@ -358,19 +340,16 @@ def delete_card():
     """
         Route to delete the selected card
     """
-    if authorized():
         #TODO: needs error checking
-        if request.method == 'POST':
-            card_id = int(request.args['card_id'])
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
-            group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
-            card = get_card(card_id, field)
-            card = toggle_archive_card(card)
-        else:
-            flash("You are not authorized to perform that action")
+    if request.method == 'POST':
+        card_id = int(request.args['card_id'])
+        field_id = int(request.args['field_id'])
+        board_id = int(request.args['board_id'])
+        group_id = session.get('groupid')
+        board = get_board(group_id, board_id)
+        field = get_field(field_id, board)
+        card = get_card(card_id, field)
+        card = toggle_archive_card(card)
     return redirect(url_for('home.homepage'))
     
 @home.route('/delete-field', methods=['GET','POST'])
@@ -379,15 +358,12 @@ def delete_field():
     """
         Route to delete the selected field
     """
-    if authorized():
-        #TODO: needs error checking
-        if request.method == 'POST':
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
-            group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
-            field = toggle_archive_field(field)
-    else:
-            flash("You are not authorized to perform that action")
+    #TODO: needs error checking
+    if request.method == 'POST':
+        field_id = int(request.args['field_id'])
+        board_id = int(request.args['board_id'])
+        group_id = session.get('groupid')
+        board = get_board(group_id, board_id)
+        field = get_field(field_id, board)
+        field = toggle_archive_field(field)
     return redirect(url_for('home.homepage'))
