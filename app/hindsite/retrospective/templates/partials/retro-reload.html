@@ -1,5 +1,5 @@
 <div class="content-fluid text-light h-100 w-100" id="retrospective"
-    hx-get="/retro-test?board_id={{ board.id }}"
+    hx-get="/retro-reload?board_id={{ board.id }}"
     hx-trigger="every 15s"
     hx-swap="innerHTML"
     hx-target="#retrospective">
@@ -53,7 +53,7 @@
                                     <a 
                                         href="#" 
                                         class="btn btn-light"
-                                        hx-get="/rfield-options-modal"
+                                        hx-get="/rfield-options-modal?board_id={{ board.id }}&field_id={{ field.id }}"
                                         hx-target="#modal"
                                         hx-trigger="click"
                                         data-bs-toggle="modal"

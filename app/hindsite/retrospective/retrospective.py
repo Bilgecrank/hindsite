@@ -28,7 +28,7 @@ def retrospective_view():
             board = boards[0]
     return render_template('retrospective.html', title=title, board=board)
 
-@retrospective.route('/retro-test')
+@retrospective.route('/retro-reload')
 @login_required
 def retro_test():
     """
@@ -39,7 +39,7 @@ def retro_test():
         if get_group(int(session.get('groupid'))) is not None:
             boards = get_boards(int(session.get('groupid')))
             board = boards[0]
-    return render_template('partials/retro-test.html', board=board)
+    return render_template('partials/retro-reload.html', board=board)
 
 # MODALS
 
@@ -55,7 +55,10 @@ def rcard_options_modal():
 def rfield_options_modal():
     """
     """
-    return "Field Options"
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    return render_template('partials/rfield-options-modal.html', \
+                           field_id=field_id, board_id=board_id)
 
 # EDIT ROUTES
 
@@ -158,4 +161,4 @@ def radd_field():
     field_text = request.form['fieldname']
     board = get_board(group_id, board_id)
     add_field(board, field_text)
-    return render_template('partials/fields.html', board=board, field_id=field_id, board_id=board_id)
+    return render_template('partials/retro-reload.html', board=board, field_id=field_id, board_id=board_id)
