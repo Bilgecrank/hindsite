@@ -5,7 +5,7 @@ session management.
 import re  # For serverside validation of secrets.
 
 import bcrypt
-from flask import session
+from flask import flash, make_response, redirect, render_template, session, url_for
 import flask_login
 from app.hindsite.extensions import login_manager, db
 from app.hindsite.tables import User, Password
@@ -80,7 +80,20 @@ def request_loader(request):
     return UserSession(email)
 
 
-def register_user(email: str, email_compare: str, password: str, password_compare: str):
+@login_manager.unauthorized_handler
+def unauthorized():
+    """
+    Defines the unauthorized handler for the login_manager.
+
+    :return: **Response**
+    """
+    response = make_response(render_template('401.html'), 401)
+    response.headers['hx-redirect'] = url_for('auth.sign_in')
+    flash("You must log-in to continue", "error")
+    return response
+
+
+def register_user(email: str, password: str):
     """
     Takes in a user's email and password, checks if the email is already associated with an account,
     then checks if the password is a valid entry.
@@ -92,10 +105,6 @@ def register_user(email: str, email_compare: str, password: str, password_compar
     :raises RegistrationError: Raises this in case of an already extant account or if the password
     is not a valid secret.
     """
-    if email != email_compare:
-        raise RegistrationError('ERROR: Email and confirm email do not match.')
-    if password != password_compare:
-        raise RegistrationError('ERROR: Password and confirm password do not match.')
     if is_user(email):
         raise RegistrationError('An account already exists with this email.')
     if not valid_email(email):
@@ -139,6 +148,25 @@ def valid_secret(secret: str):
                         r"_`{|}~]).{12,}", secret)
 
 
+def valid_display_name(display_name: str):
+    """
+    Validates a display name based on length and character set.
+
+    Args:
+        display_name (str): Display name to validate.
+
+    Returns:
+        bool: True if the display name is valid, False otherwise.
+    """
+    if not 2 <= len(display_name) <= 30:
+        return False
+    if not re.match(r'^[a-zA-Z0-9_\-]+$', display_name):
+        return False
+    if display_name != display_name.strip():
+        return False
+    return True
+
+
 def login(email: str, password: str):
     """
     Logs a user into the system, initializing a session.
@@ -149,8 +177,7 @@ def login(email: str, password: str):
     """
     if not is_user(email):
         raise LoginError('This email is not attached to an account.')
-    stored_password = get_user(email).password.password.encode('utf-8')
-    if bcrypt.checkpw(password.encode('utf-8'), stored_password):
+    if is_users_password(email, password):
         flask_login.login_user(UserSession(email))
         session['groupname'] = None
         session['groupid'] = None
@@ -175,3 +202,15 @@ def is_user(email: str):
     :returns: **bool** Whether the user record is present in the database.
     """
     return get_user(email) is not None
+
+
+def is_users_password(email: str, password):
+    """
+    Checks if a provided password matches the stored password attached to the email's account.
+
+    :param email: The email of the user.
+    :param password: The plain-text password provided.
+    :return:
+    """
+    stored_password = get_user(email).password.password.encode('utf-8')
+    return bcrypt.checkpw(password.encode('utf-8'), stored_password)

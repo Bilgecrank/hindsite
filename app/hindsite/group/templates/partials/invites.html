@@ -1,7 +1,7 @@
 <div class="overflow-auto-sm text-light m-5"
         id="invites"
         hx-get="/invites"
-        hx-trigger="every 3s"
+        hx-trigger="onload, every 3s"
         hx-target="#invites"
         hx-swap="innerHTML">
 
@@ -12,7 +12,8 @@
                         You've been invited to the group: {{ invitation.group.name }}
                     </p>
                     <a href="#" class="px-5 py-1 btn btn-light"
-                        hx-post="/invites?group={{ invitation.group.id }}">
+                        hx-post="/invites?group={{ invitation.group.id }}"
+                        hx-trigger="click">
                         Accept Invite
                         <img
                         class="img-fluid"

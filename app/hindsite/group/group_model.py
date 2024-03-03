@@ -51,9 +51,10 @@ def send_invitation(group_id: int, email: str):
     db.session.commit()
     return membership
 
+
 def get_uninvited_users(group_id: int, term: str):
     """
-    Gets all group records that a user hasn't been invited to.
+    Gets all user records that haven't been invited to a group.
     
     :param group_id: The id of the group being searched for uninvited users.
     :param term: The search term being used to populate the users.
@@ -72,3 +73,59 @@ def get_uninvited_users(group_id: int, term: str):
         if user not in members:
             uninvited_users.append(user)
     return uninvited_users
+
+
+def get_invited_users(group_id: int):
+    """
+    Gets all user records that have been invited to a group.
+
+    :param group_id: The id of the group that's currently selected.
+    "returns *list* a list of user objects
+    """
+    invited_users = []
+    group = get_group(group_id)
+    for member in group.users:
+        invited_users.append(member)
+    return invited_users
+
+
+def get_invitations(email: str):
+    """
+    Looks at memberships matching the user with the supplied email and
+    returns all invitations that are currently active.
+
+    :param email: Email of the user being checked for invitations.
+    :returns: **List** A list of Memberships for invitations.
+    """
+    user = get_user(email)
+    invitations = []
+    for membership in user.groups:
+        if membership.invitation_accepted is False:
+            invitations.append(membership)
+    return invitations
+
+
+def get_invitation(group_id: int, email: str):
+    """
+    Looks at memberships matching the user with the supplied email and
+    returns all invitations that are currently active.
+
+    :param group_id: ID of the group to get the invitation of
+    :param email: Email of the user being checked for invitations.
+    :returns: **List** A list of Memberships for invitations.
+    """
+    invitations = get_invitations(email)
+    membership = None
+    for invitation in invitations:
+        if int(invitation.group.id) == int(group_id):
+            membership = invitation
+    return membership
+
+
+def accept_invitation(membership: Membership):
+    """
+    Accepts an invitation to a group by setting the flag for <code>invitation_accepted</code>
+     to True
+    """
+    membership.invitation_accepted = True
+    db.session.commit()

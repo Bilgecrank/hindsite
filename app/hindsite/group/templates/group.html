@@ -1,23 +1,51 @@
 {% extends 'base.html' %}
 
     {% block content %}
-        <div class="container-fluid w-100 p-5">
-                <h5 class="h-5">Search for users to invite</h5>
-                <input  class="form-control-lg" type="search"
-                        name="search" placeholder="Begin Typing to Search..."
-                        hx-post="/search-users"
-                        hx-trigger="input changed delay:300ms, search"
-                        hx-target="#search-results"
-                        hx-indicator=".htmx-indicator">
-                </input>
-                <div class="htmx-indicator text-dark">
-                        <img    alt="Loading..."
-                                src="{{url_for('static', filename='img/three-dots.svg')}}">
-                        Searching...
+
+        <div id="accept-invite">
+
+        </div>
+        <div class="overflow-auto-sm text-light m-5"
+            id="invites"
+            hx-get="/invites"
+            hx-trigger="load, every 3s"
+            hx-target="#invites"
+            hx-swap="innerHTML">
+
+        </div>
+        <div class="container-fluid w-100 p-5 d-flex flex-column align-items-center">
+                <div>
+                        <h5 class="h-5">Search for users to invite</h5>
+                </div>
+                <div>
+                        
+                        <input  class="form-control-lg" type="search"
+                                name="search" placeholder="Begin Typing to Search..."
+                                hx-post="/search-users"
+                                hx-trigger="input changed delay:300ms, search"
+                                hx-target="#search-results"
+                                hx-indicator=".htmx-indicator">
+                        </input>
+                        <div class="htmx-indicator text-dark">
+                                <img    alt="Loading..."
+                                        src="{{url_for('static', filename='img/three-dots.svg')}}">
+                                Searching...
+                        </div>
                 </div>
         </div> 
         <div id="invite-code">
         </div>
-        <div id="search-results"  class="container-sm">
+        <div id="search-results"  class="overflow-auto">
+        </div>
+        <div class="content-sm">
+                {% for user in users %}
+                <div class="content-sm bg-secondary">
+                        <div class="btn btn-secondary w-100 h-100 d-flex justify-content-start align-items-center">
+                                <p class="px-1 py-1 text-align-center">
+                                {{ user.user.email }}
+                                </p>
+                        </div>
+                </div>
+                {% endfor %}
         </div>
     {% endblock %}

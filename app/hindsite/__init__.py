@@ -31,9 +31,9 @@ def create_app():
     app.register_blueprint(auth)
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
-    from app.hindsite.core.core import core
+    from app.hindsite.history.history import history
     # pylint: enable=wrong-import-position,import-outside-toplevel
-    app.register_blueprint(core)
+    app.register_blueprint(history)
 
     # pylint: disable=wrong-import-position,import-outside-toplevel
     from app.hindsite.home.home import home
@@ -44,5 +44,20 @@ def create_app():
     from app.hindsite.group.group import group
     # pylint: enable=wrong-import-position,import-outside-toplevel
     app.register_blueprint(group)
+
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.settings.settings import settings
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(settings)
+
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.retrospective.retrospective import retrospective
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(retrospective)
+
+    # pylint: disable=wrong-import-position,import-outside-toplevel
+    from app.hindsite.common import common
+    # pylint: enable=wrong-import-position,import-outside-toplevel
+    app.register_blueprint(common)
 
     return app
