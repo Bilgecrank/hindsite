@@ -1,0 +1,25 @@
+<div id="content" class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header text-bg-dark">
+            <h5 class="modal-title">Card Options</h5>
+        </div>
+        <form action="/delete-card?card_id={{ card_id }}&field_id={{ field_id }}&board_id={{ board_id }}" method="POST">
+            <div class="modal-body text-bg-dark d-flex flex-column">
+                <button
+                    type="submit"
+                    href="#"
+                    class="btn btn-outline-danger">
+                    Delete Card
+                </button>
+                <button
+                    type="button"
+                    class="btn btn-outline-secondary mx-1"
+                    href="#"
+                    data-bs-dismiss="modal">
+                        Cancel
+                </button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

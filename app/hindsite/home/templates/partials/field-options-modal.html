@@ -1,0 +1,36 @@
+<div id="content" class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header text-bg-dark">
+            <h5 class="modal-title">Card Options</h5>
+        </div>
+        <div class="modal-body text-bg-dark d-flex flex-column">
+            <a 
+                href="#" 
+                hx-get="/add-field-modal?&board_id={{ board_id }}&field_id={{ field_id }}"
+                hx-target="#modal"
+                hx-trigger="click"
+                data-bs-target="#modal"
+                class="btn btn-outline-secondary">
+                Add Field
+            </a>
+            <form 
+                action="/delete-field?&board_id={{ board_id }}&field_id={{ field_id }}" 
+                method="POST"
+                class="d-flex w-100">
+                <button 
+                type="submit"
+                data-bs-dismiss="modal"
+                class="btn btn-outline-danger w-100">
+                    Delete Field
+                </button>
+            </form>
+            <button
+                type="button"
+                class="btn btn-outline-secondary mx-1"
+                href="#"
+                data-bs-dismiss="modal">
+                    Cancel
+            </button>
+        </div>
+    </div>
+</div>
