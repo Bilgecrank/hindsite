@@ -119,11 +119,13 @@
                                 </span>
                                 {% endif %}
                             {% endfor %}
+                            <span class="content-fluid d-flex justify-content-center w-100" id="new-card">
+                            </span>
                             <!-- Add card control-->
                             <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
                                 <a  href="#"
                                     class="btn btn-light"
-                                    hx-get="/radd-card-modal"
+                                    hx-get="/radd-card-modal?card_id=0&field_id={{ field.id }}&&board_id={{ board.id }}"
                                     hx-target="#modal"
                                     hx-trigger="click"
                                     data-bs-toggle="modal"

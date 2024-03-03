@@ -3,7 +3,7 @@ Template route testing for development
 """
 import os
 from flask import Blueprint, render_template, request, session
-from flask_login import login_required
+from flask_login import current_user, login_required
 
 from app.hindsite.common_model import *
 
@@ -96,12 +96,31 @@ def redit_field():
     """
     return "Edit Field"
 
-@retrospective.route('/radd-card')
+@retrospective.route('/radd-card-modal')
+@login_required
+def radd_card_modal():
+    """
+    """
+    card_id = int(request.args['card_id'])
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    return render_template('partials/radd-card-modal.html', card_id=card_id, field_id=field_id, board_id=board_id)
+
+@retrospective.route('/radd-card', methods=['POST', 'GET'])
 @login_required
 def radd_card():
     """
     """
-    return "Add Card"
+    card_id = int(request.args['card_id'])
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    card_text = request.form['card-text']
+    group_id = session.get('groupid')
+    board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    card = add_card(field, get_user(current_user.id), card_text)
+
+    return render_template('partials/new-card.html', board=board, field=field, card=card)
 
 @retrospective.route('/radd-field-modal')
 @login_required
