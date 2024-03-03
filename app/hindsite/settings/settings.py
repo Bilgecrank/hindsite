@@ -9,8 +9,12 @@ import os
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
-from app.hindsite.settings.settings_model import update_user_settings, get_user_settings, UpdateError
-from app.hindsite.tables import User
+
+from app.hindsite.auth.authenticate_model import is_users_password, logout
+from app.hindsite.common_model import get_user
+from app.hindsite.settings.settings_model import (update_user_settings,
+                                                  get_user_settings,
+                                                  UpdateError)
 
 # Blueprint configuration
 static_dir = os.path.abspath('static')
@@ -28,67 +32,37 @@ def settings_page():
     Returns:
         Rendered template for the settings page with current user settings.
     """
-    return render_template('settings.html', title='Settings', user_settings=get_user_settings(current_user.id))
+    if request.method == 'POST':
+        try:
+            user = get_user(current_user.id)
+            new_display_name, new_email, new_password = None, None, None
 
+            if not (request.form['display_name'] == 'Enter new display name'
+                    or request.form['display_name'] == user.display_name):
+                new_display_name = request.form['display_name']
 
-@settings.route('/update_display_name', methods=['POST'])
-@login_required
-def update_display_name():
-    """
-        Route to update the user's display name.
+            if not (request.form['email'] == 'Enter new email'
+                    or request.form['email'] == user.email):
+                new_email = request.form['email']
 
-        Returns:
-            Redirect to the settings page with a flash message indicating success or failure.
-        """
-    try:
-        new_display_name = request.form['display_name']
-        update_user_settings(email=current_user.id, new_display_name=new_display_name)
-        flash('Display name successfully updated.')
-    except UpdateError as e:
-        flash(str(e), 'error')
-    return redirect(url_for('settings.settings_page'))
+            if not (request.form['password'] == 'Enter new email'
+                    or is_users_password(user.email, request.form['password'])):
+                new_password = request.form['password']
 
+            update_user_settings(user,
+                                 new_display_name=new_display_name,
+                                 new_email=new_email,
+                                 new_password=new_password)
+            if new_email is not None:
+                logout()
+                return redirect(url_for('auth.sign_in', error='Sign in using your new email.'))
+        except UpdateError as e:
+            flash(str(e), 'error')
+    return render_template('settings.html',
+                           title='Settings',
+                           user_settings=get_user_settings(current_user.id))
 
-# Update email address
-@settings.route('/update_email', methods=['GET', 'POST'])
-@login_required
-def update_email():
-    """
-        Route to update the user's email address.
-
-        Returns:
-            Redirect to the settings page with a flash message indicating success or failure.
-        """
-    try:
-        new_email = request.form['email']
-        update_user_settings(email=current_user.id, new_email=new_email)
-        flash('Email successfully updated: redirected to sign in page.')
-    except UpdateError as e:
-        flash(str(e), 'error')
-
-    return redirect(url_for('auth.sign_in'))
-
-
-# Update password
-@settings.route('/update_password', methods=['GET', 'POST'])
-@login_required
-def update_password():
-    """
-        Route to update the user's password.
-
-        Returns:
-            Redirect to the settings page with a flash message indicating success or failure.
-        """
-    try:
-        new_password = request.form['password']
-        update_user_settings(email=current_user.id, new_password=new_password)
-        flash('Password successfully updated.')
-    except UpdateError as e:
-        flash(str(e), 'error')
-
-    return redirect(url_for('settings.settings_page'))
-
-
+'''
 # Delete account
 @settings.route('/delete_account', methods=['GET', 'POST'])
 @login_required
@@ -97,14 +71,13 @@ def delete_account():
         Route to delete the user's account.
 
         Returns:
-            Redirect to the sign-in page with a flash message indicating account deletion or cancellation.
+            Redirect to the sign-in page with a flash message indicating account
+            deletion or cancellation.
         """
     if request.method == 'POST':
         flash('Account deleted: returned to sign-in page', 'success')
         return redirect(url_for('auth.sign_in'))
-    else:
-        flash('Account deletion cancelled', 'canceled')
+    flash('Account deletion cancelled', 'canceled')
 
     return redirect(url_for('settings.settings_page'))
-
-
+'''
