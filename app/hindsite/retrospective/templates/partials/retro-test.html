@@ -25,7 +25,7 @@
                 {% endfor %}
         </div>
         <!-- load board -->
-        <div class="carousel-inner h-100 overflow-scroll">
+        <div class="carousel-inner h-100 overflow-scroll" id="fields">
             <!-- Load fields -->
             {% set count = namespace(value=0) %}
             {% for field in board.fields %}
@@ -148,7 +148,7 @@
                 <div class="content-fluid p-2 my-5 align-self-center text-center w-100">
                     <a  href="#"
                         class="btn btn-outline-secondary w-25"
-                        hx-get="/radd-field-modal?"
+                        hx-get="/radd-field-modal?&board_id={{ board.id }}&field_id=0"
                         hx-target="#modal"
                         hx-trigger="click"
                         data-bs-toggle="modal"

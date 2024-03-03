@@ -20,7 +20,7 @@
             {% endfor %}
     </div>
     <!-- load board -->
-    <div class="carousel-inner h-100 overflow-scroll">
+    <div class="carousel-inner h-100 overflow-scroll" id="fields">
         <!-- Load fields -->
         {% set count = namespace(value=0) %}
         {% for field in board.fields %}

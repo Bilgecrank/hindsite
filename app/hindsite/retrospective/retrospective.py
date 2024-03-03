@@ -103,9 +103,25 @@ def radd_card():
     """
     return "Add Card"
 
-@retrospective.route('/radd-field')
+@retrospective.route('/radd-field-modal')
+@login_required
+def radd_field_modal():
+    """
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    return render_template('partials/radd-field-modal.html', field_id=field_id, board_id=board_id)
+
+@retrospective.route('/radd-field', methods=['POST', 'GET'])
 @login_required
 def radd_field():
     """
+        Takes data from the add-field-modal and adds the field.
     """
-    return "Add Field"
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    group_id = session.get('groupid')
+    field_text = request.form['fieldname']
+    board = get_board(group_id, board_id)
+    add_field(board, field_text)
+    return render_template('partials/fields.html', board=board, field_id=field_id, board_id=board_id)
