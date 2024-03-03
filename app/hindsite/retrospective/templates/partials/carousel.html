@@ -35,7 +35,7 @@
                         <span class="content-fluid d-flex justify-content-center w-100">
                             <span class="content-fluid bg-light d-flex justify-content-between w-90">
                                 <a  href="#"
-                                    hx-get="/edit-field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
+                                    hx-get="/redit-field-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
                                     hx-target="#modal"
                                     hx-trigger="click"
                                     data-bs-toggle="modal"
@@ -48,7 +48,7 @@
                                 <a 
                                     href="#" 
                                     class="btn btn-light"
-                                    hx-get="/field-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
+                                    hx-get="/rfield-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}"
                                     hx-target="#modal"
                                     hx-trigger="click"
                                     data-bs-toggle="modal"
@@ -80,7 +80,7 @@
                                                     class="btn btn-outline-dark m-0 align-self-center"
                                                     height="50"
                                                     width="50"
-                                                    hx-get="/card-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                                    hx-get="/rcard-options-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
                                                     hx-target="#modal"
                                                     hx-trigger="click"
                                                     data-bs-toggle="modal"
@@ -89,7 +89,7 @@
                                                 </img>
                                             </div>
                                             <a  href="#"
-                                            hx-get="/edit-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                                            hx-get="/redit-card-modal?&board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
                                             hx-target="#modal"
                                             hx-trigger="click"
                                             data-bs-toggle="modal"

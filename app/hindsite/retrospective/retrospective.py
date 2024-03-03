@@ -67,7 +67,7 @@ def redit_card_modal():
     field_id = int(request.args['field_id'])
     card_id = int(request.args['card_id'])
     board_id = int(request.args['board_id'])
-    return render_template('partials/edit-card-modal.html', \
+    return render_template('partials/redit-card-modal.html', \
                            field_id=field_id, card_id=card_id, board_id=board_id)
 
 
@@ -89,12 +89,28 @@ def redit_card():
     return render_template('partials/card.html', \
                            board_id=board_id, field_id=field_id, card_id=card_id, card=card)
 
-@retrospective.route('/redit-field')
+@retrospective.route('/redit-field', methods=['POST', 'GET'])
 @login_required
 def redit_field():
     """
     """
-    return "Edit Field"
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    group_id = session.get('groupid')
+    field_text = request.form['fieldname']
+    board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    update_field_name(field, field_text)
+    return render_template('partials/fields.html', board=board)
+
+@retrospective.route('/redit-field-modal')
+@login_required
+def redit_field_modal():
+    """
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    return render_template('partials/redit-field-modal.html', field_id=field_id, board_id=board_id)
 
 @retrospective.route('/radd-card-modal')
 @login_required
@@ -111,7 +127,6 @@ def radd_card_modal():
 def radd_card():
     """
     """
-    card_id = int(request.args['card_id'])
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
     card_text = request.form['card-text']

@@ -32,15 +32,15 @@
                 {% if field.archived == false %}
                     <!-- Different beginnings depending on the first field -->
                     {% if count.value <= 0 %}
-                    <div class="carousel-item active py-3">
+                    <div class="carousel-item active py-3" id="field_{{ field.id }}">
                     {% else %}
-                    <div class="carousel-item py-3">
+                    <div class="carousel-item py-3" id="field_{{ field.id }}">
                     {% endif %}
                         <div class="content-fluid d-flex flex-column text-secondary">
                             <span class="content-fluid d-flex justify-content-center w-100">
                                 <span class="content-fluid bg-light d-flex justify-content-between w-90">
                                     <a  href="#"
-                                        hx-get="/redit-field-modal"
+                                        hx-get="/redit-field-modal?field_id={{ field.id }}&board_id={{ board.id }}"
                                         hx-target="#modal"
                                         hx-trigger="click"
                                         data-bs-toggle="modal"
