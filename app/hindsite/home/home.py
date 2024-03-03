@@ -172,6 +172,7 @@ def group_add():
         The route for the add group dropdown item.
     """
     error = None
+    group = None
     groupname = "Select a Group"
     if request.method == 'POST':
         try:
@@ -183,8 +184,11 @@ def group_add():
             error = e.message
     if error is not None:
         flash(error)
-    #Redirects to home and selects the groupname and group_id
-    return redirect(url_for('home.homepage', groupname=groupname, group_id=group.id), code=307)
+    # Redirects to home and selects the groupname and group_id
+    if group is not None:
+        return redirect(url_for('home.homepage', groupname=group.name, group_id=group.id), code=307)
+    return redirect(url_for('home.homepage'))
+
 
 @home.route('/add-group-modal')
 @login_required

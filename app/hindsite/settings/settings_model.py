@@ -6,6 +6,8 @@ inputs and updating the database.
 """
 
 import bcrypt
+
+from app.hindsite.auth.authenticate_model import valid_email, valid_secret, valid_display_name
 from app.hindsite.extensions import db
 from app.hindsite.common_model import get_user
 from app.hindsite.tables import User
@@ -18,54 +20,6 @@ class UpdateError(Exception):
     """
     def __init__(self, message):
         self.message = message
-
-
-def valid_email(email: str):
-    """
-      Validates entered emails that largely comply with RFC 5322:
-      https://datatracker.ietf.org/doc/html/rfc5322#section-3.4
-
-      :param email: **str** Email to be analyzed.
-
-      :returns: **bool** Whether the email meats the requirements or not.
-      """
-    # Email validation pattern
-    pattern = r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*" \
-              r"@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
-    return re.fullmatch(pattern, email)
-
-
-def valid_display_name(display_name: str):
-    """
-    Validates a display name based on length and character set.
-
-    Args:
-        display_name (str): Display name to validate.
-
-    Returns:
-        bool: True if the display name is valid, False otherwise.
-    """
-    if not 2 <= len(display_name) <= 30:
-        return False
-    if not re.match(r'^[a-zA-Z0-9_\-]+$', display_name):
-        return False
-    if display_name != display_name.strip():
-        return False
-    return True
-
-
-def valid_password(password: str):
-    """
-    Validates a password based on a regex pattern for security.
-
-    Args:
-        password (str): Password to validate.
-
-    Returns:
-        bool: True if the password is valid, False otherwise.
-    """
-    pattern = r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!\"#$%&'()*+,-./:;<=>?@\[\]^_`{|}~]).{12,}"
-    return re.fullmatch(pattern, password)
 
 
 def get_user_settings(email):
@@ -84,7 +38,10 @@ def get_user_settings(email):
     return None
 
 
-def update_user_settings(email=User.email, new_display_name=None, new_email=None, new_password=None):
+def update_user_settings(user: 'User',
+                         new_display_name=None,
+                         new_email=None,
+                         new_password=None):
     """
         Updates user settings based on provided parameters.
 
@@ -97,28 +54,23 @@ def update_user_settings(email=User.email, new_display_name=None, new_email=None
         Raises:
             UpdateError: If user is not found or input validation fails.
         """
-    user = get_user(email)
     if not user:
         raise UpdateError("User not found.")
 
-    if new_display_name and not valid_display_name(new_display_name):
-        raise UpdateError("Invalid display name.")
-    if new_email and not valid_email(new_email):
-        raise UpdateError("Invalid email format.")
-    if new_password and not valid_password(new_password):
-        raise UpdateError("Invalid password format.")
-
-        # if validations pass
     if new_display_name:
+        if not valid_display_name(new_display_name):
+            raise UpdateError("Invalid display name.")
         user.display_name = new_display_name
     if new_email:
+        if not valid_email(new_email):
+            raise UpdateError("Invalid email format.")
         user.email = new_email
     if new_password:
-        user.password = new_password
+        if not valid_secret(new_password):
+            raise UpdateError("Invalid password format.")
         hashword = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+        user.password.password = hashword
 
-        updated_user = User(password=Password(password=hashword), email=user.email,
-                            display_name=user.display_name)
     db.session.commit()
 
 
