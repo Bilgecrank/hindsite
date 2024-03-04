@@ -1,19 +1,11 @@
 """
 Template route testing for development
 """
-import datetime
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import create_group, GroupAddError
 from app.hindsite.common_model import *
-
-#TODO:  Remove padding for cards in facilitator-home
-#TODO:  Set max size for cards and include overflow-hidden in classes
-#TODO:  Create routes for edit-card and rename-field
-#TODO:  Put field name and buttons into a span
-#           Justify self right for controls
-#           Each element has own link
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -72,10 +64,10 @@ def homepage():
             boards = get_boards(group_id)
             #populates the board selector
             #selects the most recent board
-            #TODO: add a selection method for the board
             board = boards[0]
 
-    return authorized_routes(facilitator_route(selected, groups, board), participant_route(selected, groups, board))
+    return authorized_routes(facilitator_route(selected, groups, board), \
+                             participant_route(selected, groups, board))
 
 def participant_route(selected: str, groups: Group, board: Board):
     """
@@ -179,7 +171,6 @@ def group_add():
             groupname = request.form['groupname']
             group = create_group(groupname, current_user.id)
             session['groupname'] = group.name
-            #TODO: Create a default board
         except GroupAddError as e:
             error = e.message
     if error is not None:
@@ -205,7 +196,7 @@ def new_field():
     """
         Route modal POSTs to for adding a field
     """
-    
+
     error = None
     if request.method == 'POST':
         try:
@@ -238,7 +229,7 @@ def new_card():
     """
         Route modal POSTs to for adding a card
     """
-    
+
     error = None
     if request.method == 'POST':
         try:
@@ -267,14 +258,13 @@ def add_card_modal():
                            field_id=field_id, board_id=board_id)
 
 # OPTIONS ROUTES AND MODALS
-# TODO: Change these to dropdowns.
 @home.route('/card-options', methods=['GET','POST'])
 @login_required
 def card_options():
     """
         Route modal POSTs to for card options
     """
-    
+
     error = None
     if request.method == 'POST':
         try:
@@ -309,7 +299,7 @@ def field_options():
     """
         Route modal POSTs to for card options
     """
-    
+
     error = None
     if request.method == 'POST':
         try:
@@ -317,7 +307,6 @@ def field_options():
             board_id = int(request.args['board_id'])
             group_id = session.get('groupid')
             board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
         except CardError as e:
             error = e.message
     if error is not None:
@@ -344,7 +333,6 @@ def delete_card():
     """
         Route to delete the selected card
     """
-        #TODO: needs error checking
     if request.method == 'POST':
         card_id = int(request.args['card_id'])
         field_id = int(request.args['field_id'])
@@ -355,14 +343,13 @@ def delete_card():
         card = get_card(card_id, field)
         card = toggle_archive_card(card)
     return redirect(url_for('home.homepage'))
-    
+
 @home.route('/delete-field', methods=['GET','POST'])
 @login_required
 def delete_field():
     """
         Route to delete the selected field
     """
-    #TODO: needs error checking
     if request.method == 'POST':
         field_id = int(request.args['field_id'])
         board_id = int(request.args['board_id'])
@@ -376,6 +363,7 @@ def delete_field():
 @login_required
 def display_user():
     """
+        Used to show the current logged in user.
     """
     user = current_user.id
     return render_template('partials/user-display.html', user=user)

@@ -5,7 +5,7 @@ session management.
 import re  # For serverside validation of secrets.
 
 import bcrypt
-from flask import flash, make_response, redirect, render_template, session, url_for
+from flask import flash, make_response, render_template, session, url_for
 import flask_login
 from app.hindsite.extensions import login_manager, db
 from app.hindsite.tables import User, Password

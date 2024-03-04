@@ -36,6 +36,7 @@ def retrospective_view():
 @login_required
 def retro_test():
     """
+        Used to load the carousel
     """
     board = None
     boards = []
@@ -51,13 +52,15 @@ def retro_test():
 @login_required
 def rcard_options_modal():
     """
+        Loads the card options modal, which does nothing right now.
     """
-    return "Card Options"
+    return render_template('partials/card-options-modal.html')
 
 @retrospective.route('/rfield-options-modal')
 @login_required
 def rfield_options_modal():
     """
+        Loads the field options modal
     """
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
@@ -68,7 +71,7 @@ def rfield_options_modal():
 
 @retrospective.route('/card')
 @login_required
-def card():
+def card_route():
     """
         Card GET route for HTMX reloading
     """
@@ -84,7 +87,7 @@ def card():
 
 @retrospective.route('/field')
 @login_required
-def field():
+def field_route():
     """
         Field GET route for HTMX reloading
     """
@@ -102,6 +105,7 @@ def field():
 @login_required
 def redit_card_modal():
     """
+        Loads the edit card modal
     """
     field_id = int(request.args['field_id'])
     card_id = int(request.args['card_id'])
@@ -136,6 +140,7 @@ def redit_card():
 @login_required
 def redit_field():
     """
+        POST route for editing fields
     """
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
@@ -150,6 +155,7 @@ def redit_field():
 @login_required
 def redit_field_modal():
     """
+        Loads the edit field modal
     """
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
@@ -165,16 +171,19 @@ def redit_field_modal():
 @login_required
 def radd_card_modal():
     """
+        Loads the add card modal
     """
     card_id = int(request.args['card_id'])
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
-    return render_template('partials/radd-card-modal.html', card_id=card_id, field_id=field_id, board_id=board_id)
+    return render_template('partials/radd-card-modal.html', \
+                           card_id=card_id, field_id=field_id, board_id=board_id)
 
 @retrospective.route('/radd-card', methods=['POST', 'GET'])
 @login_required
 def radd_card():
     """
+        Post route for adding cards
     """
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
@@ -190,6 +199,7 @@ def radd_card():
 @login_required
 def radd_field_modal():
     """
+        Loads the add field modal
     """
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
