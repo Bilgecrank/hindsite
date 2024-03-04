@@ -20,9 +20,9 @@
                                 class="btn btn-secondary mx-1"
                                 href="#"
                                 hx-trigger="click"
-                                hx-post="/redit-card?field_id={{ field_id }}&board_id={{ board_id }}&card_id={{ card_id }}"
+                                hx-post="/redit-card?field_id={{ field.id }}&board_id={{ board.id }}&card_id={{ card.id }}"
                                 hx-swap="innerHTML"
-                                hx-target="#card_{{ card_id }}"
+                                hx-target="#board_{{ board.id }}-field_{{ field.id }}-card_{{ card.id }}"
                                 data-bs-dismiss="modal">
                                     Change</a>
                             <button

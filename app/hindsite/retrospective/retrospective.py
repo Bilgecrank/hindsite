@@ -60,6 +60,24 @@ def rfield_options_modal():
     return render_template('partials/rfield-options-modal.html', \
                            field_id=field_id, board_id=board_id)
 
+# GET ROUTES
+
+@retrospective.route('/card')
+@login_required
+def card():
+    """
+        Card GET route for HTMX reloading
+    """
+    field_id = int(request.args['field_id'])
+    card_id = int(request.args['card_id'])
+    board_id = int(request.args['board_id'])
+    group_id = session.get('groupid')
+    board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    card = get_card(card_id, field)
+    return render_template('partials/new-card.html', \
+                           card=card, board=board, field=field)
+
 # EDIT ROUTES
 
 @retrospective.route('/redit-card-modal')
@@ -70,8 +88,12 @@ def redit_card_modal():
     field_id = int(request.args['field_id'])
     card_id = int(request.args['card_id'])
     board_id = int(request.args['board_id'])
+    group_id = session.get('groupid')
+    board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    card = get_card(card_id, field)
     return render_template('partials/redit-card-modal.html', \
-                           field_id=field_id, card_id=card_id, board_id=board_id)
+                           board=board,field=field,card=card)
 
 
 @retrospective.route('/redit-card', methods=['GET', 'POST'])
@@ -89,8 +111,8 @@ def redit_card():
     field = get_field(field_id, board)
     card = get_card(card_id, field)
     update_card_message(card, card_text)
-    return render_template('partials/card.html', \
-                           board_id=board_id, field_id=field_id, card_id=card_id, card=card)
+    return render_template('partials/new-card.html', \
+                           board=board, field=field, card=card)
 
 @retrospective.route('/redit-field', methods=['POST', 'GET'])
 @login_required
@@ -114,6 +136,8 @@ def redit_field_modal():
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
     return render_template('partials/redit-field-modal.html', field_id=field_id, board_id=board_id)
+
+# ADD ROUTES
 
 @retrospective.route('/radd-card-modal')
 @login_required
