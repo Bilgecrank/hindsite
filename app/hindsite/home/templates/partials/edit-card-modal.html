@@ -1,0 +1,35 @@
+<div id="content" class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header text-bg-dark">
+            <h5 class="modal-title">Edit Card</h5>
+        </div>
+        <div class="modal-body text-bg-dark">
+            <form action="/edit-card?field_id={{ field_id }}&board_id={{ board_id }}&card_id={{ card_id }}" method="post" class="needs-validation my-5" >
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <label for="card-text" class="form-label">Enter Text</label>
+                        <input type="text" class="form-control my-3" id="card-text" name="card-text" min="1" required>
+                        <div class="invalid-feedback">
+                            Please enter the card text
+                        </div>
+                    </div>
+                    <div class="row align-items-center justify-content-space-between my-3">
+                        <div class="col-auto">
+                            <button
+                                type="submit"
+                                class="btn btn-secondary mx-1"
+                                href="#">
+                                    Change</a>
+                            <button
+                                type="button"
+                                class="btn btn-secondary mx-1"
+                                href="#"
+                                data-bs-dismiss="modal">
+                                    Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

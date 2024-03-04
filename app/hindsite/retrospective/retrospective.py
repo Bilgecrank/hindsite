@@ -23,7 +23,6 @@ def retrospective_view():
     if 'groupid' not in session or session.get('groupid') is None:
         flash('Please select a group to enable Retrospective View')
         return redirect('/home')
-    print(session.get('groupid'))
     title = 'Retrospective'
     board = None
     boards = []
