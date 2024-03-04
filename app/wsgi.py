@@ -3,11 +3,9 @@ App creation file
 """
 
 from app.hindsite import create_app
+from app.hindsite.extensions import db
 
 app = create_app()
 
-# pylint: disable=wrong-import-position
-from app.test_data import populate_database
-# pylint: enable=wrong-import-position
-
-populate_database(app)
+with app.app_context():
+    db.create_all()
