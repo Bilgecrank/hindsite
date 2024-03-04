@@ -32,7 +32,13 @@
                     {% else %}
                     <div class="carousel-item py-3" id="field_{{ field.id }}">
                     {% endif %}
-                        <div class="content-fluid d-flex flex-column text-secondary">
+                        <div 
+                            class="content-fluid d-flex flex-column text-secondary"
+                            id="board_{{ board.id }}-field_{{ field.id }}"
+                            hx-get="/field?board_id={{ board.id }}&field_id={{ field.id }}"
+                            hx-target="#board_{{ board.id }}-field_{{ field.id }}"
+                            hx-swap="innerHTML"
+                            hx-trigger="every 3s">
                             <span class="content-fluid d-flex justify-content-center w-100">
                                 <span class="content-fluid bg-light d-flex justify-content-between w-90">
                                     <a  href="#"
@@ -144,6 +150,7 @@
                     {% set count.value = count.value + 1 %}
                 {% endif %}
             {% endfor %}
+            <div id="new-field_{{ board.id }}"></div>
             {% if count.value == 0 %}
             <div class="carousel-item active">
                 <!-- Add Field control-->

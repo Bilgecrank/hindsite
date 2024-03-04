@@ -75,8 +75,22 @@ def card():
     board = get_board(group_id, board_id)
     field = get_field(field_id, board)
     card = get_card(card_id, field)
-    return render_template('partials/new-card.html', \
+    return render_template('partials/card.html', \
                            card=card, board=board, field=field)
+
+@retrospective.route('/field')
+@login_required
+def field():
+    """
+        Field GET route for HTMX reloading
+    """
+    field_id = int(request.args['field_id'])
+    board_id = int(request.args['board_id'])
+    group_id = session.get('groupid')
+    board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    return render_template('partials/field.html', \
+                           board=board, field=field)
 
 # EDIT ROUTES
 
@@ -111,7 +125,7 @@ def redit_card():
     field = get_field(field_id, board)
     card = get_card(card_id, field)
     update_card_message(card, card_text)
-    return render_template('partials/new-card.html', \
+    return render_template('partials/card.html', \
                            board=board, field=field, card=card)
 
 @retrospective.route('/redit-field', methods=['POST', 'GET'])
@@ -126,7 +140,7 @@ def redit_field():
     board = get_board(group_id, board_id)
     field = get_field(field_id, board)
     update_field_name(field, field_text)
-    return render_template('partials/fields.html', board=board)
+    return render_template('partials/field.html', board=board, field=field)
 
 @retrospective.route('/redit-field-modal')
 @login_required
@@ -135,7 +149,11 @@ def redit_field_modal():
     """
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
-    return render_template('partials/redit-field-modal.html', field_id=field_id, board_id=board_id)
+    group_id = session.get('groupid')
+    board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    return render_template('partials/redit-field-modal.html', \
+                           field=field,board=board)
 
 # ADD ROUTES
 
@@ -162,7 +180,7 @@ def radd_card():
     field = get_field(field_id, board)
     card = add_card(field, get_user(current_user.id), card_text)
 
-    return render_template('partials/new-card.html', board=board, field=field, card=card)
+    return render_template('partials/card.html', board=board, field=field, card=card)
 
 @retrospective.route('/radd-field-modal')
 @login_required
@@ -182,7 +200,9 @@ def radd_field():
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
     group_id = session.get('groupid')
-    field_text = request.form['fieldname']
     board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    group_id = session.get('groupid')
+    field_text = request.form['fieldname']
     add_field(board, field_text)
-    return render_template('partials/retro-reload.html', board=board, field_id=field_id, board_id=board_id)
+    return render_template('partials/retro-reload.html', board=board, field=field)

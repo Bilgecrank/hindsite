@@ -19,8 +19,8 @@
                                 type="submit"
                                 class="btn btn-secondary mx-1"
                                 href="#"
-                                hx-post="/redit-field?field_id={{ field_id }}&board_id={{ board_id }}"
-                                hx-target="#fields"
+                                hx-post="/redit-field?field_id={{ field.id }}&board_id={{ board.id }}"
+                                hx-target="#field_{{ field.id }}"
                                 data-bs-dismiss="modal">
                                     Change</a>
                             <button
