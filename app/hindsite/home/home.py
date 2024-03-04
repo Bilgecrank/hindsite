@@ -305,26 +305,6 @@ def card_options_modal():
     return render_template('partials/card-options-modal.html', \
                            field_id=field_id, board_id=board_id, card_id=card_id)
 
-@home.route('/field-options', methods=['GET','POST'])
-@login_required
-def field_options():
-    """
-        Route modal POSTs to for card options
-    """
-
-    error = None
-    if request.method == 'POST':
-        try:
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
-            group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-        except CardError as e:
-            error = e.message
-    if error is not None:
-        flash(error)
-    return redirect(url_for('home.homepage'))
-
 @home.route('/field-options-modal')
 @login_required
 def field_options_modal():
