@@ -1,1 +1,1 @@
-web: gunicorn --timeout 600 --chdir hindsite main:app
+web: gunicorn --timeout 600 --chdir app wsgi:app

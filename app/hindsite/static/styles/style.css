@@ -1,0 +1,42 @@
+@keyframes rotate-in {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}@keyframes rotate-out {
+    0% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+.rotation:hover {
+    animation: rotate-in 0.25s;
+    animation-fill-mode: forwards;
+}
+.rotation {
+    animation: rotate-out 0.25s;
+    animation-fill-mode: forwards;
+}
+.vh-10{
+    height: 10vh;
+    max-height: 10vh;
+}
+.h-90{
+    height: 90%;
+}
+.w-90{
+    width: 90%;
+}
+.w-60{
+    width: 60%;
+}
+.w-5{
+    width: 5%;
+}
+.carousel-inner {
+    margin: 0 auto;
+}

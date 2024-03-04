@@ -1,0 +1,30 @@
+<div class="content-sm text-light">
+    {% if users != "" %}
+        {% for user in users %}
+                <div class="content-sm bg-secondary">
+                    <div class="btn btn-secondary w-100 h-100 d-flex justify-content-end align-items-center">
+                        <p class="px-1 py-1 text-align-center">
+                            {{ user.email }}
+                        </p>
+                        <a href="#" class="px-2 btn btn-light h-100 w-30"
+                            hx-post="/send-invite?search={{ term }}&user={{ user.email }}"
+                            hx-target="#search-results">
+                            Send Invite
+                            <img
+                            class="img-fluid"
+                            height="25"
+                            width="25"
+                            src="{{ url_for('static', filename='img/plus.svg') }}">
+                            </img>
+                        </a>
+                    </div>
+                </div>
+        {% endfor %}
+    {% endif %}
+</div>
+<div class="content-sm text-light">
+    <div class="alert alert-success">
+        Invite sent!
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>

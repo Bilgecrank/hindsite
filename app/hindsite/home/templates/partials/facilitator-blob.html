@@ -1,0 +1,46 @@
+<div class="content-md p-2 text-light h-100">
+    <!-- Mockup of the carousel and boards, cards and fields -->
+    <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
+        <div class="carousel-indicators">
+            <button 
+                type="button" 
+                data-bs-target="#carousel" 
+                data-bs-slide-to="0" 
+                class="active" 
+                aria-current="true" 
+                aria-label="Slide 1"></button>
+            <button 
+                type="button" 
+                data-bs-target="#carousel" 
+                data-bs-slide-to="1" 
+                aria-label="Slide 2"></button>
+        </div>
+        <!-- load board -->
+        <div class="carousel-inner h-100">
+            <!-- Load fields -->
+            {% for field in board.fields %}
+            <div class="carousel-item">
+                <p>{{ field.name }}</p>
+                <!-- load cards -->
+                {% for card in field.cards %}
+                <div class="card mw-75">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{ card.message_body }}
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <button class="carousel-control-prev" data-bs-target="#carousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+                <span class="visually-hidden">Prev</span>
+            </button>
+            <button class="carousel-control-next" data-bs-target="#carousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>

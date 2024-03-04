@@ -1,0 +1,43 @@
+<div class="container-fluid m-0 dropdown-center" id="content">
+    <button class="btn btn-secondary container-fluid m-0 dropdown-toggle"
+            type="button"
+            id="groupDropDown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false">
+            {{ selected }}
+    </button>
+    <ul id="group-dropdown" class="dropdown-menu dropdown-menu-dark container-sm text-center" aria-labelledby="groupDropDown">
+        {% for group in groups %}
+            <li>
+                <form   
+                        action="/home?groupname={{ group.name }}&group_id={{ group.id }}"
+                        method="post">
+                    <button 
+                        class="dropdown-item"
+                        type="submit">
+                        {{ group.name }}
+                    </button>
+                </form>
+            </li>
+        {% endfor %}
+        
+        <li>
+            <span class="container-fluid d-flex align-items-center">
+                <a class="dropdown-item"
+                    href="#"
+                    hx-get="/modal"
+                    hx-target="#modal"
+                    hx-trigger="click"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal">
+                    <img
+                        class="img-fluid"
+                        height="50"
+                        width="50"
+                        src="{{ url_for('static', filename='img/plus.svg') }}">
+                    </img>
+                </a>
+            </span>
+        </li>
+    </ul>
+</div>

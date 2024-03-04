@@ -1,0 +1,11 @@
+<div    id="bubble"
+        hx-get="/bubble"
+        hx-trigger="load, every 3s"
+        hx-target="#bubble"
+        hx-swap="innerHTML">
+    {% if count > 0 %}
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    {{ count }}
+    </span>
+    {% endif %}
+</div>

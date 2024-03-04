@@ -1,0 +1,117 @@
+<div class="carousel-item py-3" id="field_{{ field.id }}">
+    <div
+        class="content-fluid d-flex flex-column text-secondary"
+        id="board_{{ board.id }}-field_{{ field.id }}"
+        hx-get="/field?board_id={{ board.id }}&field_id={{ field.id }}"
+        hx-target="#board_{{ board.id }}-field_{{ field.id }}"
+        hx-swap="innerHTML"
+        hx-trigger="every 3s">
+        <span class="content-fluid d-flex justify-content-center w-100">
+            <span class="content-fluid bg-light d-flex justify-content-between w-90">
+                <a  href="#"
+                    hx-get="/redit-field-modal?field_id={{ field.id }}&board_id={{ board.id }}"
+                    hx-target="#modal"
+                    hx-trigger="click"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal"
+                    class="btn btn-light d-flex flex-column justify-content-center"
+                    field_id="{{ field.id }}"
+                    group_id="{{ board.id }}">
+                    <h4 class="h4 px-5">{{ field.name }}</h4>
+                </a>
+                <a
+                    href="#"
+                    class="btn btn-light"
+                    hx-get="/rfield-options-modal?board_id={{ board.id }}&field_id={{ field.id }}"
+                    hx-target="#modal"
+                    hx-trigger="click"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modal">
+                    <img
+                        class="img-fluid m-0 p-0"
+                        height="70"
+                        width="70"
+                        src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
+                    </img>
+                </a>
+            </span>
+        </span>
+        <!-- load cards -->
+        {% for card in field.cards %}
+            {% if card.archived == false %}
+            <span
+                id="board_{{ board.id }}-field_{{ field.id }}-card_{{ card.id }}"
+                class="content-fluid d-flex justify-content-center w-100"
+                hx-get="/card?card_id={{ card.id }}&board_id={{ board.id }}&field_id={{ field.id }}"
+                hx-trigger="every 3s"
+                hx-target="#board_{{ board.id }}-field_{{ field.id }}-card_{{ card.id }}">
+                <span class="d-flex flex-column align-items-center w-90 bg-light py-3">
+                    <div class="card h-100 w-90">
+                        <div class="card-body py-1 rounded-3 shadow d-flex flex-column align-items-center w-100 h-100">
+                            <div class="w-100 h-25 d-flex justify-content-between">
+                                <img
+                                    class="btn btn-outline-dark m-0 align-self-center"
+                                    height="50"
+                                    width="50"
+                                    src="{{ url_for('static', filename='img/check-circle-outline.svg') }}">
+                                </img>
+                                <img
+                                    class="btn btn-outline-dark m-0 align-self-center"
+                                    height="50"
+                                    width="50"
+                                    hx-get="/rcard-options-modal"
+                                    hx-target="#modal"
+                                    hx-trigger="click"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal"
+                                    src="{{ url_for('static', filename='img/dots-horizontal.svg') }}">
+                                </img>
+                            </div>
+                            <a  href="#"
+                            hx-get="/redit-card-modal?board_id={{ board.id }}&field_id={{ field.id }}&card_id={{ card.id }}"
+                            hx-target="#modal"
+                            hx-trigger="click"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modal"
+                            class="btn d-flex justify-content-start w-90 p-0 my-0 vh-10 overflow-hidden"
+                            card_id="{{ card.id }}"
+                            field_id="{{ field.id }}"
+                            group_id="{{ board.id }}">
+                                <p class="card-text py-2 text-start">
+                                    {{ card.message_body }}
+                                </p>
+                            </a>
+                            <div class="py-2 w-100 d-flex justify-content-between">
+                                <!-- TODO: replace -->
+                                <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
+                                <h5 class="bg-light m-0 p-0 align-self-center">IMG</h5>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+            </span>
+            {% endif %}
+        {% endfor %}
+        <span class="content-fluid d-flex justify-content-center w-100" id="new-card_{{ field.id }}">
+        </span>
+        <!-- Add card control-->
+        <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
+            <a  href="#"
+                class="btn btn-light"
+                hx-get="/radd-card-modal?card_id=0&field_id={{ field.id }}&&board_id={{ board.id }}"
+                hx-target="#modal"
+                hx-trigger="click"
+                data-bs-toggle="modal"
+                data-bs-target="#modal">
+                <p class="text-dark m-0 p-0"><strong>Add Card</strong></p>
+                <img
+                    class="img-fluid m-0 p-0"
+                    height="50"
+                    width="50"
+                    src="{{ url_for('static', filename='img/plus.svg') }}">
+                </img>
+            </a>
+        </div>
+    </div>
+</div>
+<div id="new-field_{{ board.id }}"></div>
