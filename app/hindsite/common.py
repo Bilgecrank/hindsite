@@ -5,7 +5,7 @@ Template route testing for base page.
 import os
 from datetime import datetime
 
-from flask import Blueprint, render_template, make_response, session
+from flask import Blueprint, render_template, session
 from flask_login import login_required, current_user
 
 from app.hindsite.common_model import get_boards

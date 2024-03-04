@@ -11,7 +11,6 @@ from app.hindsite.auth.authenticate_model import valid_email, valid_secret, vali
 from app.hindsite.extensions import db
 from app.hindsite.common_model import get_user
 from app.hindsite.tables import User
-import re
 
 
 class UpdateError(Exception):
@@ -85,11 +84,13 @@ def delete_account(email):
             Exception: If the user is not found in the database.
 
         Notes:
-            This function is intended to be called from the Flask route that handles account deletion.
-            The route should ensure that the user is authenticated and authorized to delete the account before calling this function.
+            This function is intended to be called from the Flask route that 
+            handles account deletion. The route should ensure that the user is 
+            authenticated and authorized to delete the account before calling 
+            this function.
         """
     user = get_user(email)  # Fetch the user by email
     if not user:
-        raise Exception("User not found.")
+        raise UpdateError("User not found.")
     db.session.delete(user)  # Delete the user record
     db.session.commit()  # Commit the transaction

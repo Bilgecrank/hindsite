@@ -10,13 +10,13 @@ from app.hindsite.group.group_model import send_invitation, get_invitations, get
 from app.hindsite.group.group_model import UserSearchError, get_uninvited_users, get_invited_users
 
 static_dir = os.path.abspath('static')
-group = Blueprint('group',
+grp = Blueprint('grp',
                   __name__,
                   template_folder='templates',  # relative route to templates dir
                   static_folder=static_dir)
 
 
-@group.route('/group', methods=['GET', 'POST'])
+@grp.route('/group', methods=['GET', 'POST'])
 @login_required
 def group_page():
     """
@@ -29,7 +29,7 @@ def group_page():
     return render_template('group.html', title='Group', users=users)
 
 
-@group.route('/search-users', methods=['GET', 'POST'])
+@grp.route('/search-users', methods=['GET', 'POST'])
 @login_required
 def search_users():
     """
@@ -56,7 +56,7 @@ def search_users():
     return render_template('partials/search-results.html', users=users, term=search)
 
 
-@group.route('/send-invite', methods=['GET', 'POST'])
+@grp.route('/send-invite', methods=['GET', 'POST'])
 @login_required
 def send_invite():
     """
@@ -82,7 +82,7 @@ def send_invite():
     return render_template('partials/search-results.html')
 
 
-@group.route('/invites', methods=['POST', 'GET'])
+@grp.route('/invites', methods=['POST', 'GET'])
 @login_required
 def invites():
     """
@@ -90,7 +90,6 @@ def invites():
     TODO: Put the invite codes into a modal, add decline button, create
     notification bell to open the modal.
     """
-    error = None
     if request.method == 'GET':
         invitations = get_invitations(current_user.id)
         return render_template('partials/invites.html', invitations=invitations)

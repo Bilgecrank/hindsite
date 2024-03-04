@@ -50,6 +50,10 @@
               </img>
             </a>
           </div>
+          <div 
+            id="user-display"
+            hx-get="/user-display"
+            hx-trigger="load"></div>
         </nav>
             </div>
       </div>
@@ -85,10 +89,7 @@
                   </a>
                 </li>
                 <li class="nav-items">
-                  <a href="{{ url_for('history.history_page')}}" class="btn btn-outline-light w-100 mx-1 my-1">History</a>
-                </li>
-                <li class="nav-items">
-                  <a href="{{ url_for('group.group_page')}}" class="btn btn-outline-light w-100 mx-1 my-1 position-relative">Group
+                  <a href="{{ url_for('grp.group_page')}}" class="btn btn-outline-light w-100 mx-1 my-1 position-relative">Group
                     <div    id="invite_count"
                             hx-get="/invite_count"
                             hx-trigger="load, every 3s"

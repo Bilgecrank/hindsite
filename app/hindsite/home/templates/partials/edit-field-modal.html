@@ -1,16 +1,16 @@
 <div id="content" class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header text-bg-dark">
-            <h5 class="modal-title">Edit Card</h5>
+            <h5 class="modal-title">Edit Category</h5>
         </div>
         <div class="modal-body text-bg-dark">
-            <form class="needs-validation my-5">
+            <form action="/edit-field?field_id={{ field_id }}&board_id={{ board_id }}" method="post" class="needs-validation my-5" >
                 <div class="row align-items-center">
                     <div class="col-auto">
-                        <label for="card-text" class="form-label">Enter Text</label>
-                        <input type="text" class="form-control my-3" id="card-text" name="card-text" min="1" required>
+                        <label for="fieldname" class="form-label">Enter New Category</label>
+                        <input type="text" class="form-control my-3" id="fieldname" name="fieldname" min="1" required>
                         <div class="invalid-feedback">
-                            Please enter the card text
+                            Please enter the category name
                         </div>
                     </div>
                     <div class="row align-items-center justify-content-space-between my-3">
@@ -18,12 +18,7 @@
                             <button
                                 type="submit"
                                 class="btn btn-secondary mx-1"
-                                href="#"
-                                hx-trigger="click"
-                                hx-post="/redit-card?field_id={{ field.id }}&board_id={{ board.id }}&card_id={{ card.id }}"
-                                hx-swap="innerHTML"
-                                hx-target="#board_{{ board.id }}-field_{{ field.id }}-card_{{ card.id }}"
-                                data-bs-dismiss="modal">
+                                href="#">
                                     Change</a>
                             <button
                                 type="button"

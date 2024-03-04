@@ -20,8 +20,8 @@
                                 class="btn btn-secondary mx-1"
                                 href="#"
                                 hx-post="/radd-card?card_id=0&field_id={{ field_id }}&board_id={{ board_id }}"
-                                hx-swap="innerHTML"
-                                hx-target="#new-card"
+                                hx-swap="beforeend"
+                                hx-target="#new-card_{{ field_id }}"
                                 data-bs-dismiss="modal">
                                     Add</a>
                             <button

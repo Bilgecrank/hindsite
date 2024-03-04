@@ -53,6 +53,13 @@ def get_groups(email: str):
     return groups
 
 def get_ownership(email: str, group_id: int):
+    """
+    Checks for group ownership
+
+    :param email: **str** Email to find the user
+    :param group_id: **int** Group id to check for ownership in
+    :returns: **bool** True or False
+    """
     user = get_user(email)
     groups = []
     ownership = False
@@ -78,19 +85,20 @@ def get_group(group_id: int):
     return None
 
 def authorized_routes(route_1: Callable, route_2: Callable):
+    """
+    Calls routes based on the value of the facilitator session variable
+
+    :route_1: **Callable** route to call if true
+    :route_2: **Callable** route to call if false
+
+    :returns: **Callable** returns the selected route
+    """
     facilitator = False
     if 'facilitator' in session:
         facilitator = session.get('facilitator')
-    if facilitator == True:
+    if facilitator is True:
         return route_1
     return route_2
-
-def authorized():
-    facilitator = False
-    if 'facilitator' in session:
-        facilitator = session.get('facilitator')
-    return facilitator
-
 
 class BoardError(Exception):
     """
@@ -182,7 +190,7 @@ def add_card(field: Field, author: 'User', card_message: str):
 
 # READ
 
-def get_board(group_id: int, board_id: int, archive_status=False):
+def get_board(group_id: int, board_id: int):
     """
     Retrieves the most recent board attached to a group
 
@@ -271,6 +279,7 @@ def get_cards(field: Field, archive_status=False):
 
 def get_card(card_id: int, field: Field):
     """
+    Returns a single card based on the card_id and field
     """
     rtn_card = None
     for card in field.cards:
@@ -407,6 +416,7 @@ def toggle_archive_field(field: Field):
     field.archived = not field.archived
     db.session.commit()
     return field
+
 
 def toggle_archive_card(card: Card):
     """

@@ -3,7 +3,6 @@
 """
 
 import os
-import secrets
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -25,5 +24,4 @@ class Config:  # pylint: disable=too-few-public-methods
     DEBUG = False
     TESTING = False
     SECRET_KEY = os.getenv('SECRET_KEY')
-    # SECRET_KEY = secrets.token_hex(32)
     SQLALCHEMY_DATABASE_URI = database_uri

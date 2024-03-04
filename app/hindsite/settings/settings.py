@@ -62,22 +62,20 @@ def settings_page():
                            title='Settings',
                            user_settings=get_user_settings(current_user.id))
 
-'''
-# Delete account
-@settings.route('/delete_account', methods=['GET', 'POST'])
-@login_required
-def delete_account():
-    """
-        Route to delete the user's account.
+# # Delete account
+# @settings.route('/delete_account', methods=['GET', 'POST'])
+# @login_required
+# def delete_account():
+#     """
+#         Route to delete the user's account.
 
-        Returns:
-            Redirect to the sign-in page with a flash message indicating account
-            deletion or cancellation.
-        """
-    if request.method == 'POST':
-        flash('Account deleted: returned to sign-in page', 'success')
-        return redirect(url_for('auth.sign_in'))
-    flash('Account deletion cancelled', 'canceled')
+#         Returns:
+#             Redirect to the sign-in page with a flash message indicating account
+#             deletion or cancellation.
+#         """
+#     if request.method == 'POST':
+#         flash('Account deleted: returned to sign-in page', 'success')
+#         return redirect(url_for('auth.sign_in'))
+#     flash('Account deletion cancelled', 'canceled')
 
-    return redirect(url_for('settings.settings_page'))
-'''
+#     return redirect(url_for('settings.settings_page'))

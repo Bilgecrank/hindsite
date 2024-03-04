@@ -1,19 +1,14 @@
 """
 Template route testing for development
 """
-import datetime
 import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import create_group, GroupAddError
-from app.hindsite.common_model import *
-
-#TODO:  Remove padding for cards in facilitator-home
-#TODO:  Set max size for cards and include overflow-hidden in classes
-#TODO:  Create routes for edit-card and rename-field
-#TODO:  Put field name and buttons into a span
-#           Justify self right for controls
-#           Each element has own link
+from app.hindsite.common_model import get_groups, get_boards, create_board, add_field, add_card, \
+    get_user, authorized_routes, get_board, get_field, get_card, update_card_message, CardError, \
+    get_ownership, get_group, update_field_name, FieldError, toggle_archive_card, \
+    toggle_archive_field
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -21,12 +16,14 @@ home = Blueprint('home',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
+
 @home.route('/')
 def index():
     """
         Just redirects to home at the root of the page.
     """
     return redirect(url_for('home.homepage'))
+
 
 @home.route('/home', methods=['GET', 'POST'])
 @login_required
@@ -37,7 +34,7 @@ def homepage():
         value is.
     """
     if 'groupname' not in session or session['groupname'] is None:
-        #Ensures session contains groupname and sets a default value
+        # Ensures session contains groupname and sets a default value
         session['groupname'] = "Select a Group"
     selected = session['groupname']
 
@@ -51,7 +48,9 @@ def homepage():
             group_id = session.get('groupid')
             ownership = get_ownership(current_user.id, group_id)
             session['facilitator'] = ownership
-        except Exception as ex:
+        except KeyError as ex:
+            print(ex)
+        except NameError as ex:
             print(ex)
         if 'groupname' in session:
             selected = session['groupname']
@@ -63,7 +62,7 @@ def homepage():
             # a group is selected, so we can populate the boards
             group_id = session.get('groupid')
             boards = get_boards(group_id)
-            if boards is None or boards == []:
+            if boards is None or not boards:
                 #creates the board defaults
                 #adds the boards to the board selector
                 board = create_board(group_id)
@@ -72,12 +71,13 @@ def homepage():
             boards = get_boards(group_id)
             #populates the board selector
             #selects the most recent board
-            #TODO: add a selection method for the board
             board = boards[0]
 
-    return authorized_routes(facilitator_route(selected, groups, board), participant_route(selected, groups, board))
+    return authorized_routes(facilitator_route(selected, groups, board), \
+                             participant_route(selected, groups, board))
 
-def participant_route(selected: str, groups: Group, board: Board):
+
+def participant_route(selected: str, groups: 'Group', board: 'Board'):
     """
         Loads home.html, sets the title and loads in the group
         selection dropdown. Periodically checks for invites sent
@@ -85,7 +85,8 @@ def participant_route(selected: str, groups: Group, board: Board):
     """
     return render_template('home.html', title='Home', groups=groups, selected=selected, board=board)
 
-def facilitator_route(selected: str, groups: Group, board: Board):
+
+def facilitator_route(selected: str, groups: 'Group', board: 'Board'):
     """
         Route for Facilitator mode
     """
@@ -118,6 +119,7 @@ def card_edit():
         flash(error)
     return redirect(url_for('home.homepage'))
 
+
 @home.route('/edit-card-modal')
 @login_required
 def card_modal():
@@ -129,6 +131,7 @@ def card_modal():
     card_id = int(request.args['card_id'])
     return render_template('partials/edit-card-modal.html', \
                            field_id=field_id, board_id=board_id, card_id=card_id)
+
 
 @home.route('/edit-field', methods=['GET','POST'])
 @login_required
@@ -144,13 +147,13 @@ def edit_field():
             board_id = int(request.args['board_id'])
             group_id = session.get('groupid')
             board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
-            update_field_name(field, fieldname)
+            update_field_name(get_field(field_id, board), fieldname)
         except FieldError as e:
             error = e.message
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
+
 
 @home.route('/edit-field-modal')
 @login_required
@@ -179,7 +182,6 @@ def group_add():
             groupname = request.form['groupname']
             group = create_group(groupname, current_user.id)
             session['groupname'] = group.name
-            #TODO: Create a default board
         except GroupAddError as e:
             error = e.message
     if error is not None:
@@ -205,7 +207,7 @@ def new_field():
     """
         Route modal POSTs to for adding a field
     """
-    
+
     error = None
     if request.method == 'POST':
         try:
@@ -238,16 +240,15 @@ def new_card():
     """
         Route modal POSTs to for adding a card
     """
-    
+
     error = None
     if request.method == 'POST':
         try:
             card_text = request.form['card-text']
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
             group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
+            field = get_field(int(request.args['field_id']),
+                              get_board(group_id,
+                                        int(request.args['board_id'])))
             add_card(field, get_user(current_user.id), card_text)
         except CardError as e:
             error = e.message
@@ -267,23 +268,21 @@ def add_card_modal():
                            field_id=field_id, board_id=board_id)
 
 # OPTIONS ROUTES AND MODALS
-# TODO: Change these to dropdowns.
 @home.route('/card-options', methods=['GET','POST'])
 @login_required
 def card_options():
     """
         Route modal POSTs to for card options
     """
-    
+
     error = None
     if request.method == 'POST':
         try:
             card_text = request.form['card-text']
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
             group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
+            field = get_field(int(request.args['field_id']),
+                              get_board(group_id,
+                                        int(request.args['board_id'])))
             add_card(field, get_user(current_user.id), card_text)
         except CardError as e:
             error = e.message
@@ -302,27 +301,6 @@ def card_options_modal():
     card_id = int(request.args['card_id'])
     return render_template('partials/card-options-modal.html', \
                            field_id=field_id, board_id=board_id, card_id=card_id)
-
-@home.route('/field-options', methods=['GET','POST'])
-@login_required
-def field_options():
-    """
-        Route modal POSTs to for card options
-    """
-    
-    error = None
-    if request.method == 'POST':
-        try:
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
-            group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
-        except CardError as e:
-            error = e.message
-    if error is not None:
-        flash(error)
-    return redirect(url_for('home.homepage'))
 
 @home.route('/field-options-modal')
 @login_required
@@ -344,30 +322,34 @@ def delete_card():
     """
         Route to delete the selected card
     """
-        #TODO: needs error checking
     if request.method == 'POST':
         card_id = int(request.args['card_id'])
-        field_id = int(request.args['field_id'])
-        board_id = int(request.args['board_id'])
         group_id = session.get('groupid')
-        board = get_board(group_id, board_id)
-        field = get_field(field_id, board)
-        card = get_card(card_id, field)
-        card = toggle_archive_card(card)
+        field = get_field(int(request.args['field_id']),
+                          get_board(group_id,
+                                    int(request.args['board_id'])))
+        toggle_archive_card(get_card(card_id, field))
     return redirect(url_for('home.homepage'))
-    
+
 @home.route('/delete-field', methods=['GET','POST'])
 @login_required
 def delete_field():
     """
         Route to delete the selected field
     """
-    #TODO: needs error checking
     if request.method == 'POST':
-        field_id = int(request.args['field_id'])
-        board_id = int(request.args['board_id'])
         group_id = session.get('groupid')
-        board = get_board(group_id, board_id)
-        field = get_field(field_id, board)
-        field = toggle_archive_field(field)
+        field = get_field(int(request.args['field_id']),
+                          get_board(group_id,
+                                    int(request.args['board_id'])))
+        toggle_archive_field(field)
     return redirect(url_for('home.homepage'))
+
+@home.route('/user-display')
+@login_required
+def display_user():
+    """
+        Used to show the current logged in user.
+    """
+    user = current_user.id
+    return render_template('partials/user-display.html', user=user)

@@ -1,8 +1,4 @@
-<div class="content-fluid text-light h-100 w-100" id="retrospective"
-    hx-get="/retro-reload?board_id={{ board.id }}"
-    hx-trigger="every 15s"
-    hx-swap="innerHTML"
-    hx-target="#retrospective">
+<div class="content-fluid text-light h-100 w-100" id="retrospective">
     <!-- carousel and boards, cards and fields -->
     <div id="carousel" class="carousel slide carousel-dark h-100" data-bs-interval="false">
         <div class="carousel-indicators">
@@ -36,7 +32,13 @@
                     {% else %}
                     <div class="carousel-item py-3" id="field_{{ field.id }}">
                     {% endif %}
-                        <div class="content-fluid d-flex flex-column text-secondary">
+                        <div 
+                            class="content-fluid d-flex flex-column text-secondary"
+                            id="board_{{ board.id }}-field_{{ field.id }}"
+                            hx-get="/field?board_id={{ board.id }}&field_id={{ field.id }}"
+                            hx-target="#board_{{ board.id }}-field_{{ field.id }}"
+                            hx-swap="innerHTML"
+                            hx-trigger="every 3s">
                             <span class="content-fluid d-flex justify-content-center w-100">
                                 <span class="content-fluid bg-light d-flex justify-content-between w-90">
                                     <a  href="#"
@@ -70,10 +72,14 @@
                             <!-- load cards -->
                             {% for card in field.cards %}
                                 {% if card.archived == false %}
-                                <span class="content-fluid d-flex justify-content-center w-100">
+                                <span 
+                                    id="board_{{ board.id }}-field_{{ field.id }}-card_{{ card.id }}"
+                                    class="content-fluid d-flex justify-content-center w-100"
+                                    hx-get="/card?card_id={{ card.id }}&board_id={{ board.id }}&field_id={{ field.id }}"
+                                    hx-trigger="every 3s"
+                                    hx-target="#board_{{ board.id }}-field_{{ field.id }}-card_{{ card.id }}">
                                     <span class="d-flex flex-column align-items-center w-90 bg-light py-3">
-                                        <div class="card h-100 w-90"
-                                            id="card_{{ card.id }}">
+                                        <div class="card h-100 w-90">
                                             <div class="card-body py-1 rounded-3 shadow d-flex flex-column align-items-center w-100 h-100"> 
                                                 <div class="w-100 h-25 d-flex justify-content-between">
                                                     <img 
@@ -119,7 +125,7 @@
                                 </span>
                                 {% endif %}
                             {% endfor %}
-                            <span class="content-fluid d-flex justify-content-center w-100" id="new-card">
+                            <span class="content-fluid d-flex justify-content-center w-100" id="new-card_{{ field.id }}">
                             </span>
                             <!-- Add card control-->
                             <div class="bg-light content-fluid p-2 mx-5 align-self-center text-center w-90">
@@ -144,6 +150,7 @@
                     {% set count.value = count.value + 1 %}
                 {% endif %}
             {% endfor %}
+            <div id="new-field_{{ board.id }}"></div>
             {% if count.value == 0 %}
             <div class="carousel-item active">
                 <!-- Add Field control-->
