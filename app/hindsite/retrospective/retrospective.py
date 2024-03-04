@@ -2,7 +2,7 @@
 Template route testing for development
 """
 import os
-from flask import Blueprint, render_template, request, session
+from flask import Blueprint, redirect, render_template, request, session, flash
 from flask_login import current_user, login_required
 
 from app.hindsite.common_model import *
@@ -19,6 +19,10 @@ def retrospective_view():
     """
         Loads retrospective.html, sets the title
     """
+    if 'groupid' not in session or session.get('groupid') is None:
+        flash('Please select a group to enable Retrospective View')
+        return redirect('/home')
+    print(session.get('groupid'))
     title = 'Retrospective'
     board = None
     boards = []
