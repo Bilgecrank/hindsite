@@ -5,7 +5,10 @@ import os
 from flask import Blueprint, render_template, request, flash, redirect, url_for, session
 from flask_login import login_required, current_user
 from app.hindsite.home.home_model import create_group, GroupAddError
-from app.hindsite.common_model import *
+from app.hindsite.common_model import get_groups, get_boards, create_board, add_field, add_card, \
+    get_user, authorized_routes, get_board, get_field, get_card, update_card_message, CardError, \
+    get_ownership, get_group, update_field_name, FieldError, toggle_archive_card, \
+    toggle_archive_field
 
 static_dir = os.path.abspath('static')
 home = Blueprint('home',
@@ -13,12 +16,14 @@ home = Blueprint('home',
                    template_folder='templates',    # relative route to templates dir
                    static_folder=static_dir)
 
+
 @home.route('/')
 def index():
     """
         Just redirects to home at the root of the page.
     """
     return redirect(url_for('home.homepage'))
+
 
 @home.route('/home', methods=['GET', 'POST'])
 @login_required
@@ -29,7 +34,7 @@ def homepage():
         value is.
     """
     if 'groupname' not in session or session['groupname'] is None:
-        #Ensures session contains groupname and sets a default value
+        # Ensures session contains groupname and sets a default value
         session['groupname'] = "Select a Group"
     selected = session['groupname']
 
@@ -43,7 +48,9 @@ def homepage():
             group_id = session.get('groupid')
             ownership = get_ownership(current_user.id, group_id)
             session['facilitator'] = ownership
-        except Exception as ex:
+        except KeyError as ex:
+            print(ex)
+        except NameError as ex:
             print(ex)
         if 'groupname' in session:
             selected = session['groupname']
@@ -55,7 +62,7 @@ def homepage():
             # a group is selected, so we can populate the boards
             group_id = session.get('groupid')
             boards = get_boards(group_id)
-            if boards is None or boards == []:
+            if boards is None or not boards:
                 #creates the board defaults
                 #adds the boards to the board selector
                 board = create_board(group_id)
@@ -69,7 +76,8 @@ def homepage():
     return authorized_routes(facilitator_route(selected, groups, board), \
                              participant_route(selected, groups, board))
 
-def participant_route(selected: str, groups: Group, board: Board):
+
+def participant_route(selected: str, groups: 'Group', board: 'Board'):
     """
         Loads home.html, sets the title and loads in the group
         selection dropdown. Periodically checks for invites sent
@@ -77,7 +85,8 @@ def participant_route(selected: str, groups: Group, board: Board):
     """
     return render_template('home.html', title='Home', groups=groups, selected=selected, board=board)
 
-def facilitator_route(selected: str, groups: Group, board: Board):
+
+def facilitator_route(selected: str, groups: 'Group', board: 'Board'):
     """
         Route for Facilitator mode
     """
@@ -110,6 +119,7 @@ def card_edit():
         flash(error)
     return redirect(url_for('home.homepage'))
 
+
 @home.route('/edit-card-modal')
 @login_required
 def card_modal():
@@ -121,6 +131,7 @@ def card_modal():
     card_id = int(request.args['card_id'])
     return render_template('partials/edit-card-modal.html', \
                            field_id=field_id, board_id=board_id, card_id=card_id)
+
 
 @home.route('/edit-field', methods=['GET','POST'])
 @login_required
@@ -143,6 +154,7 @@ def edit_field():
     if error is not None:
         flash(error)
     return redirect(url_for('home.homepage'))
+
 
 @home.route('/edit-field-modal')
 @login_required

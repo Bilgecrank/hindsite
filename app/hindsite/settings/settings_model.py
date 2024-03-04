@@ -91,6 +91,6 @@ def delete_account(email):
         """
     user = get_user(email)  # Fetch the user by email
     if not user:
-        raise Exception("User not found.")
+        raise UpdateError("User not found.")
     db.session.delete(user)  # Delete the user record
     db.session.commit()  # Commit the transaction

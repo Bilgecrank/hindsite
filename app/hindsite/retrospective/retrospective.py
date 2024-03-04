@@ -5,7 +5,8 @@ import os
 from flask import Blueprint, redirect, render_template, request, session, flash
 from flask_login import current_user, login_required
 
-from app.hindsite.common_model import *
+from app.hindsite.common_model import get_group, get_boards, get_board, get_field, get_card, \
+    update_card_message, update_field_name, add_card, get_user, add_field
 
 static_dir = os.path.abspath('static')
 retrospective = Blueprint('retrospective',
