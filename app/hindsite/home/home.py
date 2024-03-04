@@ -371,3 +371,11 @@ def delete_field():
         field = get_field(field_id, board)
         field = toggle_archive_field(field)
     return redirect(url_for('home.homepage'))
+
+@home.route('/user-display')
+@login_required
+def display_user():
+    """
+    """
+    user = current_user.id
+    return render_template('partials/user-display.html', user=user)
