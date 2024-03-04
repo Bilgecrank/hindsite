@@ -147,8 +147,7 @@ def edit_field():
             board_id = int(request.args['board_id'])
             group_id = session.get('groupid')
             board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
-            update_field_name(field, fieldname)
+            update_field_name(get_field(field_id, board), fieldname)
         except FieldError as e:
             error = e.message
     if error is not None:
@@ -246,11 +245,10 @@ def new_card():
     if request.method == 'POST':
         try:
             card_text = request.form['card-text']
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
             group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
+            field = get_field(int(request.args['field_id']),
+                              get_board(group_id,
+                                        int(request.args['board_id'])))
             add_card(field, get_user(current_user.id), card_text)
         except CardError as e:
             error = e.message
@@ -281,11 +279,10 @@ def card_options():
     if request.method == 'POST':
         try:
             card_text = request.form['card-text']
-            field_id = int(request.args['field_id'])
-            board_id = int(request.args['board_id'])
             group_id = session.get('groupid')
-            board = get_board(group_id, board_id)
-            field = get_field(field_id, board)
+            field = get_field(int(request.args['field_id']),
+                              get_board(group_id,
+                                        int(request.args['board_id'])))
             add_card(field, get_user(current_user.id), card_text)
         except CardError as e:
             error = e.message
@@ -327,13 +324,11 @@ def delete_card():
     """
     if request.method == 'POST':
         card_id = int(request.args['card_id'])
-        field_id = int(request.args['field_id'])
-        board_id = int(request.args['board_id'])
         group_id = session.get('groupid')
-        board = get_board(group_id, board_id)
-        field = get_field(field_id, board)
-        card = get_card(card_id, field)
-        card = toggle_archive_card(card)
+        field = get_field(int(request.args['field_id']),
+                          get_board(group_id,
+                                    int(request.args['board_id'])))
+        toggle_archive_card(get_card(card_id, field))
     return redirect(url_for('home.homepage'))
 
 @home.route('/delete-field', methods=['GET','POST'])
@@ -343,12 +338,11 @@ def delete_field():
         Route to delete the selected field
     """
     if request.method == 'POST':
-        field_id = int(request.args['field_id'])
-        board_id = int(request.args['board_id'])
         group_id = session.get('groupid')
-        board = get_board(group_id, board_id)
-        field = get_field(field_id, board)
-        field = toggle_archive_field(field)
+        field = get_field(int(request.args['field_id']),
+                          get_board(group_id,
+                                    int(request.args['board_id'])))
+        toggle_archive_field(field)
     return redirect(url_for('home.homepage'))
 
 @home.route('/user-display')

@@ -417,6 +417,7 @@ def toggle_archive_field(field: Field):
     db.session.commit()
     return field
 
+
 def toggle_archive_card(card: Card):
     """
     Toggles the archive status of a card

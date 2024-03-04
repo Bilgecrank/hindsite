@@ -75,13 +75,7 @@ def card_route():
     """
         Card GET route for HTMX reloading
     """
-    field_id = int(request.args['field_id'])
-    card_id = int(request.args['card_id'])
-    board_id = int(request.args['board_id'])
-    group_id = session.get('groupid')
-    board = get_board(group_id, board_id)
-    field = get_field(field_id, board)
-    card = get_card(card_id, field)
+    board, field, card = get_board_field_card()
     return render_template('partials/card.html', \
                            card=card, board=board, field=field)
 
@@ -91,11 +85,7 @@ def field_route():
     """
         Field GET route for HTMX reloading
     """
-    field_id = int(request.args['field_id'])
-    board_id = int(request.args['board_id'])
-    group_id = session.get('groupid')
-    board = get_board(group_id, board_id)
-    field = get_field(field_id, board)
+    board, field = get_board_field()
     return render_template('partials/field.html', \
                            board=board, field=field)
 
@@ -107,13 +97,7 @@ def redit_card_modal():
     """
         Loads the edit card modal
     """
-    field_id = int(request.args['field_id'])
-    card_id = int(request.args['card_id'])
-    board_id = int(request.args['board_id'])
-    group_id = session.get('groupid')
-    board = get_board(group_id, board_id)
-    field = get_field(field_id, board)
-    card = get_card(card_id, field)
+    board, field, card = get_board_field_card()
     return render_template('partials/redit-card-modal.html', \
                            board=board,field=field,card=card)
 
@@ -157,11 +141,7 @@ def redit_field_modal():
     """
         Loads the edit field modal
     """
-    field_id = int(request.args['field_id'])
-    board_id = int(request.args['board_id'])
-    group_id = session.get('groupid')
-    board = get_board(group_id, board_id)
-    field = get_field(field_id, board)
+    board, field = get_board_field()
     return render_template('partials/redit-field-modal.html', \
                            field=field,board=board)
 
@@ -205,18 +185,43 @@ def radd_field_modal():
     board_id = int(request.args['board_id'])
     return render_template('partials/radd-field-modal.html', field_id=field_id, board_id=board_id)
 
+
 @retrospective.route('/radd-field', methods=['POST', 'GET'])
 @login_required
 def radd_field():
     """
         Takes data from the add-field-modal and adds the field.
     """
+    board, field = get_board_field()
+    field_text = request.form['fieldname']
+    add_field(board, field_text)
+    return render_template('partials/retro-reload.html', board=board, field=field)
+
+def get_board_field():
+    """
+    Returns just board and field for the current instance.
+
+    :return: **Board** and **Field**
+    """
     field_id = int(request.args['field_id'])
     board_id = int(request.args['board_id'])
     group_id = session.get('groupid')
     board = get_board(group_id, board_id)
     field = get_field(field_id, board)
+    return board, field
+
+
+def get_board_field_card():
+    """
+    Return board, field, card for the current instance.
+
+    :return: **Board**, **Field** and **Card**
+    """
+    field_id = int(request.args['field_id'])
+    card_id = int(request.args['card_id'])
+    board_id = int(request.args['board_id'])
     group_id = session.get('groupid')
-    field_text = request.form['fieldname']
-    add_field(board, field_text)
-    return render_template('partials/retro-reload.html', board=board, field=field)
+    board = get_board(group_id, board_id)
+    field = get_field(field_id, board)
+    card = get_card(card_id, field)
+    return board, field, card
